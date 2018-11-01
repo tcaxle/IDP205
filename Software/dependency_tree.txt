@@ -3,11 +3,11 @@ All I/O interfacing implemented in firmware.h
 Dependency Tree:
 
 main.cpp
-|-> mine\_sense.h
+|-> mine_sense.h
 |   |-> firmware.h
 |   |   |-> classes.h
 |   |-> classes.h
-|-> grab\_drop.h
+|-> grab_drop.h
 |   |-> firmware 
 |   |   |-> classes.h
 |   |-> classes.h
@@ -15,7 +15,7 @@ main.cpp
 |   |-> firmware.h
 |   |   |-> classes.h
 |   |-> classes.h
-|-> wall\_sense.h
+|-> wall_sense.h
 |   |-> firmware.h
 |   |   |-> classes.h
 |   |-> classes.h
