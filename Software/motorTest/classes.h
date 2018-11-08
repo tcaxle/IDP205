@@ -59,11 +59,11 @@ class led {
 class motor{
   public:
     int port, speed;
-    Adafruit_DCMotor thisMotor;
-    Adafruit_MotorShield assignedMotorShield;
   void init(){
     //creates ada-fruit object and assigns to port with initial speed 0
-    thisMotor = assignedMotorShield.getMotor(port);
+    Adafruit_MotorShield thisMotorShield = Adafruit_MotorShield();
+    Adafruit_DCMotor thisMotor = thisMotorShield.getMotor(port);
+    thisMotorShield.begin();
     speed = 0;
     thisMotor->setSpeed(speed);
   }
