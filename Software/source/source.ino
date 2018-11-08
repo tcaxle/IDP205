@@ -10,8 +10,7 @@
 #include "firmware.h"
 
 void setup () {
-  
-  
+ 
 }
 
 void loop() {
@@ -19,11 +18,10 @@ void loop() {
   // declare an LED on pin 53, default off
   led redLed;
   redLed.pin = 53;
-  redLed.default_status = 0;
   redLed.init();
   
-  redLed.turnOn();
-  delay(1000);
-  redLed.turnOff();
-  delay(1000);
+  redLed.set(1);
+  delay(500);
+  redLed.set(0);
+  delay(500);
 }
