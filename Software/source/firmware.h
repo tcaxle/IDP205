@@ -94,5 +94,9 @@
 /*
  * Pinouts in Use:
  */
+ 
+// declare an LED on pin 53, default off
+digital_output LED;
+
 
 
