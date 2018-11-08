@@ -9,7 +9,6 @@
 
 // Preamble
 #include <Arduino.h>
-using namespace std;
 
 class digital_output {
 public:
@@ -37,4 +36,24 @@ public:
 	}
 };
 
-
+class led {
+  public:
+    int pin;
+    bool default_status, status;
+    void init(){
+      //assigns pin to LED
+      pinMode(pin, OUTPUT);
+      status = default_status;
+      digitalWrite(pin, status);
+    }
+    void turnOn(){
+      //turns on the LED
+      status = 1;
+      digitalWrite(pin, status);
+    }
+    void turnOff(){
+      //turns on the LED
+      status = 0;
+      digitalWrite(pin, status);
+    }
+};

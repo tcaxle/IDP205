@@ -1,3 +1,5 @@
+#include <Wire.h>
+
 /*
  * classes.h
  *
@@ -8,7 +10,7 @@
  */
 
 #include "firmware.h"
-
+#include "Adafruit_MotorShield.h"
 void setup () {
   Serial.begin(115200);
   Serial.print("Hello");
