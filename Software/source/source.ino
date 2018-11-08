@@ -1,13 +1,12 @@
 /*
- * classes.h
+ * source.h
  *
- *  Created on: 7 Nov 2018
+ *  Created on: 8 Nov 2018
  *      Author: tom
  *
- *  For the declaration of classes
+ *  Test file
  */
 
-#include "classes.h"
 #include "firmware.h"
 
 void setup () {
@@ -18,13 +17,13 @@ void setup () {
 void loop() {
   
   // declare an LED on pin 53, default off
-  digital_output LED;
-  LED.pin = 53;
-  LED.default_status = 0;
-  LED.init();
+  led redLed;
+  redLed.pin = 53;
+  redLed.default_status = 0;
+  redLed.init();
   
-  LED.set(1);
+  redLed.turnOn();
   delay(1000);
-  LED.set(0);
+  redLed.turnOff();
   delay(1000);
 }
