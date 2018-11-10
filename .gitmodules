@@ -1,0 +1,3 @@
+[submodule "Software/source/libraries/Adafruit_Motor_Shield_V2_Library"]
+	path = Software/source/libraries/Adafruit_Motor_Shield_V2_Library
+	url = https://github.com/adafruit/Adafruit_Motor_Shield_V2_Library.git
