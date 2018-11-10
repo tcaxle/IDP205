@@ -6,8 +6,8 @@
 |-> "libraries.h"
 |   |-> "classes.h"
 |   |   |-> "firmware.h"
-|   |   |   |-> "movement.h" ---->|
-|   |   |   |-> "orientation.h" ->|
-|   |   |   |-> "mines.h" ------->|
-|   |   |   |-> "indicate.h" ---->|
-|   |   |   |                     |-> "source.ino"
+|   |   |   |-> "mines.h" -------->|
+|   |   |   |-> "indicate.h" ----->|
+|   |   |   |-> "orientation.h"    |
+|   |   |   |   |-> "movement.h" ->|
+|   |   |   |   |                  |-> "source.ino"

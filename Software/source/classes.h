@@ -8,10 +8,7 @@
  */
 
 // Preamble
-#include <Adafruit_MotorShield.h>
-#include <Arduino.h>
-#include "utility/Adafruit_MS_PWMServoDriver.h"
-#include <Wire.h>
+#include "libraries.h"
 
 class digital_output {
 public:

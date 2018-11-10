@@ -1,5 +1,3 @@
-#include <Wire.h>
-
 /*
  * classes.h
  *
@@ -9,8 +7,10 @@
  *  For the declaration of classes
  */
 
-#include "firmware.h"
-#include "Adafruit_MotorShield.h"
+// ** Preamble ** //
+#include "mines.h"
+#include "indicate.h"
+#include "movement.h"
 
 void setup () {
   

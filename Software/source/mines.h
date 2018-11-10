@@ -4,7 +4,6 @@
 
 // ** Preamble ** //
 #include "firmware.h"
-#include "movement.h"
 
 // **** PUBLIC **** //
 
