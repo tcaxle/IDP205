@@ -1,0 +1,13 @@
+|<- <arduino.h>
+|<- <Wire.h>
+|<- <Adafruit_MotorShield.h>
+|<- "utility/Adafruit_MS_PWMServoDriver.h"
+|
+|-> "libraries.h"
+|   |-> "classes.h"
+|   |   |-> "firmware.h"
+|   |   |   |-> "movement.h" ---->|
+|   |   |   |-> "orientation.h" ->|
+|   |   |   |-> "mines.h" ------->|
+|   |   |   |-> "indicate.h" ---->|
+|   |   |   |                     |-> "source.ino"
