@@ -9,16 +9,21 @@
 
 #include "firmware.h"
 
-
-
-void setup () {
-    motorShield.begin();
-}
-
 void loop() {
   // initialise DC motor at motor shield port M1
-  motor leftMotor;
-  leftMotor.assignedMotorShield = motorShield;
-  leftMotor.port = 1;
-  leftMotor.init();
+  leftMotor.setForward();
+  leftMotor.setSpeed(30);
+  delay(4000);
+  leftMotor.setSpeed(60);
+  delay(4000);
+  leftMotor.setSpeed(120);
+  delay(4000);
+  leftMotor.setSpeed(240);
+  delay(4000);
+  leftMotor.emergencyStop();
+  delay(4000);
+  leftMotor.setSpeed(240);
+  leftMotor.setBackward();
+  delay(4000);
+  leftMotor.setSpeed(0);
 }

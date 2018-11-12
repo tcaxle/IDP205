@@ -1,3 +1,4 @@
+/*
 For use with the Adafruit Motor Shield v2 
 ---->	http://www.adafruit.com/products/1438
 */

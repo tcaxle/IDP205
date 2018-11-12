@@ -96,4 +96,18 @@
  */
 
 Adafruit_MotorShield motorShield = Adafruit_MotorShield();
+motor leftMotor;
+motor rightMotor;
 
+void setup(){
+  //Initialise digital Motorshield interface
+  motorShield.begin();
+
+  //Initialise motor wrapper objects
+  leftMotor.assignedMotorShield = motorShield;
+  rightMotor.assignedMotorShield = motorShield;
+  leftMotor.port = 1;
+  rightMotor.port = 2;
+  leftMotor.init();
+  rightMotor.init();
+}

@@ -87,3 +87,8 @@ class motor{
     thisMotor->setSpeed(speed);
   }
 };
+
+class ultrasoundSensor{
+  public:
+    
+};
