@@ -9,7 +9,7 @@
 
 #include "firmware.h"
 
-Adafruit_MotorShield motorShield = Adafruit_MotorShield();
+
 
 void setup () {
     motorShield.begin();

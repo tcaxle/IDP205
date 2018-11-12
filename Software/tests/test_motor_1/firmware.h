@@ -95,4 +95,5 @@
  * Pinouts in Use:
  */
 
+Adafruit_MotorShield motorShield = Adafruit_MotorShield();
 
