@@ -7,33 +7,36 @@
  *  For the declaration of classes
  */
 
-// Preamble
+// ** Preamble ** //
 #include "libraries.h"
 
+// **** PUBLIC **** //
+
 class digital_output {
-public:
-	int pin;
-	bool default_status, status;
-	void init () {
-		// sets the relevant pin to be an output
-		pinMode(pin, OUTPUT);
-		status = default_status;
-		digitalWrite(pin, status);
-	}
-	void set_default () {
-		// sets the output to the default value
-		status = default_status;
-		digitalWrite(pin, status);
-	}
-	void set (bool new_status) {
-		// sets output to on or off
-		status = new_status;
-		digitalWrite(pin, status);
-	}
-	bool get () {
-		// returns current state
-		return status;
-	}
+	// A generic digital output on a single pin
+	public:
+		int pin;
+		bool default_status, status;
+		void init () {
+			// sets the relevant pin to be an output
+			pinMode(pin, OUTPUT);
+			status = default_status;
+			digitalWrite(pin, status);
+		}
+		void set_default () {
+			// sets the output to the default value
+			status = default_status;
+			digitalWrite(pin, status);
+		}
+		void set (bool new_status) {
+			// sets output to on or off
+			status = new_status;
+			digitalWrite(pin, status);
+		}
+		bool get () {
+			// returns current state
+			return status;
+		}
 };
 
 class led {
@@ -56,7 +59,7 @@ class led {
 class motor{
   public:
     int port, speed;
-    Adafruit_DCMotor thisMotor;
+    Adafruit_DCMotor *thisMotor;
     Adafruit_MotorShield assignedMotorShield;
   void init(){
     //creates ada-fruit object and assigns to port with initial speed 0

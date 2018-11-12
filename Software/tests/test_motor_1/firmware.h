@@ -77,7 +77,7 @@
  *
  * Digital, Serial R0	SR0		0
  * Digital, Serial T0	ST0		1
- * Digital, PWM			D2		2
+ * Digital, PWM			D2		2 
  * Digital, PWM			D3		3
  * Digital, PWM			D4		4
  * Digital, PWM			D5		5
@@ -95,19 +95,15 @@
  * Pinouts in Use:
  */
 
+// Declare a Motor Shield and Motor
 Adafruit_MotorShield motorShield = Adafruit_MotorShield();
 motor leftMotor;
-motor rightMotor;
 
-void setup(){
-  //Initialise digital Motorshield interface
+void setup () {
   motorShield.begin();
-
-  //Initialise motor wrapper objects
   leftMotor.assignedMotorShield = motorShield;
-  rightMotor.assignedMotorShield = motorShield;
   leftMotor.port = 1;
-  rightMotor.port = 2;
   leftMotor.init();
-  rightMotor.init();
 }
+
+

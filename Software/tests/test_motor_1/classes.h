@@ -7,11 +7,13 @@
  *  For the declaration of classes
  */
 
-// Preamble
+// ** Preamble ** //
 #include <Adafruit_MotorShield.h>
 #include <Arduino.h>
 #include "utility/Adafruit_MS_PWMServoDriver.h"
 #include <Wire.h>
+
+// **** PUBLIC **** //
 
 class digital_output {
 public:
@@ -92,3 +94,6 @@ class ultrasoundSensor{
   public:
     
 };
+
+// **** PRIVATE **** //
+
