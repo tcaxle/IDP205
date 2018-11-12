@@ -100,6 +100,9 @@ motor leftMotor;
 motor rightMotor;
 
 void setup(){
+  //Initialise serial sample rate
+  Serial.begin(9600);
+  
   //Initialise digital Motorshield interface
   motorShield.begin();
 
