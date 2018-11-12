@@ -9,7 +9,7 @@
  */
 
 // ** Globals ** //
-#include <arduino.h>
+#include <Arduino.h>
 #include <Wire.h>
 #include <Adafruit_MotorShield.h>
 

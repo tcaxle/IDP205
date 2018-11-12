@@ -30,23 +30,23 @@ void faceRgt() {
 	// Points he robot right relative to its course
 }
 
-void faceX+() {
+void faceXFwd() {
 	// Points the robot in the positive X direction
 }
 
-void faceX-() {
+void faceXBwd() {
 	// Points the robot in the negative X direction
 }
 
-void faceY+() {
+void faceYFwd() {
 	// Points the robot in the positive Y direction
 }
 
-void faceY-() {
+void faceYBwd() {
 	// Points the robot in the negative Y direction
 }
 
-void faceCoord+(coord input_coord) {
+void faceCoord(coord input_coord) {
 	// Points the robot towards the coordinate "input_coord"
 }
 
@@ -72,7 +72,7 @@ void spinRgt(float input_degrees) {
 
 // ** Path ** //
 
-void pathFollow+(float input_distance) {
+void pathFollow(float input_distance) {
 	// Moves the robot forwards along the path by distance "input_distance"
 }
 

@@ -7,24 +7,21 @@
  */
 
 // ** Preamble ** //
-#include "mines.h"
-#include "indicate.h"
-#include "movement.h"
-
-void setup () {
-  
-  test.pin = 53;
-  test.default_status = 0;
-  test.init();
-
-}
+// PRESERVE THIS ORDER FOR ANYTHING TO WORK
+#include "classes.h" // 1
+#include "firmware.h" // 2
+#include "mines.h" // 3
+#include "indicate.h" // 4
+#include "movement.h" // 5
 
 void loop() {
-  
-  
-  test.turnOn();
-  delay(100);
-  test.turnOff();
-  delay(100);
-  
+  // initialise DC motor at motor shield port M1
+  leftMotor.setForward();
+  leftMotor.setSpeed(255);
+  delay(1000);
+  leftMotor.emergencyStop();
+  leftMotor.setBackward();
+  leftMotor.setSpeed(255);
+  delay(1000);
+  leftMotor.emergencyStop();
 }

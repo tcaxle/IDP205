@@ -10,7 +10,6 @@
  */
 
 // Preamble
-#include "classes.h"
 
 /* Pinouts of Arduino Mega:
  *
@@ -99,5 +98,14 @@
 // Output Declarations
 led test;
 
+// Declare a Motor Shield and Motor
+Adafruit_MotorShield motorShield = Adafruit_MotorShield();
+motor leftMotor;
 
+void setup () {
+	motorShield.begin();
+  	leftMotor.assignedMotorShield = motorShield;
+  	leftMotor.port = 1;
+  	leftMotor.init();
+}
 

@@ -8,12 +8,11 @@
  */
 
 // ** Preamble ** //
-#include "firmware.h"
 
 // **** PUBLIC **** //
 
 // ** Variables ** //
-bool isHoldingMine // A flag to indicate whether or not the robot is holding a mine
+bool isHoldingMine; // A flag to indicate whether or not the robot is holding a mine
 
 // ** Mine Interaction ** //
 

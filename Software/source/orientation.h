@@ -10,7 +10,6 @@
  */
 
 // ** Preamble ** //
-#include "firmware.h"
 
 // **** PUBLIC **** //
 
