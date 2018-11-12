@@ -1,11 +1,12 @@
 /*
  * firmware.h
  *
- *  Created: 7/11/2018
- *  Author: T. Crossley
+ * Created: 7/11/2018
+ * Author: T. Crossley
  *
- *  For the creation of an interface between electronic
- *  (Arduino Mega) and software for greater versatility
+ * For the creation of an interface between electronic
+ * (Arduino Mega) and software for greater versatility
+ *
  */
 
 // Preamble
