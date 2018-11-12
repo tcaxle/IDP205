@@ -100,6 +100,10 @@ Adafruit_MotorShield motorShield = Adafruit_MotorShield();
 motor leftMotor;
 
 void setup () {
+  //Initialise serial sample rate
+  Serial.begin(9600);
+  
+  //Initialise digital Motorshield interface
   motorShield.begin();
   leftMotor.assignedMotorShield = motorShield;
   leftMotor.port = 1;

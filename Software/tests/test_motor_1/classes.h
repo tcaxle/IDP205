@@ -10,6 +10,7 @@
 // ** Preamble ** //
 #include <Adafruit_MotorShield.h>
 #include <Arduino.h>
+#include <NewPing.h>
 #include "utility/Adafruit_MS_PWMServoDriver.h"
 #include <Wire.h>
 
@@ -92,7 +93,16 @@ class motor{
 
 class ultrasoundSensor{
   public:
-    
+    int triggerPin, echoPin, maxDistance, pingInterval;
+    NewPing thisUltrasoundSensor;
+  void init(){
+    thisUltrasoundSensor.trigger_pin = triggerPin;
+    thisUltrasoundSensor.echo_pin = echoPin;
+    thisUltrasoundSensor.max_cm_distabce = maxDistance;
+  }
+  int getDistance(){
+    thisUltrasoundSensor.ping_cm();
+  }
 };
 
 // **** PRIVATE **** //
