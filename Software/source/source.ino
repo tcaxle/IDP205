@@ -1,10 +1,9 @@
 /*
- * classes.h
+ * source.ino
  *
- *  Created on: 7 Nov 2018
- *      Author: tom
+ *  Created: 7/11/2018
+ *  Author: T. Crossley
  *
- *  For the declaration of classes
  */
 
 // ** Preamble ** //

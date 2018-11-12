@@ -1,4 +1,9 @@
 /*
+ * indicate.h
+ *
+ * Created: 10/11/2018
+ * Author: T. Crossley
+ *
  * contains functions for controlling LEDs (or other output indicators)
  */
 

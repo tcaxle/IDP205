@@ -1,4 +1,9 @@
 /*
+ * movement.h
+ *
+ * Created: 10/11/2018
+ * Author: T. Crossley
+ *
  * Contains algorithms for moving the robot
  */
 

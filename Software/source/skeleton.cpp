@@ -1,3 +1,15 @@
+/*
+ * skeleton.cpp
+ *
+ * Created: 10/11/2018
+ * Author: T. Crossley
+ *
+ * The basic loop listing subroutines for normal use
+ *
+ */
+
+
+
 void main() {
 	
 	// Setup:		

@@ -1,4 +1,9 @@
 /*
+ * mines.h
+ *
+ * Created: 10/11/2018
+ * Author: T. Crossley
+ *
  * Contains functions for interaction with mines
  */
 
