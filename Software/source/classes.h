@@ -8,11 +8,6 @@
  */
 
 // ** Preamble ** //
-#include <Adafruit_MotorShield.h>
-#include <Arduino.h>
-#include <NewPing.h>
-#include "utility/Adafruit_MS_PWMServoDriver.h"
-#include <Wire.h>
 
 // **** PUBLIC **** //
 
