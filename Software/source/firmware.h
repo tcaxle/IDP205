@@ -94,18 +94,19 @@
 /*
  * Pinouts in Use:
  */
- 
-// Output Declarations
-led test;
 
 // Declare a Motor Shield and Motor
 Adafruit_MotorShield motorShield = Adafruit_MotorShield();
 motor leftMotor;
 
 void setup () {
-	motorShield.begin();
-  	leftMotor.assignedMotorShield = motorShield;
-  	leftMotor.port = 1;
-  	leftMotor.init();
+  //Initialise serial sample rate
+  Serial.begin(9600);
+  
+  //Initialise digital Motorshield interface
+  motorShield.begin();
+  leftMotor.assignedMotorShield = motorShield;
+  leftMotor.port = 1;
+  leftMotor.init();
 }
 
