@@ -16,14 +16,16 @@
 
 // **** PUBLIC **** //
 
-class digital_output {
+class digitalOutput {
 public:
 	int pin;
-	bool default_status, status;
-	void init () {
-		// sets the relevant pin to be an output
+	bool defaultStatus, status;
+	digitalOutput(int inputPin, bool inputDefault = 0, bool inputStatus = 0) {
+		// sets the relevant pin to be an output. Outpus **MUST** be defined with a pin.
+		pin = inputPin;
+		defaultStatus = inputDefault;
+		status = inputStatus;
 		pinMode(pin, OUTPUT);
-		status = default_status;
 		digitalWrite(pin, status);
 	}
 	void set_default () {
