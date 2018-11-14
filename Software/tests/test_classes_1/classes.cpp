@@ -26,10 +26,52 @@ class coord {
                  }
 };
 
+class rectangle {
+        /* A class used to denote "keepout zones"
+         *     x0    x1
+         *      |    |
+         *  y1--a----b--
+         *      |    |
+         *  y0--c----d--
+         *      |    |
+         */
+        public:
+                int x0, x1, y0, y1;
+                coord a, b, c, d;
+                void init() {
+                        // Creates the coordinates for the corners, a, b, c, d (see diagram above)
+                        a.x = x0; a.y = y1;
+                        b.x = x1; b.y = y1;
+                        c.x = x0; c.y = y0;
+                        d.x = x1; d.y = y0;
+                }
+                bool insideRectangle(coord inputCoord) {
+                        // Returns True if "inputCoord" is inside the rectangle object. Else returns False.
+                        if ( (inputCoord.x > x0 && inputCoord.x < x1) && (inputCoord.y > y0 && inputCoord.y < y1) ) {
+                                return 1;
+                        } else {
+                                return 0;
+                        }
+                }
+                coord nearestCorner(coord inputCoord) {
+                        // Returns the coordinate of the nearest corner to the "inputCoord"
+                        coord corner = a;
+                        if (inputCoord.distance(b) < inputCoord.distance(corner)) {
+                                corner = b;
+                        }
+                        if (inputCoord.distance(c) < inputCoord.distance(corner)) {
+                                corner = c;
+                        }
+                        if (inputCoord.distance(d) < inputCoord.distance(corner)) {
+                                corner = d;
+                        }
+                        return corner;
+                }
+};
+
 int main() {
 	coord testCoord;
-	testCoord.x = 10;
-	testCoord.y = 20;
+	testCoord.x = 10; testCoord.y = 20;
 	cout << testCoord.x << ", " << testCoord.y << "\n";
 
 	coord testAdd;
@@ -45,4 +87,22 @@ int main() {
 	coord testDist;
 	testDist.x = 1; testDist.y = 2;
 	cout << testCoord.distance(testDist) << "\n";
+
+	rectangle testRect;
+	testRect.x0 = 1; testRect.x1 = 3;
+	testRect.y0 = 5; testRect.y1 = 7;
+	testRect.init();
+
+	cout << testRect.a.x << ", " << testRect.a.y << "\n";
+
+	testCoord.x = 10; testCoord.y = 10;
+
+	coord corner = testRect.nearestCorner(testCoord);
+	cout << corner.x << ", " << corner.y << "\n";
+
+	testCoord.x = 2; testCoord.y = 6;
+	cout << testRect.insideRectangle(testCoord) << "\n";
+
+	testCoord.x = 20; testCoord.y = 6;
+	cout << testRect.insideRectangle(testCoord) << "\n";
 }

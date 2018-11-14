@@ -136,7 +136,7 @@ class rectangle {
 		}
 		bool insideRectangle(coord inputCoord) {
 			// Returns True if "inputCoord" is inside the rectangle object. Else returns False.
-			if ( (inputCoord.x > x0 && inputCoord.x < x1) || (inputCoord.y > y0 && inputCoord.y < y1) ) {
+			if ( (inputCoord.x > x0 && inputCoord.x < x1) && (inputCoord.y > y0 && inputCoord.y < y1) ) {
 				return 1;
 			} else {
 				return 0;
@@ -173,5 +173,3 @@ class ultrasoundSensor{
 };
 
 // **** PRIVATE **** //
-
->>>>>>> c755af73331318f8165df49fd4c760d464d54c1f
