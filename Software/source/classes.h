@@ -66,7 +66,6 @@ class motor{
   public:
     int port, speed;
     Adafruit_DCMotor *thisMotor;
-    Adafruit_MotorShield assignedMotorShield;
   motor(int inputPort, Adafruit_MotorShield inputMotorShield, int inputSpeed = 0){
     //creates ada-fruit object and assigns to port with initial speed default 0
     port = inputPort;
@@ -138,7 +137,7 @@ class rectangle {
 	 *      |    |
 	 */
 	public:
-		int x0, x1, y0, y1;                                                                                                                                
+		int x0, x1, y0, y1;
                 coord a, b, c, d;
                 rectangle(int inputX0 = 0, int inputX1 = 0, int inputY0 = 0, int inputY1 = 0) {
                         // Creates the coordinates for the corners, a, b, c, d (see diagram above)
