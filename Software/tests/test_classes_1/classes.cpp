@@ -46,12 +46,13 @@ class rectangle {
         public:
                 int x0, x1, y0, y1;
                 coord a, b, c, d;
-                void init() {
+                rectangle(int inputX0 = 0, int inputX1 = 0, int inputY0 = 0, int inputY1 = 0) {
                         // Creates the coordinates for the corners, a, b, c, d (see diagram above)
-                        a.x = x0; a.y = y1;
-                        b.x = x1; b.y = y1;
-                        c.x = x0; c.y = y0;
-                        d.x = x1; d.y = y0;
+			x0 = inputX0; x1 = inputX1; y0 = inputY0; y1 = inputY1;
+                        a = coord(x0, y1);
+                        b = coord(x1, y1);
+                        c = coord(x0, y0);
+                        d = coord(x1, y0);
                 }
                 bool insideRectangle(coord inputCoord) {
                         // Returns True if "inputCoord" is inside the rectangle object. Else returns False.
@@ -97,15 +98,13 @@ int main() {
 	coord testDist;
 	testDist.x = 1; testDist.y = 2;
 	cout << testCoord.distance(testDist) << "\n";
+	*/
 
-	rectangle testRect;
-	testRect.x0 = 1; testRect.x1 = 3;
-	testRect.y0 = 5; testRect.y1 = 7;
-	testRect.init();
+	rectangle testRect(1, 3, 5, 7);
 
 	cout << testRect.a.x << ", " << testRect.a.y << "\n";
 
-	testCoord.x = 10; testCoord.y = 10;
+	coord testCoord(10, 10);
 
 	coord corner = testRect.nearestCorner(testCoord);
 	cout << corner.x << ", " << corner.y << "\n";
@@ -115,8 +114,8 @@ int main() {
 
 	testCoord.x = 20; testCoord.y = 6;
 	cout << testRect.insideRectangle(testCoord) << "\n";
-	*/
 
-	coord newCoord(100, 12);
+	coord newCoord;
+	newCoord = coord(100, 114);
 	cout << newCoord.x << ", " << newCoord.y << "\n";
 }

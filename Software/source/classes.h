@@ -46,14 +46,15 @@ class led {
   public:
     int pin;
     bool status;
-    void init(){
-      //assigns pin to LED
+    led(int inputPin, bool inputStatus = 0) {
+      // creates an LED, assigns its pin to be an output, and sets it to "status". LEDs **MUST** be defined with a pin.
+      pin = inputPin;
+      status = inputStatus;
       pinMode(pin, OUTPUT);
-      status = 0;
       digitalWrite(pin, status);
     }
-    void set(bool newStatus){
-      //change led to on/off
+    void set(bool newStatus = 0){
+      //change led to on/off. Default Off.
       status = newStatus;
       digitalWrite(pin, status);
     }
@@ -134,16 +135,17 @@ class rectangle {
 	 *      |    |
 	 */
 	public:
-		int x0, x1, y0, y1;
-		coord a, b, c, d;
-		void init() {
-			// Creates the coordinates for the corners, a, b, c, d (see diagram above)
-			a.x = x0; a.y = y1;
-			b.x = x1; b.y = y1;
-			c.x = x0; c.y = y0;
-			d.x = x1; d.y = y0;
-		}
-		bool insideRectangle(coord inputCoord) {
+		int x0, x1, y0, y1;                                                                                                                                
+                coord a, b, c, d;
+                rectangle(int inputX0 = 0, int inputX1 = 0, int inputY0 = 0, int inputY1 = 0) {
+                        // Creates the coordinates for the corners, a, b, c, d (see diagram above)
+                        x0 = inputX0; x1 = inputX1; y0 = inputY0; y1 = inputY1;
+                        a = coord(x0, y1);
+                        b = coord(x1, y1);
+                        c = coord(x0, y0);
+                        d = coord(x1, y0);
+                }
+		bool isInside(coord inputCoord) {
 			// Returns True if "inputCoord" is inside the rectangle object. Else returns False.
 			if ( (inputCoord.x > x0 && inputCoord.x < x1) && (inputCoord.y > y0 && inputCoord.y < y1) ) {
 				return 1;
