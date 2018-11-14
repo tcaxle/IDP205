@@ -30,12 +30,12 @@ public:
 	}
 	void set_default () {
 		// sets the output to the default value
-		status = default_status;
+		status = defaultStatus;
 		digitalWrite(pin, status);
 	}
-	void set (bool new_status) {
+	void set (bool newStatus) {
 		// sets output to on or off
-		status = new_status;
+		status = newStatus;
 		digitalWrite(pin, status);
 	}
 	bool get () {
@@ -67,12 +67,13 @@ class motor{
     int port, speed;
     Adafruit_DCMotor *thisMotor;
     Adafruit_MotorShield assignedMotorShield;
-  void init(){
-    //creates ada-fruit object and assigns to port with initial speed 0
-    thisMotor = assignedMotorShield.getMotor(port);
-    speed = 0;
+  motor(int inputPort, Adafruit_MotorShield inputMotorShield, int inputSpeed = 0){
+    //creates ada-fruit object and assigns to port with initial speed default 0
+    port = inputPort;
+    speed = inputSpeed;
+    thisMotor = inputMotorShield.getMotor(port);
     thisMotor->setSpeed(speed);
-  }
+  } 
   void setSpeed(int newSpeed){
     //sets new speed for the motor
     speed = newSpeed;
@@ -171,6 +172,7 @@ class rectangle {
 		}
 };
 
+/*
 class ultrasoundSensor{
   public:
     int triggerPin, echoPin, maxDistance, pingInterval;
@@ -186,3 +188,4 @@ class ultrasoundSensor{
 };
 
 // **** PRIVATE **** //
+*/
