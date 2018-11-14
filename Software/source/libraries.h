@@ -11,8 +11,10 @@
 // ** Globals ** //
 #include <Arduino.h>
 #include <Wire.h>
+#include <NewPing.h>
 #include <Adafruit_MotorShield.h>
 
 // ** Locals ** //
 #include "utility/Adafruit_MS_PWMServoDriver.h"
 
+using namespace std;

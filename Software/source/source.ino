@@ -8,6 +8,7 @@
 
 // ** Preamble ** //
 // PRESERVE THIS ORDER FOR ANYTHING TO WORK
+#include "libraries.h" // 0
 #include "classes.h" // 1
 #include "firmware.h" // 2
 #include "mines.h" // 3
