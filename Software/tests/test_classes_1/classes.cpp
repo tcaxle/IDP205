@@ -5,6 +5,14 @@ using namespace std;
 class coord {
          public:
                  int x, y;
+		 coord(int inputX = 0, int inputY = 0) {
+                        /* Constructor, can use:
+                         * coord newCoord(100, 12);
+                         * to create a constructor
+                         */
+                        x = inputX;
+                        y = inputY;
+                }
                  coord add(coord inputCoord) {
                          // Returns a coordinate that is the original plus the input elementwise
                          coord outputCoord;
@@ -70,6 +78,8 @@ class rectangle {
 };
 
 int main() {
+
+	/*
 	coord testCoord;
 	testCoord.x = 10; testCoord.y = 20;
 	cout << testCoord.x << ", " << testCoord.y << "\n";
@@ -105,4 +115,8 @@ int main() {
 
 	testCoord.x = 20; testCoord.y = 6;
 	cout << testRect.insideRectangle(testCoord) << "\n";
+	*/
+
+	coord newCoord(100, 12);
+	cout << newCoord.x << ", " << newCoord.y << "\n";
 }

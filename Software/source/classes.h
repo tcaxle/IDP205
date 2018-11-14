@@ -94,6 +94,15 @@ class motor{
 class coord {
 	public:
 		int x, y;
+		coord(int inputX = 0, int inputY = 0) {
+			/* Constructor, can use:
+			 * coord newCoord(100, 12);
+			 * to create a constructor
+			 * (defaults to (0, 0)
+			 */
+			x = inputX;
+			y = inputY;
+		}
 		coord add(coord inputCoord) {
 			// Returns a coordinate that is the original plus the input elementwise
 			coord outputCoord;
