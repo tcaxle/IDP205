@@ -10,10 +10,11 @@
 
 // ** Globals ** //
 #include <Arduino.h>
+#include <Adafruit_HMC5883_U.h>
+#include <Adafruit_MotorShield.h>
+#inlucde <Adafruit_Sensor.h>
 #include <Wire.h>
 #include <NewPing.h>
-#include <Adafruit_MotorShield.h>
-#include <HMC5883L.h>
 
 // ** Locals ** //
 #include "utility/Adafruit_MS_PWMServoDriver.h"
