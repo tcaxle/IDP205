@@ -169,6 +169,23 @@ class rectangle {
 		}
 };
 
+class compass {
+	public:
+		Adafruit_LSM303_Mag_Unified assignedCompass;
+		void init() {
+			assignedCompass.begin();
+		}
+		float heading() {
+			sensors_event_t event;
+			assignedCompass.getEvent(&event);
+			float outputHeading = (atan2(event.magnetic.y,event.magnetic.x) * 180) / PI;
+			if (outputHeading < 0) {
+				outputHeading = 360 + outputHeading;
+			}
+			return outputHeading;
+		}
+};
+
 /*
 class ultrasoundSensor{
   public:

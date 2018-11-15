@@ -16,13 +16,7 @@
 #include "movement.h" // 5
 
 void loop() {
-  // initialise DC motor at motor shield port M1
-  setForward(255);
-  delay(5000);
-  setBackward(255);
-  delay(5000);
-  setClockwise(255);
-  delay(5000);
-  setAnticlockwise(255);
-  delay(5000);
+	float heading = compass.heading();
+	Serial.println(heading);
+	delay(500);
 }

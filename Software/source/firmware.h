@@ -100,14 +100,22 @@ Adafruit_MotorShield motorShield = Adafruit_MotorShield();
 motor leftMotor(1); // Motor on port 1 and initial speed 0 (default third parameter).
 motor rightMotor(2);
 
+compass compass;
+Adafruit_LSM303_Mag_Unified mag = Adafruit_LSM303_Mag_Unified();
+
 void setup () {
   //Initialise serial sample rate
   Serial.begin(9600);
+ 
   // Initialise motor shield
   motorShield.begin();
   leftMotor.assignedMotorShield = motorShield;
   rightMotor.assignedMotorShield = motorShield;
   leftMotor.init();
   rightMotor.init();
+
+  // Initialise Compass
+  compass.assignedCompass = mag;
+  compass.init();
 }
 
