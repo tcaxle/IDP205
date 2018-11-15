@@ -1,15 +1,15 @@
 /*
  * firmware.h
  *
- *  Created on: 7 Nov 2018
- *      Author: tom
+ * Created: 7/11/2018
+ * Author: T. Crossley
  *
- *  For the creation of an interface between electronic
- *  (Arduino Mega) and software for greater versatility
+ * For the creation of an interface between electronic
+ * (Arduino Mega) and software for greater versatility
+ *
  */
 
 // Preamble
-#include "classes.h"
 
 /* Pinouts of Arduino Mega:
  *
@@ -77,7 +77,7 @@
  *
  * Digital, Serial R0	SR0		0
  * Digital, Serial T0	ST0		1
- * Digital, PWM			D2		2 
+ * Digital, PWM			D2		2
  * Digital, PWM			D3		3
  * Digital, PWM			D4		4
  * Digital, PWM			D5		5
@@ -97,17 +97,17 @@
 
 // Declare a Motor Shield and Motor
 Adafruit_MotorShield motorShield = Adafruit_MotorShield();
-motor leftMotor;
+motor leftMotor(1); // Motor on port 1 and initial speed 0 (default third parameter).
+motor rightMotor(2);
 
 void setup () {
   //Initialise serial sample rate
   Serial.begin(9600);
-  
-  //Initialise digital Motorshield interface
+  // Initialise motor shield
   motorShield.begin();
   leftMotor.assignedMotorShield = motorShield;
-  leftMotor.port = 1;
+  rightMotor.assignedMotorShield = motorShield;
   leftMotor.init();
+  rightMotor.init();
 }
-
 
