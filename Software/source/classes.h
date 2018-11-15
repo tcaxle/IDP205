@@ -57,7 +57,7 @@ class led { // A class for LEDs
     }
 };
 
-class motor{ // A class for driving motors via the Adafruit Motor Shield V2
+class motor { // A class for driving motors via the Adafruit Motor Shield V2
   public:
     int port, speed;
     Adafruit_DCMotor *thisMotor;
