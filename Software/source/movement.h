@@ -111,3 +111,41 @@ void panicPanic() {
 }
 
 // **** PRIVATE **** //
+
+void setForward(int inputSpeed) {
+	// Sets both motors to foward mode with the defined speeds
+	leftMotor.setForward();
+	rightMotor.setForward();
+	leftMotor.setSpeed(inputSpeed);
+	rightMotor.setSpeed(inputSpeed);
+}
+
+void setBackward(int inputSpeed) {
+	// Sets both motors to backward mode with the defined speeds
+	leftMotor.setBackward();
+	rightMotor.setBackward();
+	leftMotor.setSpeed(inputSpeed);
+	rightMotor.setSpeed(inputSpeed);
+}
+
+void setStop() {
+	// Stops both motors
+	leftMotor.emergencyStop();
+	rightMotor.emergencyStop();
+}
+
+void setClockwise(int inputSpeed) {
+	// Sets both motors to spin clockwise with the defined speeds
+	leftMotor.setForward();
+	rightMotor.setBackward();
+	leftMotor.setSpeed(inputSpeed);
+	rightMotor.setSpeed(inputSpeed);
+}
+
+void setAnticlockwise(int inputSpeed) {
+	// Sets both motors to spin anticlockwise with the defined speeds
+	leftMotor.setBackward();
+	rightMotor.setForward();
+	leftMotor.setSpeed(inputSpeed);
+	rightMotor.setSpeed(inputSpeed);
+}

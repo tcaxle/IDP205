@@ -98,7 +98,7 @@
 // Declare a Motor Shield and Motor
 Adafruit_MotorShield motorShield = Adafruit_MotorShield();
 motor leftMotor(1); // Motor on port 1 and initial speed 0 (default third parameter).
-
+motor rightMotor(2);
 
 void setup () {
   //Initialise serial sample rate
@@ -106,6 +106,8 @@ void setup () {
   // Initialise motor shield
   motorShield.begin();
   leftMotor.assignedMotorShield = motorShield;
+  rightMotor.assignedMotorShield = motorShield;
   leftMotor.init();
+  rightMotor.init();
 }
 

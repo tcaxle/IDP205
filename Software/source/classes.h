@@ -11,7 +11,7 @@
 
 // **** PUBLIC **** //
 
-class digitalOutput {
+class digitalOutput { // A generic digital Output
 public:
 	int pin;
 	bool defaultStatus, status;

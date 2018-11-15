@@ -17,11 +17,12 @@
 
 void loop() {
   // initialise DC motor at motor shield port M1
-  leftMotor.setForward();
-  leftMotor.setSpeed(255);
-  delay(2000);
-  leftMotor.emergencyStop();
-  leftMotor.setBackward();
-  leftMotor.setSpeed(255);
-  delay(2000);
+  setForward(255);
+  delay(5000);
+  setBackward(255);
+  delay(5000);
+  setClockwise(255);
+  delay(5000);
+  setAnticlockwise(255);
+  delay(5000);
 }
