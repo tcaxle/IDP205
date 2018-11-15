@@ -187,7 +187,7 @@ class compass {
 			sensors_event_t reading;
 			assignedCompass.getEvent(&reading);
 			// Calculate current bearing
-		float outputHeading = (atan2(reading.magnetic.y,reading.magnetic.x) * 180) / PI;
+			float outputHeading = (atan2(reading.magnetic.y,reading.magnetic.x) * 180) / PI;
 			// Account for local magnetic flux changes by subtracting declination angle
 			outputHeading = outputHeading - declinationAngle;
 			// Correct for negative bearing results
