@@ -198,6 +198,7 @@ class compass { // A class for the LSM303 Accelerometer and Magnetometer
 		}
 };
 
+/*
 class ultrasoundSensor { // A class for Ultrasound Sensors
   public:
     int triggerPin, echoPin, maxDistance, pingInterval;
@@ -211,8 +212,20 @@ class ultrasoundSensor { // A class for Ultrasound Sensors
     thisUltrasoundSensor.ping_cm();
   }
 };
+*/
 
 class infrared { // A class for Infrared Sensors
+    public:
+		char port;
+		infrared(char inputPort) {
+			port = inputPort;
+		}
+		float voltage() {
+			return analogRead(port) * 0.0048828125;
+		}
+		float distance() {
+			return IR_SCALE * pow(voltage(), -1);
+		}
 };
 
 // **** PRIVATE **** //

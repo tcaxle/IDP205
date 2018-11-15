@@ -16,7 +16,6 @@
 #include "movement.h" // 5
 
 void loop() {
-	float heading = compass.heading();
-	Serial.println(heading);
-	delay(500);
+    Serial.println(leftIR.distance());
+	delay(100);
 }

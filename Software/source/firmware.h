@@ -104,6 +104,10 @@ motor rightMotor(2); // Motor on port 2 and initial speed 0 (default third param
 Adafruit_LSM303_Mag_Unified mag = Adafruit_LSM303_Mag_Unified();
 compass robotCompass = compass(mag);
 
+// Declare IR Sensors
+#define IR_SCALE 20
+infrared leftIR(A0);
+
 void setup () {
   //Initialise serial sample rate
   Serial.begin(9600);
