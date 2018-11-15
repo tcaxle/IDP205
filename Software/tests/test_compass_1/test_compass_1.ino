@@ -1,9 +1,19 @@
-void setup() {
-  // put your setup code here, to run once:
+/*
+ * motorTest.h
+ *
+ *  Created on: 8 Nov 2018
+ *      Author: lewis
+ *
+ *  Tests compass class
+ */
 
-}
+#include "libraries.h"
+#include "classes.h"
+#include "firmware.h"
+
 
 void loop() {
-  // put your main code here, to run repeatedly:
-
+  float currentHeading = robotCompass.heading();
+  Serial.print("Compass Heading: ");
+  Serial.println(currentHeading);
 }

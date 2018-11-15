@@ -95,19 +95,26 @@
  * Pinouts in Use:
  */
 
-// Declare a Motor Shield and Motor
+// Declare motor shield and motor wrapper objects
 Adafruit_MotorShield motorShield = Adafruit_MotorShield();
-motor leftMotor(1); // Motor on port 1 and initial speed 0 (default third parameter).
-motor rightMotor(2);
+motor leftMotor(1); // Motor on port 1 and initial speed 0 (default third parameter)
+motor rightMotor(2); // Motor on port 2 and initial speed 0 (default third parameter)
+
+// Declare compass and compass wrapper object
+Adafruit_LSM303_Mag_Unified mag = Adafruit_LSM303_Mag_Unified();
+compass robotCompass = compass(mag);
 
 void setup () {
   //Initialise serial sample rate
   Serial.begin(9600);
+ 
   // Initialise motor shield
   motorShield.begin();
   leftMotor.assignedMotorShield = motorShield;
   rightMotor.assignedMotorShield = motorShield;
   leftMotor.init();
   rightMotor.init();
-}
 
+  // Initialise Compass
+  robotCompass.init();
+}

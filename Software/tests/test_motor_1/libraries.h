@@ -13,7 +13,7 @@
 #include <Adafruit_HMC5883_U.h>
 #include <Adafruit_LSM303_U.h>
 #include <Adafruit_MotorShield.h>
-#inlucde <Adafruit_Sensor.h>
+#include <Adafruit_Sensor.h>
 #include <Wire.h>
 #include <NewPing.h>
 
@@ -21,3 +21,6 @@
 #include "utility/Adafruit_MS_PWMServoDriver.h"
 
 using namespace std;
+
+// ** Constants ** //
+#define PI 3.14159265359
