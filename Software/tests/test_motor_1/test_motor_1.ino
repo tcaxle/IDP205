@@ -7,6 +7,8 @@
  *  Tests motor class
  */
 
+#include "libraries.h"
+#include "classes.h"
 #include "firmware.h"
 
 void loop() {
