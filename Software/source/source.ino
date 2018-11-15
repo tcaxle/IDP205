@@ -19,10 +19,9 @@ void loop() {
   // initialise DC motor at motor shield port M1
   leftMotor.setForward();
   leftMotor.setSpeed(255);
-  delay(1000);
+  delay(2000);
   leftMotor.emergencyStop();
   leftMotor.setBackward();
   leftMotor.setSpeed(255);
-  delay(1000);
-  leftMotor.emergencyStop();
+  delay(2000);
 }

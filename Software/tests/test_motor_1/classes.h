@@ -91,19 +91,3 @@ class motor{
   }
 };
 
-class ultrasoundSensor{
-  public:
-    int triggerPin, echoPin, maxDistance, pingInterval;
-    NewPing thisUltrasoundSensor;
-  void init(){
-    thisUltrasoundSensor.trigger_pin = triggerPin;
-    thisUltrasoundSensor.echo_pin = echoPin;
-    thisUltrasoundSensor.max_cm_distabce = maxDistance;
-  }
-  int getDistance(){
-    thisUltrasoundSensor.ping_cm();
-  }
-};
-
-// **** PRIVATE **** //
-

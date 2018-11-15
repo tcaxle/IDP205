@@ -61,13 +61,16 @@ class motor{
   public:
     int port, speed;
     Adafruit_DCMotor *thisMotor;
-  motor(int inputPort, Adafruit_MotorShield inputMotorShield, int inputSpeed = 0){
+    Adafruit_MotorShield assignedMotorShield;
+  motor(int inputPort, int inputSpeed = 0){
     //creates ada-fruit object and assigns to port with initial speed default 0
     port = inputPort;
     speed = inputSpeed;
-    thisMotor = inputMotorShield.getMotor(port);
+  }
+  void init() {
+    thisMotor = assignedMotorShield.getMotor(port);
     thisMotor->setSpeed(speed);
-  } 
+  }
   void setSpeed(int newSpeed){
     //sets new speed for the motor
     speed = newSpeed;
