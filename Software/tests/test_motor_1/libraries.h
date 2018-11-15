@@ -11,6 +11,7 @@
 // ** Globals ** //
 #include <Arduino.h>
 #include <Adafruit_HMC5883_U.h>
+#include <Adafruit_LSM303_U.h>
 #include <Adafruit_MotorShield.h>
 #inlucde <Adafruit_Sensor.h>
 #include <Wire.h>
