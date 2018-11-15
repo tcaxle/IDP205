@@ -39,7 +39,7 @@ public:
 	}
 };
 
-class led {
+class led { // A class for LEDs
   public:
     int pin;
     bool status;
@@ -57,7 +57,7 @@ class led {
     }
 };
 
-class motor{
+class motor{ // A class for driving motors via the Adafruit Motor Shield V2
   public:
     int port, speed;
     Adafruit_DCMotor *thisMotor;
@@ -92,7 +92,7 @@ class motor{
   }
 };
 
-class coord {
+class coord { // A class for coordinates used in navigation
 	public:
 		int x, y;
 		coord(int inputX = 0, int inputY = 0) {
@@ -125,8 +125,8 @@ class coord {
     		}
 };
 
-class rectangle {
-	/* A class used to denote "keepout zones"
+class rectangle { // A class used to denote "keepout zones"
+	/* 
 	 *     x0    x1
 	 *      |    |
 	 *  y1--a----b--
@@ -169,7 +169,7 @@ class rectangle {
 		}
 };
 
-class compass {
+class compass { // A class for the LSM303 Accelerometer and Magnetometer
     public:
 		Adafruit_LSM303_Mag_Unified assignedCompass;
 		int declinationAngle;
@@ -198,8 +198,7 @@ class compass {
 		}
 };
 
-/*
-class ultrasoundSensor{
+class ultrasoundSensor { // A class for Ultrasound Sensors
   public:
     int triggerPin, echoPin, maxDistance, pingInterval;
     NewPing thisUltrasoundSensor;
@@ -213,5 +212,7 @@ class ultrasoundSensor{
   }
 };
 
+class infrared { // A class for Infrared Sensors
+};
+
 // **** PRIVATE **** //
-*/
