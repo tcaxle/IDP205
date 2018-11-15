@@ -24,4 +24,4 @@ using namespace std;
 
 // ** Constants ** //
 #define PI 3.14159265359
-#define IR_SCALE 20
+#define IR_SCALE 26
