@@ -99,9 +99,11 @@
 Adafruit_LSM303_Mag_Unified mag = Adafruit_LSM303_Mag_Unified();
 compass robotCompass = compass(mag);
 
+/*
 // Declare IR Sensors
 #define IR_SCALE 20
 infrared leftIR(A0);
+*/
 
 // Declare motor shield and motor wrapper objects
 Adafruit_MotorShield motorShield = Adafruit_MotorShield();
