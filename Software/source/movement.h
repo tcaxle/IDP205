@@ -50,15 +50,6 @@ void faceCoord(coord input_coord) {
 	// Points the robot towards the coordinate "input_coord"
 }
 
-// ** Status **//
-void getCoords() {
-    // Uses the ultrasound sensors to return a coord object giving the robot’s current location
-}
-
-void getDirection(compassOffset = 0) {
-    //Uses the compass and the orientated compass offset to return the robot’s angle
-}
-
 // ** Movement ** //
 
 void moveFwd(float input_distance) {

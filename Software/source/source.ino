@@ -13,7 +13,8 @@
 #include "firmware.h" // 2
 #include "mines.h" // 3
 #include "indicate.h" // 4
-#include "movement.h" // 5
+#include "orientation.h" // 5
+#include "movement.h" // 6
 
 void loop() {
     Serial.println(leftIR.distance());
