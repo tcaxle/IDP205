@@ -39,7 +39,7 @@ public:
 	}
 };
 
-class led {
+class led { // A class for LEDs
   public:
     int pin;
     bool status;
@@ -57,7 +57,7 @@ class led {
     }
 };
 
-class motor{
+class motor { // A class for driving motors via the Adafruit Motor Shield V2
   public:
     int port, speed;
     Adafruit_DCMotor *thisMotor;
@@ -92,7 +92,7 @@ class motor{
   }
 };
 
-class coord {
+class coord { // A class for coordinates used in navigation
 	public:
 		int x, y;
 		coord(int inputX = 0, int inputY = 0) {
@@ -125,8 +125,8 @@ class coord {
     		}
 };
 
-class rectangle {
-	/* A class used to denote "keepout zones"
+class rectangle { // A class used to denote "keepout zones"
+	/* 
 	 *     x0    x1
 	 *      |    |
 	 *  y1--a----b--
@@ -169,28 +169,28 @@ class rectangle {
 		}
 };
 
-class compass {
-	public:
+class compass { // A class for the LSM303 Accelerometer and Magnetometer
+    public:
 		Adafruit_LSM303_Mag_Unified assignedCompass;
-    int declinationAngle;
-    compass(Adafruit_LSM303_Mag_Unified inputCompass, int inputDeclinationAngle = 0) {
-      // Constructor for compass wrapper class; specify sensor object and local declination angle (default zero)
-      assignedCompass = inputCompass;
-      declinationAngle = inputDeclinationAngle;
-    }
+		int declinationAngle;
+		compass(Adafruit_LSM303_Mag_Unified inputCompass, int inputDeclinationAngle = 0) {
+			// Constructor for compass wrapper class; specify sensor object and local declination angle (default zero)
+			assignedCompass = inputCompass;
+			declinationAngle = inputDeclinationAngle;
+		}
 		void init() {
-      // Wrapper function to start compass functionality
+			// Wrapper function to start compass functionality
 			assignedCompass.begin();
 		}
 		float heading() {
-      // Get current compass flux readings
+			// Get current compass flux readings
 			sensors_event_t reading;
 			assignedCompass.getEvent(&reading);
-      // Calculate current bearing
+			// Calculate current bearing
 			float outputHeading = (atan2(reading.magnetic.y,reading.magnetic.x) * 180) / PI;
-      // Account for local magnetic flux changes by subtracting declination angle
-      outputHeading = outputHeading - declinationAngle;
-      // Correct for negative bearing results
+			// Account for local magnetic flux changes by subtracting declination angle
+			outputHeading = outputHeading - declinationAngle;
+			// Correct for negative bearing results
 			if (outputHeading < 0) {
 				outputHeading = 360 + outputHeading;
 			}
@@ -207,6 +207,20 @@ class ultrasound{
     int getReading(){
         return assignedSensor.ping_cm();
     }
+};
+
+class infrared { // A class for Infrared Sensors
+    public:
+		char port;
+		infrared(char inputPort) {
+			port = inputPort;
+		}
+		float voltage() {
+			return analogRead(port) * 0.0048828125;
+		}
+		float distance() {
+			return IR_SCALE * pow(voltage(), -1);
+		}
 };
 
 // **** PRIVATE **** //

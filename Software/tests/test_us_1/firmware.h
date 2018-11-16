@@ -95,14 +95,18 @@
  * Pinouts in Use:
  */
 
+// Declare compass and compass wrapper object
+Adafruit_LSM303_Mag_Unified mag = Adafruit_LSM303_Mag_Unified();
+compass robotCompass = compass(mag);
+
+// Declare IR Sensors
+#define IR_SCALE 20
+infrared leftIR(A0);
+
 // Declare motor shield and motor wrapper objects
 Adafruit_MotorShield motorShield = Adafruit_MotorShield();
 motor leftMotor(1); // Motor on port 1 and initial speed 0 (default third parameter)
 motor rightMotor(2); // Motor on port 2 and initial speed 0 (default third parameter)
-
-// Declare compass and compass wrapper object
-Adafruit_LSM303_Mag_Unified mag = Adafruit_LSM303_Mag_Unified();
-compass robotCompass = compass(mag);
 
 // Declare ultrasound sensors and ultrasound wrapper objects
 NewPing initXUltrasound(10, 11, 200);
@@ -111,16 +115,16 @@ ultrasound xUltrasound(initXUltrasound);
 ultrasound yUltrasound(initYUltrasound);
 
 void setup () {
-  //Initialise serial sample rate
-  Serial.begin(9600);
+    // Initialise Compass
+	robotCompass.init();
  
-  // Initialise motor shield
-  motorShield.begin();
-  leftMotor.assignedMotorShield = motorShield;
-  rightMotor.assignedMotorShield = motorShield;
-  leftMotor.init();
-  rightMotor.init();
-
-  // Initialise Compass
-  robotCompass.init();
+	// Initialise motor shield
+	motorShield.begin();
+	leftMotor.assignedMotorShield = motorShield;
+	rightMotor.assignedMotorShield = motorShield;
+	leftMotor.init();
+	rightMotor.init();
+	
+	//Initialise serial sample rate
+	Serial.begin(9600);
 }

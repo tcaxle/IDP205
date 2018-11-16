@@ -198,21 +198,16 @@ class compass { // A class for the LSM303 Accelerometer and Magnetometer
 		}
 };
 
-/*
-class ultrasoundSensor { // A class for Ultrasound Sensors
-  public:
-    int triggerPin, echoPin, maxDistance, pingInterval;
-    NewPing thisUltrasoundSensor;
-  void init(){
-    thisUltrasoundSensor.trigger_pin = triggerPin;
-    thisUltrasoundSensor.echo_pin = echoPin;
-    thisUltrasoundSensor.max_cm_distabce = maxDistance;
-  }
-  int getDistance(){
-    thisUltrasoundSensor.ping_cm();
-  }
+class ultrasound{
+    public:
+    NewPing assignedSensor = NewPing(0, 0);
+    ultrasound(NewPing inputSensor) {
+        assignedSensor = inputSensor;
+    }
+    int getReading(){
+        return assignedSensor.ping_cm();
+    }
 };
-*/
 
 class infrared { // A class for Infrared Sensors
     public:
