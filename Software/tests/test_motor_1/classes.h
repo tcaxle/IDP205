@@ -182,7 +182,7 @@ class compass { // A class for the LSM303 Accelerometer and Magnetometer
 			// Wrapper function to start compass functionality
 			assignedCompass.begin();
 		}
-		float heading() {
+		float getHeading() {
 			// Get current compass flux readings
 			sensors_event_t reading;
 			assignedCompass.getEvent(&reading);
