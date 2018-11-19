@@ -20,4 +20,5 @@ void loop() {
   Serial.println(currentHeading);
   Serial.print("Cartesian Direction: ");
   Serial.println(currentDirection);
+  delay(200);
 }
