@@ -14,7 +14,7 @@
 
 
 void loop() {
-  float currentHeading = robotCompass.heading();
+  float currentHeading = robotCompass.getHeading();
   int currentDirection = getDirection(robotCompass);
   Serial.print("Compass Heading: ");
   Serial.println(currentHeading);
