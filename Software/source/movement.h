@@ -119,7 +119,7 @@ void faceCoord(coord input_coord) {
 	// Points the robot towards the coordinate "input_coord"
 }
 
-coord getCoords(float areaX, float areaY, float robotLength, float robotWidth, float currentDirection) {
+coord getCoords(float currentDirection) {
     // Uses the ultrasound sensors to return a coord object giving the robot’s current location
     // Lengths to be given in cm
     // Direction to be given in degrees and should be oriented to the robot's Cartesian co-ordinate system
@@ -130,23 +130,23 @@ coord getCoords(float areaX, float areaY, float robotLength, float robotWidth, f
   
     if (abs(currentDirection) <= 45){
         faceAngle(0);
-        xCoordinate = xUltrasound.getReading() + robotLength;
-        yCoordinate = areaY - (yUltrasound.getReading() + robotWidth/2);
+        xCoordinate = xUltrasound.getReading() + ROBOT_LENGTH;
+        yCoordinate = ARENA_Y - (yUltrasound.getReading() + ROBOT_WIDTH/2);
     }
     else if (currentDirection > 0 && currentDirection <= 135){
         faceAngle(90);
-        xCoordinate = yUltrasound.getReading() + robotWidth/2;
-        yCoordinate = xUltrasound.getReading() + robotLength;
+        xCoordinate = yUltrasound.getReading() + ROBOT_WIDTH/2;
+        yCoordinate = xUltrasound.getReading() + ROBOT_LENGTH;
     }
     else if (currentDirection < 0 && currentDirection >= -135){
         faceAngle(-90);
-        xCoordinate = areaX - (yUltrasound.getReading() + robotWidth/2);
-        yCoordinate = areaY - (xUltrasound.getReading() + robotLength);
+        xCoordinate = ARENA_X - (yUltrasound.getReading() + ROBOT_WIDTH/2);
+        yCoordinate = ARENA_Y - (xUltrasound.getReading() + ROBOT_LENGTH);
     }
     else{
         faceAngle(180);
-        xCoordinate = areaX - (xUltrasound.getReading() + robotLength);
-        yCoordinate = yUltrasound.getReading() + robotWidth/2;
+        xCoordinate = ARENA_X - (xUltrasound.getReading() + ROBOT_LENGTH);
+        yCoordinate = yUltrasound.getReading() + ROBOT_WIDTH/2;
     }
     coord currentCoord(xCoordinate, yCoordinate);
     return currentCoord;
@@ -192,11 +192,19 @@ void pathHome() {
 
 void pathGo(coord inputCoord) {
 	// Moves the robot to the coordinate "input_coord" via the shortest route
-    coord currentCoord = getCoords;
-    coord movementVector = inputCoord - currentCoord;
-    if (movementVector == 0 && movementVector.y == 0) {
-        Serial.print("lol");
+    coord currentCoord = getCoords(getDirection());
+    coord movementVector = inputCoord.subtract(currentCoord);
+    float vectorAngle;
+    if (movementVector.x == 0 && movementVector.y < 0) {
+        vectorAngle = -90;
     }
+    else if (movementVector.x == 0 && movementVector.y >= 0){
+        vectorAngle = 90;
+    }
+    else {
+        vectorAngle = atan2(movementVector.y, movementVector.x)*180/PI;
+    }
+    
 }
 
 // ** Panic ** //
