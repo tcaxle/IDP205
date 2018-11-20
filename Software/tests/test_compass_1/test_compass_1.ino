@@ -10,15 +10,15 @@
 #include "libraries.h"
 #include "classes.h"
 #include "firmware.h"
-#include "orientation.h"
+#include "movement.h"
 
 void loop() {
   leftMotor.setSpeed(60);
   rightMotor.setSpeed(60);
   leftMotor.setForward();
   rightMotor.setBackward();
-  float currentHeading = robotCompass.getHeading();
-  int currentDirection = getDirection(robotCompass);
+  float currentHeading = compass.getHeading();
+  int currentDirection = getDirection();
   Serial.print("Compass Reading: ");
   Serial.println(currentHeading);
   Serial.print("Cartesian Direction: ");

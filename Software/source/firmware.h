@@ -127,4 +127,6 @@ void setup () {
 
   // Initialise Compass
   compass.init();
+  compass.xFluxCorrection = 22.445;
+  compass.yFluxCorrection = 1.545;
 }

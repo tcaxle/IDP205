@@ -173,8 +173,8 @@ class compass { // A class for the LSM303 Accelerometer and Magnetometer
     public:
 		Adafruit_LSM303_Mag_Unified assignedCompass;
 		int declinationAngle;
-        float xFluxCorrection;
-        float yFluxCorrection;
+    float xFluxCorrection;
+    float yFluxCorrection;
 		compass(Adafruit_LSM303_Mag_Unified inputCompass, int inputDeclinationAngle = 0) {
 			// Constructor for compass wrapper class; specify sensor object and local declination angle (default zero)
 			assignedCompass = inputCompass;
