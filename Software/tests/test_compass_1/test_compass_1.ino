@@ -15,8 +15,11 @@
 
 void loop() {
   float currentHeading = robotCompass.getHeading();
-  int currentDirection = getDirection(robotCompass);
-  Serial.print("Cartesian Direction: ");
-  Serial.println(currentDirection);
-  delay(500);
+  //int currentDirection = getDirection(robotCompass);
+  Serial.print("Compass Reading: ");
+  Serial.println(currentHeading);
+  //Serial.print("Cartesian Direction: ");
+  //Serial.println(currentDirection);
+  Serial.println();
+  delay(1000);
 }

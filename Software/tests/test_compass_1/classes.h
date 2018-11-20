@@ -188,6 +188,10 @@ class compass { // A class for the LSM303 Accelerometer and Magnetometer
 			assignedCompass.getEvent(&reading);
 			// Calculate current bearing
 			float outputHeading = (atan2(reading.magnetic.y,reading.magnetic.x) * 180) / PI;
+            Serial.print("Y-Flux Reading: ");
+            Serial.println(reading.magnetic.y);
+            Serial.print("X-Flux Reading: ");
+            Serial.println(reading.magnetic.x);
 			// Account for local magnetic flux changes by subtracting declination angle
 			outputHeading = outputHeading - declinationAngle;
 			// Correct for negative bearing results
