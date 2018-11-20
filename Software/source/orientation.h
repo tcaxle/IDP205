@@ -52,6 +52,5 @@ int getDirection(float currentHeading, compassOffset = 0) {
 		return round (compassOffset - currentHeading);
 	}
 }
-*/
 
 // **** PRIVATE **** //
