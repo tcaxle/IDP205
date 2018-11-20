@@ -194,8 +194,13 @@ void pathHome() {
 	// Moves the robot back to the startbox via the shortest route, avoiding mines
 }
 
-void pathGo(coord input_coord) {
-	// Moves the robot to the coordinate "input_coord" via the shortest route, avoiding mines
+void pathGo(coord inputCoord) {
+	// Moves the robot to the coordinate "input_coord" via the shortest route
+    coord currentCoord = getCoords;
+    coord movementVector = inputCoord - currentCoord;
+    if (movementVector == 0 && movementVector.y == 0) {
+        Serial.print("lol");
+    }
 }
 
 // ** Panic ** //
