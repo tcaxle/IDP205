@@ -105,7 +105,7 @@ NewPing initXUltrasound(10, 11, 200); //Should be mounted on the rear
 NewPing initYUltrasound(12, 13, 200); //Should be mounted on the side
 ultrasound xUltrasound(initXUltrasound);
 ultrasound yUltrasound(initYUltrasound);
-=======
+
 // Declare compass and compass wrapper object
 Adafruit_LSM303_Mag_Unified mag = Adafruit_LSM303_Mag_Unified();
 compass compass(mag);

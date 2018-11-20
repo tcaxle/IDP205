@@ -12,6 +12,17 @@
 
 // **** PRIVATE **** //
 
+int getDirection(float currentHeading, float compassOffset = 0) {
+    //Uses a reading from the compass and the orientated compass offset to return the robot’s angle
+    //Correct reading to be relative to x-axis heading then output
+    if (compassOffset - currentHeading <= -180) {
+        return round(360 + compassOffset - currentHeading);
+    }
+    else{
+        return round (compassOffset - currentHeading);
+    }
+}
+
 void setForward(int inputSpeed) {
   // Sets both motors to foward mode with the defined speeds
   leftMotor.setForward();
@@ -105,6 +116,39 @@ void faceCoord(coord input_coord) {
 	// Points the robot towards the coordinate "input_coord"
 }
 
+coord getCoords(float areaX, float areaY, float robotLength, float robotWidth, float currentDirection) {
+    // Uses the ultrasound sensors to return a coord object giving the robot’s current location
+    // Lengths to be given in cm
+    // Direction to be given in degrees and should be oriented to the robot's Cartesian co-ordinate system
+
+    //Initialise coordinate variables
+    int xCoordinate;
+    int yCoordinate;
+  
+    if (abs(currentDirection) <= 45){
+        faceXFwd();
+        xCoordinate = xUltrasound.getReading() + robotLength;
+        yCoordinate = areaY - (yUltrasound.getReading() + robotWidth/2);
+    }
+    else if (currentDirection > 0 && currentDirection <= 135){
+        faceYFwd();
+        xCoordinate = yUltrasound.getReading() + robotWidth/2;
+        yCoordinate = xUltrasound.getReading() + robotLength;
+    }
+    else if (currentDirection < 0 && currentDirection >= -135){
+        faceYBwd();
+        xCoordinate = areaX - (yUltrasound.getReading() + robotWidth/2);
+        yCoordinate = areaY - (xUltrasound.getReading() + robotLength);
+    }
+    else{
+        faceXBwd();
+        xCoordinate = areaX - (xUltrasound.getReading() + robotLength);
+        yCoordinate = yUltrasound.getReading() + robotWidth/2;
+    }
+    coord currentCoord(xCoordinate, yCoordinate);
+    return currentCoord;
+}
+
 // ** Movement ** //
 
 void moveFwd(float input_distance) {
@@ -164,5 +208,3 @@ void panicRun() {
 void panicPanic() {
 	// Moves eratically and without direction in an inescapable loop (edgecase)
 }
-
-
