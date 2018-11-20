@@ -117,6 +117,8 @@ ultrasound yUltrasound(initYUltrasound);
 void setup () {
     // Initialise Compass
 	robotCompass.init();
+    robotCompass.xFluxCorrection = 22.445;
+    robotCompass.yFluxCorrection = 1.545;
  
 	// Initialise motor shield
 	motorShield.begin();
