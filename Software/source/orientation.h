@@ -13,8 +13,7 @@
 
 // **** PUBLIC **** //
 
-// ** Status **//
-coord getCoords(float areaX, float areaY, float robotLength, float robotWidth, float currentDirection) {
+coords getCoords(float areaX, float areaY, float robotLength, float robotWidth, float currentDirectio) {
     // Uses the ultrasound sensors to return a coord object giving the robot’s current location
 	// Lengths to be given in cm
 	// Direction to be given in degrees and should be oriented to the robot's Cartesian co-ordinate system
@@ -42,6 +41,7 @@ coord getCoords(float areaX, float areaY, float robotLength, float robotWidth, f
 	return currentCoord;
 }
 
+
 int getDirection(float currentHeading, compassOffset = 0) {
     //Uses a reading from the compass and the orientated compass offset to return the robot’s angle
 	//Correct reading to be relative to x-axis heading then output
@@ -52,5 +52,6 @@ int getDirection(float currentHeading, compassOffset = 0) {
 		return round (compassOffset - currentHeading);
 	}
 }
+*/
 
 // **** PRIVATE **** //

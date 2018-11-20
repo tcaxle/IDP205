@@ -10,9 +10,60 @@
 // ** Preamble ** //
 #include "orientation.h"
 
+// **** PRIVATE **** //
+
+void setForward(int inputSpeed) {
+  // Sets both motors to foward mode with the defined speeds
+  leftMotor.setForward();
+  rightMotor.setForward();
+  leftMotor.setSpeed(inputSpeed);
+  rightMotor.setSpeed(inputSpeed);
+}
+
+void setBackward(int inputSpeed) {
+  // Sets both motors to backward mode with the defined speeds
+  leftMotor.setBackward();
+  rightMotor.setBackward();
+  leftMotor.setSpeed(inputSpeed);
+  rightMotor.setSpeed(inputSpeed);
+}
+
+void setStop() {
+  // Stops both motors
+  leftMotor.emergencyStop();
+  rightMotor.emergencyStop();
+}
+
+void setClockwise(int inputSpeed) {
+  // Sets both motors to spin clockwise with the defined speeds
+  leftMotor.setForward();
+  rightMotor.setBackward();
+  leftMotor.setSpeed(inputSpeed);
+  rightMotor.setSpeed(inputSpeed);
+}
+
+void setAnticlockwise(int inputSpeed) {
+  // Sets both motors to spin anticlockwise with the defined speeds
+  leftMotor.setBackward();
+  rightMotor.setForward();
+  leftMotor.setSpeed(inputSpeed);
+  rightMotor.setSpeed(inputSpeed);
+}
+
 // **** PUBLIC **** //
 
 // ** Facing ** //
+
+void faceAngle(float currentHeading, float targetHeading, float tollerance = 1, int turnSpeed = 255) {
+  // rotates to face in a particular direction
+  while (abs(currentHeading - targetHeading) > tollerance) {
+    if (currentHeading > targetHeading) {
+      setClockwise(turnSpeed);
+    } else {
+      setAnticlockwise(turnSpeed);
+    }
+  }
+}
 
 void faceFwd() {
 	// Points the robot forward relative to its course
@@ -32,18 +83,22 @@ void faceRgt() {
 
 void faceXFwd() {
 	// Points the robot in the positive X direction
+  faceAngle(compass.getHeading(), 0);
 }
 
 void faceXBwd() {
 	// Points the robot in the negative X direction
+ faceAngle(compass.getHeading(), 180);
 }
 
 void faceYFwd() {
 	// Points the robot in the positive Y direction
+ faceAngle(compass.getHeading(), 90);
 }
 
 void faceYBwd() {
 	// Points the robot in the negative Y direction
+ faceAngle(compass.getHeading(), -90);
 }
 
 void faceCoord(coord input_coord) {
@@ -110,42 +165,4 @@ void panicPanic() {
 	// Moves eratically and without direction in an inescapable loop (edgecase)
 }
 
-// **** PRIVATE **** //
 
-void setForward(int inputSpeed) {
-	// Sets both motors to foward mode with the defined speeds
-	leftMotor.setForward();
-	rightMotor.setForward();
-	leftMotor.setSpeed(inputSpeed);
-	rightMotor.setSpeed(inputSpeed);
-}
-
-void setBackward(int inputSpeed) {
-	// Sets both motors to backward mode with the defined speeds
-	leftMotor.setBackward();
-	rightMotor.setBackward();
-	leftMotor.setSpeed(inputSpeed);
-	rightMotor.setSpeed(inputSpeed);
-}
-
-void setStop() {
-	// Stops both motors
-	leftMotor.emergencyStop();
-	rightMotor.emergencyStop();
-}
-
-void setClockwise(int inputSpeed) {
-	// Sets both motors to spin clockwise with the defined speeds
-	leftMotor.setForward();
-	rightMotor.setBackward();
-	leftMotor.setSpeed(inputSpeed);
-	rightMotor.setSpeed(inputSpeed);
-}
-
-void setAnticlockwise(int inputSpeed) {
-	// Sets both motors to spin anticlockwise with the defined speeds
-	leftMotor.setBackward();
-	rightMotor.setForward();
-	leftMotor.setSpeed(inputSpeed);
-	rightMotor.setSpeed(inputSpeed);
-}
