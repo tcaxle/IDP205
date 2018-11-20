@@ -24,7 +24,7 @@ float getDirection() {
     }
 }
 
-void setForward(int inputSpeed) {
+void setFwd(int inputSpeed = 255) {
   // Sets both motors to foward mode with the defined speeds
   leftMotor.setForward();
   rightMotor.setForward();
@@ -32,7 +32,7 @@ void setForward(int inputSpeed) {
   rightMotor.setSpeed(inputSpeed);
 }
 
-void setBackward(int inputSpeed) {
+void setBwd(int inputSpeed = 255) {
   // Sets both motors to backward mode with the defined speeds
   leftMotor.setBackward();
   rightMotor.setBackward();
@@ -109,7 +109,7 @@ void faceLft() {
 }
 
 void faceRgt() {
-	// Points he robot right relative to its course
+	// Points the robot right relative to its course
 }
 
 void faceCoord(coord input_coord) {
@@ -151,28 +151,46 @@ coord getCoords(float currentDirection) {
 
 // ** Movement ** //
 
-void moveFwd(float input_distance) {
-	// Moves the robot forward (relative to current facing) by distance "input_distance"
+void moveFwd(float inputDistance) {
+	// Moves the robot forward (relative to current facing) by distance "inputDistance"
+    int startDistance = xUltrasound.getReading();
+    int currentDistance;
+    int distanceTravelled;
+    int error = inputDistance;
+    while(abs(error) > 0){
+        currentDistance = xUltrasound.getReading();
+        distanceTravelled = currentDistance - startDistance;
+        error = inputDistance - distanceTravelled;
+        if (error > 0){
+            setFwd();
+        }
+        else if (error < 0){
+            setBwd();
+        }
+        else{
+            setStop();
+        }
+    }
 }
 
-void moveBwd(float input_distance) {
-	// Moved the robot backward (relative to current facing) byb distance "input_distance"
+void moveBwd(float inputDistance) {
+	// Moved the robot backward (relative to current facing) byb distance "inputDistance"
 }
 
 // ** Rotation ** //
 
-void spinLft(float input_degrees) {
+void spinLft(float inputDegrees) {
 	// Rotates the robot left (anticlockwise) through angle "input_degrees"
 }
 
-void spinRgt(float input_degrees) {
+void spinRgt(float inputDegrees) {
 	// Rotates the robot right (clockwise) through angle "input_degrees"
 }
 
 // ** Path ** //
 
-void pathFollow(float input_distance) {
-	// Moves the robot forwards along the path by distance "input_distance"
+void pathFollow(float inputDistance) {
+	// Moves the robot forwards along the path by distance "inputDistance"
 }
 
 void pathEdge() {
@@ -189,19 +207,30 @@ void pathHome() {
 
 void pathGo(coord inputCoord) {
 	// Moves the robot to the coordinate "input_coord" via the shortest route
+    // Get current position
     coord currentCoord = getCoords(getDirection());
+    // Calculate vector from current position to target position
     coord movementVector = inputCoord.subtract(currentCoord);
+    // Initialise containers for angle and length of vector
     float vectorAngle;
+    int vectorLength;
+    // If the vector to the target is vertical
     if (movementVector.x == 0 && movementVector.y < 0) {
+        // If the y-component is negative, the angle is -90 degress from the neutral axis
         vectorAngle = -90;
     }
     else if (movementVector.x == 0 && movementVector.y >= 0){
+        // If the y-component is positive, the angle is 90 degrees from the neutral axis
         vectorAngle = 90;
     }
     else {
+        // Otherwise find the angle from the neutral axis by inverse tangent
         vectorAngle = atan2(movementVector.y, movementVector.x)*180/PI;
     }
-    faceAngle();
+    faceAngle(vectorAngle);
+    // Calculate length to move by Pythagoras
+    vectorLength = round(sqrt(pow(movementVector.x, 2) + pow(movementVector.y, 2)));
+    moveFwd(vectorLength);
 }
 
 // ** Panic ** //
