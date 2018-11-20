@@ -109,6 +109,7 @@ ultrasound yUltrasound(initYUltrasound);
 // Declare compass and compass wrapper object
 Adafruit_LSM303_Mag_Unified mag = Adafruit_LSM303_Mag_Unified();
 compass compass(mag);
+float compassOffset = 0;
 
 // Declare IR Sensors
 infrared leftIR(A0);

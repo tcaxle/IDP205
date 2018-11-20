@@ -12,9 +12,10 @@
 
 // **** PRIVATE **** //
 
-int getDirection(float currentHeading, float compassOffset = 0) {
+int getDirection() {
     //Uses a reading from the compass and the orientated compass offset to return the robot’s angle
     //Correct reading to be relative to x-axis heading then output
+    float currentHeading = compass.getHeading();
     if (compassOffset - currentHeading <= -180) {
         return round(360 + compassOffset - currentHeading);
     }
