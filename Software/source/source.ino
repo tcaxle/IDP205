@@ -17,6 +17,6 @@
 #include "movement.h" // 6
 
 void loop() {
-    faceXBwd();
+    faceAngle(160);
     delay(500);
 }
