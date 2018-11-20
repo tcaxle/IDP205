@@ -102,22 +102,22 @@ void faceRgt() {
 
 void faceXFwd() {
 	// Points the robot in the positive X direction
-  faceAngle(compass.getHeading(), 0);
+  faceAngle(0);
 }
 
 void faceXBwd() {
 	// Points the robot in the negative X direction
- faceAngle(compass.getHeading(), 180);
+ faceAngle(180);
 }
 
 void faceYFwd() {
 	// Points the robot in the positive Y direction
- faceAngle(compass.getHeading(), 90);
+ faceAngle(90);
 }
 
 void faceYBwd() {
 	// Points the robot in the negative Y direction
- faceAngle(compass.getHeading(), -90);
+ faceAngle(-90);
 }
 
 void faceCoord(coord input_coord) {
