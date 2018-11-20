@@ -13,7 +13,7 @@
 
 // **** PUBLIC **** //
 
-coords getCoords(float areaX, float areaY, float robotLength, float robotWidth, float currentDirectio) {
+coords getCoords(float areaX, float areaY, float robotLength, float robotWidth, float currentDirection) {
     // Uses the ultrasound sensors to return a coord object giving the robot’s current location
 	// Lengths to be given in cm
 	// Direction to be given in degrees and should be oriented to the robot's Cartesian co-ordinate system
