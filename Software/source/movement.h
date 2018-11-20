@@ -70,16 +70,32 @@ void faceAngle(float targetHeading, float tollerance = 1, int turnSpeed = 255) {
   // rotates to face in a particular direction
   float currentHeading = getDirection();
   float error = currentHeading - targetHeading;
-  while (abs(error) > tollerance) {
-    currentHeading = getDirection();
-    Serial.println(currentHeading);
-    error = currentHeading - targetHeading;
-    if (error > 0) {
-      setClockwise(turnSpeed);
-    } else {
-      setAnticlockwise(turnSpeed);
+  if (targetHeading == 180) {
+    Serial.println("ONE HUNDRED AND EIGHTY");
+    while (currentHeading >= 0 && currentHeading < 179.5) {
+      currentHeading = getDirection();
+      Serial.println(currentHeading);
+      setAnticlockwise(255);
+      setStop();
     }
-  setStop();
+    while (currentHeading <= 0 && currentHeading > -179.5) {
+      currentHeading = getDirection();
+      Serial.println(currentHeading);
+      setClockwise(255);
+      setStop();
+    }
+  } else {
+   while (abs(error) > tollerance) {
+     currentHeading = getDirection();
+     Serial.println(currentHeading);
+     error = currentHeading - targetHeading;
+     if (error > 0) {
+       setClockwise(turnSpeed);
+     } else {
+       setAnticlockwise(turnSpeed);
+      }
+    setStop();
+    }
   }
 }
 
@@ -99,26 +115,6 @@ void faceRgt() {
 	// Points he robot right relative to its course
 }
 
-void faceXFwd() {
-	// Points the robot in the positive X direction
-  faceAngle(0);
-}
-
-void faceXBwd() {
-	// Points the robot in the negative X direction
- faceAngle(180);
-}
-
-void faceYFwd() {
-	// Points the robot in the positive Y direction
- faceAngle(90);
-}
-
-void faceYBwd() {
-	// Points the robot in the negative Y direction
- faceAngle(-90);
-}
-
 void faceCoord(coord input_coord) {
 	// Points the robot towards the coordinate "input_coord"
 }
@@ -133,22 +129,22 @@ coord getCoords(float areaX, float areaY, float robotLength, float robotWidth, f
     int yCoordinate;
   
     if (abs(currentDirection) <= 45){
-        faceXFwd();
+        faceAngle(0);
         xCoordinate = xUltrasound.getReading() + robotLength;
         yCoordinate = areaY - (yUltrasound.getReading() + robotWidth/2);
     }
     else if (currentDirection > 0 && currentDirection <= 135){
-        faceYFwd();
+        faceAngle(90);
         xCoordinate = yUltrasound.getReading() + robotWidth/2;
         yCoordinate = xUltrasound.getReading() + robotLength;
     }
     else if (currentDirection < 0 && currentDirection >= -135){
-        faceYBwd();
+        faceAngle(-90);
         xCoordinate = areaX - (yUltrasound.getReading() + robotWidth/2);
         yCoordinate = areaY - (xUltrasound.getReading() + robotLength);
     }
     else{
-        faceXBwd();
+        faceAngle(180);
         xCoordinate = areaX - (xUltrasound.getReading() + robotLength);
         yCoordinate = yUltrasound.getReading() + robotWidth/2;
     }
