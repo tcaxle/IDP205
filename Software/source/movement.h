@@ -70,10 +70,9 @@ void faceAngle(float targetHeading, float tollerance = 1, int turnSpeed = 255) {
   // rotates to face in a particular direction
   float currentHeading = getDirection();
   float error = currentHeading - targetHeading;
-  Serial.println(error);
-  Serial.println(currentHeading);
   while (abs(error) > tollerance) {
     currentHeading = getDirection();
+    Serial.println(currentHeading);
     error = currentHeading - targetHeading;
     if (error > 0) {
       setClockwise(turnSpeed);
