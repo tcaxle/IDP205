@@ -14,6 +14,7 @@
 #include <Adafruit_LSM303_U.h>
 #include <Adafruit_MotorShield.h>
 #include <Adafruit_Sensor.h>
+#include <ArduinoSTL.h>
 #include <Wire.h>
 #include <NewPing.h>
 

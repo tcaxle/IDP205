@@ -180,17 +180,18 @@ void moveBwd(float inputDistance) {
 // ** Rotation ** //
 
 void spinLft(float inputDegrees) {
-	// Rotates the robot left (anticlockwise) through angle "input_degrees"
+	// Rotates the robot left (anticlockwise) through angle "inputDegrees"
 }
 
 void spinRgt(float inputDegrees) {
-	// Rotates the robot right (clockwise) through angle "input_degrees"
+	// Rotates the robot right (clockwise) through angle "inputDegrees"
 }
 
 // ** Path ** //
 
-void pathFollow(float inputDistance) {
-	// Moves the robot forwards along the path by distance "inputDistance"
+void pathFollow(vector<coord> path) {
+	// Moves the robot forwards along the path by distance "inputDistance", avoiding mines
+    // Doesn't currently avoid mines
 }
 
 void pathEdge() {
