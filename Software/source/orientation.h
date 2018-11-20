@@ -13,11 +13,14 @@
 
 // **** PUBLIC **** //
 
-// ** Status **//
+/*
+// ** Status ** //
 void getCoords() {
     // Uses the ultrasound sensors to return a coord object giving the robot’s current location
 }
+*/
 
+/*
 int getDirection(compass targetCompass, compassOffset = 0) {
     //Uses the compass and the orientated compass offset to return the robot’s angle
 	//Get the initial compass reading
@@ -30,5 +33,6 @@ int getDirection(compass targetCompass, compassOffset = 0) {
 		return round (compassOffset - compassReading)
 	}
 }
+*/
 
 // **** PRIVATE **** //
