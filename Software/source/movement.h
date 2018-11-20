@@ -67,7 +67,7 @@ void setAnticlockwise(int inputSpeed) {
 
 // ** Facing ** //
 
-void faceAngle(float targetHeading, float tollerance = 1, int turnSpeed = 255) {
+void faceAngle(float targetHeading, float tolerance = 1, int turnSpeed = 255) {
   // rotates to face in a particular direction
   float currentHeading = getDirection();
   float error = currentHeading - targetHeading;
@@ -83,7 +83,7 @@ void faceAngle(float targetHeading, float tollerance = 1, int turnSpeed = 255) {
       setStop(5);
     }
   } else {
-   while (abs(error) > tollerance) {
+   while (abs(error) > tolerance) {
      currentHeading = getDirection();
      error = currentHeading - targetHeading;
      if (error > 0) {
@@ -201,7 +201,7 @@ void pathGo(coord inputCoord) {
     else {
         vectorAngle = atan2(movementVector.y, movementVector.x)*180/PI;
     }
-    
+    faceAngle();
 }
 
 // ** Panic ** //
