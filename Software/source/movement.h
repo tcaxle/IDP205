@@ -12,7 +12,7 @@
 
 // **** PRIVATE **** //
 
-int getDirection() {
+float getDirection() {
     //Uses a reading from the compass and the orientated compass offset to return the robot’s angle
     //Correct reading to be relative to x-axis heading then output
     float currentHeading = compass.getHeading();
@@ -20,7 +20,7 @@ int getDirection() {
         return round(360 + compassOffset - currentHeading);
     }
     else{
-        return round(compassOffset - currentHeading);
+        return round (compassOffset - currentHeading);
     }
 }
 
@@ -66,8 +66,9 @@ void setAnticlockwise(int inputSpeed) {
 
 // ** Facing ** //
 
-void faceAngle(float currentHeading, float targetHeading, float tollerance = 1, int turnSpeed = 255) {
+void faceAngle(float targetHeading, float tollerance = 1, int turnSpeed = 255) {
   // rotates to face in a particular direction
+  float currentHeading = getDirection();
   float error = currentHeading - targetHeading;
   Serial.println(error);
   Serial.println(currentHeading);
