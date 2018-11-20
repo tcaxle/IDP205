@@ -20,7 +20,7 @@ int getDirection() {
         return round(360 + compassOffset - currentHeading);
     }
     else{
-        return round (compassOffset - currentHeading);
+        return round(compassOffset - currentHeading);
     }
 }
 
