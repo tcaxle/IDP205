@@ -100,7 +100,6 @@ Adafruit_MotorShield motorShield = Adafruit_MotorShield();
 motor leftMotor(1); // Motor on port 1 and initial speed 0 (default third parameter)
 motor rightMotor(2); // Motor on port 2 and initial speed 0 (default third parameter)
 
-<<<<<<< HEAD
 // Declare ultrasound sensors and ultrasound wrapper objects
 NewPing initXUltrasound(10, 11, 200); //Should be mounted on the rear
 NewPing initYUltrasound(12, 13, 200); //Should be mounted on the side
