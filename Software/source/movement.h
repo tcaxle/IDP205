@@ -40,8 +40,9 @@ void setBackward(int inputSpeed) {
   rightMotor.setSpeed(inputSpeed);
 }
 
-void setStop() {
+void setStop(int stopDelay = 0) {
   // Stops both motors
+  delay(stopDelay);
   leftMotor.emergencyStop();
   rightMotor.emergencyStop();
 }
@@ -71,30 +72,26 @@ void faceAngle(float targetHeading, float tollerance = 1, int turnSpeed = 255) {
   float currentHeading = getDirection();
   float error = currentHeading - targetHeading;
   if (targetHeading == 180) {
-    Serial.println("ONE HUNDRED AND EIGHTY");
     while (currentHeading >= 0 && currentHeading < 179.5) {
       currentHeading = getDirection();
-      Serial.println(currentHeading);
       setAnticlockwise(255);
-      setStop();
+      setStop(5);
     }
     while (currentHeading <= 0 && currentHeading > -179.5) {
       currentHeading = getDirection();
-      Serial.println(currentHeading);
       setClockwise(255);
-      setStop();
+      setStop(5);
     }
   } else {
    while (abs(error) > tollerance) {
      currentHeading = getDirection();
-     Serial.println(currentHeading);
      error = currentHeading - targetHeading;
      if (error > 0) {
        setClockwise(turnSpeed);
      } else {
        setAnticlockwise(turnSpeed);
       }
-    setStop();
+    setStop(5);
     }
   }
 }
