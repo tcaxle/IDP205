@@ -68,12 +68,18 @@ void setAnticlockwise(int inputSpeed) {
 
 void faceAngle(float currentHeading, float targetHeading, float tollerance = 1, int turnSpeed = 255) {
   // rotates to face in a particular direction
-  while (abs(currentHeading - targetHeading) > tollerance) {
-    if (currentHeading > targetHeading) {
+  float error = currentHeading - targetHeading;
+  Serial.println(error);
+  Serial.println(currentHeading);
+  while (abs(error) > tollerance) {
+    currentHeading = getDirection();
+    error = currentHeading - targetHeading;
+    if (error > 0) {
       setClockwise(turnSpeed);
     } else {
       setAnticlockwise(turnSpeed);
     }
+  setStop();
   }
 }
 

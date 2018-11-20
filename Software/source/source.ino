@@ -17,6 +17,6 @@
 #include "movement.h" // 6
 
 void loop() {
-    Serial.println(leftIR.distance());
-	delay(100);
+    faceXFwd();
+    delay(1000);
 }
