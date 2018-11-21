@@ -39,7 +39,12 @@ void loop() {
     pathFollow(path);
     */
 
+    /* Initialise orientation test
     compassOffset = initialiseOrientation();
+    setClockwise();
+    Serial.println(getDirection());
+    delay(500);
+    */
     
     /* Tom's random code, preserved for posterity
     float angle = random(-179, 180);
