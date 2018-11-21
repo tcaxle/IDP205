@@ -17,6 +17,7 @@
 #include "movement.h" // 6
 
 void loop() {
+
     /* Path follower test
     // On first run
     if (runCounter == 0){
@@ -52,4 +53,5 @@ void loop() {
     faceAngle(angle);
     delay(1000);
     */
+
 }
