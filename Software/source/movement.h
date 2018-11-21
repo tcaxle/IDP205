@@ -189,25 +189,8 @@ void spinRgt(float inputDegrees) {
 
 // ** Path ** //
 
-void pathFollow(vector<coord> path) {
-	// Moves the robot forwards along the path by distance "inputDistance", avoiding mines
-    // Doesn't currently avoid mines
-}
-
-void pathEdge() {
-	// Moves the robot to the edge of the search area via the shortest route, avoiding mines
-}
-
-void pathReturn() {
-	// Moves the robot back to the point on its path where it left off, avoiding mines
-}
-
-void pathHome() {
-	// Moves the robot back to the startbox via the shortest route, avoiding mines
-}
-
 void pathGo(coord inputCoord) {
-	// Moves the robot to the coordinate "input_coord" via the shortest route
+    // Moves the robot to the coordinate "input_coord" via the shortest route
     // Get current position
     coord currentCoord = getCoords(getDirection());
     // Calculate vector from current position to target position
@@ -232,6 +215,26 @@ void pathGo(coord inputCoord) {
     // Calculate length to move by Pythagoras
     vectorLength = round(sqrt(pow(movementVector.x, 2) + pow(movementVector.y, 2)));
     moveFwd(vectorLength);
+}
+
+void pathFollow(vector<coord> path) {
+	// Moves the robot forwards along the path by distance "inputDistance", avoiding mines
+    // Doesn't currently avoid mines
+    coord nextCoord = path.front();
+    pathGo(nextCoord);
+    path.pop_front();
+}
+
+void pathEdge() {
+	// Moves the robot to the edge of the search area via the shortest route, avoiding mines
+}
+
+void pathReturn() {
+	// Moves the robot back to the point on its path where it left off, avoiding mines
+}
+
+void pathHome() {
+	// Moves the robot back to the startbox via the shortest route, avoiding mines
 }
 
 // ** Panic ** //
