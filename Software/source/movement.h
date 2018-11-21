@@ -241,6 +241,7 @@ void pathHome() {
 float initialiseOrientation(){
     int currentXMeasurement = xUltrasound.getReading();
     int lastXMeasurement = currentXMeasurement;
+    float offsetAngle;
     setClockwise();
     while (currentXMeasurement <= lastXMeasurement){
         lastXMeasurement = currentXMeasurement;
@@ -255,7 +256,8 @@ float initialiseOrientation(){
         currentXMeasurement = xUltrasound.getReading();
     }
     setStop();
-    return compass.getHeading();
+    offsetAngle = compass.getHeading();
+    return offsetAngle;
 }
 
 vector<int> initialiseArenaBoundaries(){
@@ -279,6 +281,32 @@ vector<int> initialiseArenaBoundaries(){
     arenaBoundaries.push_back(totalY);
     return arenaBoundaries;
 }
+
+/*
+rectangle initialiseAreaBoundaries(){
+    // To be called after initialiseOrientation
+    int distToYAxis;
+    int distToXAxis;
+    int distToFarY;
+    int distToFarX;
+    int totalX;
+    int totalY;
+    rectangle arena;
+    faceAngle(0);
+    distToYAxis = xUltrasound.getReading() + ROBOT_LENGTH;
+    distToFarX = yUltrasound.getReading();
+    faceAngle(180);
+    distToFarY = xUltrasound.getReading();
+    distToXAxis = yUltrasound.getReading() + ROBOT_WIDTH/2;
+    totalX = distToXAxis + distToFarX;
+    totalY = distToYAxis + distToFarY;
+    arena.a = coord(0, totalY);
+    arenae.b = coord(totalX, totalY);
+    arena.c = coord(0, 0);
+    arena.d = coord(totalX, 0);
+    return arena;
+}
+*/
 
 // ** Panic ** //
 
