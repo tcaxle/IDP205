@@ -241,7 +241,6 @@ void pathHome() {
 float initialiseOrientation(){
     int currentXMeasurement = xUltrasound.getReading();
     int lastXMeasurement = currentXMeasurement;
-    float offsetAngle;
     setClockwise();
     while (currentXMeasurement <= lastXMeasurement){
         lastXMeasurement = currentXMeasurement;
@@ -256,8 +255,7 @@ float initialiseOrientation(){
         currentXMeasurement = xUltrasound.getReading();
     }
     setStop();
-    offsetAngle = compass.getHeading();
-    return offsetAngle;
+    return compass.getHeading();
 }
 
 int initialiseArenaBoundaries(){

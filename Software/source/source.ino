@@ -17,8 +17,5 @@
 #include "movement.h" // 6
 
 void loop() {
-    float angle = random(-179, 180);
-    Serial.println(angle);
-    faceAngle(angle);
-    delay(1000);
+    
 }
