@@ -44,12 +44,11 @@ void loop() {
     runCounter += 1;
     */
 
-    /* initialiseOrientation test
+    initialiseOrientation test
     compassOffset = initialiseOrientation();
     setClockwise();
     Serial.println(getDirection());
     delay(500);
-    */
 
     /* initialiseAreaBoundaries test
     if (runCounter == 0){

@@ -282,7 +282,7 @@ vector<int> initialiseArenaBoundaries(){
     return arenaBoundaries;
 }
 
-/*
+/* RECTANGLE OUTPUT
 rectangle initialiseAreaBoundaries(){
     // To be called after initialiseOrientation
     int distToYAxis;
