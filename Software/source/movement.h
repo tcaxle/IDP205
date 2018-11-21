@@ -260,8 +260,26 @@ float initialiseOrientation(){
     return offsetAngle;
 }
 
-int initialiseArenaBoundaries(){
-    
+vector<int> initialiseArenaBoundaries(){
+    // To be called after initialiseOrientation
+    int distToYAxis;
+    int distToXAxis;
+    int distToFarY;
+    int distToFarX;
+    int totalX;
+    int totalY;
+    vector<int> arenaBoundaries;
+    faceAngle(0);
+    distToYAxis = xUltrasound.getReading() + ROBOT_LENGTH;
+    distToFarX = yUltrasound.getReading();
+    faceAngle(180);
+    distToFarY = xUltrasound.getReading();
+    distToXAxis = yUltrasound.getReading() + ROBOT_WIDTH/2;
+    totalX = distToXAxis + distToFarX;
+    totalY = distToYAxis + distToFarY;
+    arenaBoundaries.push_back(totalX);
+    arenaBoundaries.push_back(totalY);
+    return arenaBoundaries;
 }
 
 // ** Panic ** //
