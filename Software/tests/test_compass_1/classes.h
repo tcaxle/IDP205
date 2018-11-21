@@ -198,6 +198,26 @@ class compass { // A class for the LSM303 Accelerometer and Magnetometer
 			}
 			return outputHeading;
 		}
+       float getXFlux() {
+            sensors_event_t reading;
+            assignedCompass.getEvent(&reading);
+            return reading.magnetic.x;
+       }
+       float getYFlux() {
+            sensors_event_t reading;
+            assignedCompass.getEvent(&reading);
+            return reading.magnetic.y;
+       }
+       float getCorrectedXFlux() {
+            sensors_event_t reading;
+            assignedCompass.getEvent(&reading);
+            return (reading.magnetic.x - xFluxCorrection);
+       }
+       float getCorrectedYFlux() {
+            sensors_event_t reading;
+            assignedCompass.getEvent(&reading);
+            return (reading.magnetic.y - yFluxCorrection);
+       }
 };
 
 class ultrasound{

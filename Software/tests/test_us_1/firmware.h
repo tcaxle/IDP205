@@ -109,8 +109,8 @@ motor leftMotor(1); // Motor on port 1 and initial speed 0 (default third parame
 motor rightMotor(2); // Motor on port 2 and initial speed 0 (default third parameter)
 
 // Declare ultrasound sensors and ultrasound wrapper objects
-NewPing initXUltrasound(10, 11, 200);
-NewPing initYUltrasound(12, 13, 200);
+NewPing initXUltrasound(10, 11, 300);
+NewPing initYUltrasound(12, 13, 300);
 ultrasound xUltrasound(initXUltrasound);
 ultrasound yUltrasound(initYUltrasound);
 

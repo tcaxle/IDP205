@@ -18,12 +18,15 @@ float getDirection() {
     if (compassOffset - currentHeading <= -180) {
         return round(360 + compassOffset - currentHeading);
     }
+    else if (compassOffset - currentHeading > 180){
+        return round(compassOffset - currentHeading - 360);
+    }
     else{
         return round (compassOffset - currentHeading);
     }
 }
 
-void setFwd(int inputSpeed = 255) {
+void setFwd(int inputSpeed = 90) {
   // Sets both motors to foward mode with the defined speeds
   leftMotor.setForward();
   rightMotor.setForward();
@@ -31,7 +34,7 @@ void setFwd(int inputSpeed = 255) {
   rightMotor.setSpeed(inputSpeed);
 }
 
-void setBwd(int inputSpeed = 255) {
+void setBwd(int inputSpeed = 90) {
   // Sets both motors to backward mode with the defined speeds
   leftMotor.setBackward();
   rightMotor.setBackward();
@@ -46,7 +49,7 @@ void setStop(int stopDelay = 0) {
   rightMotor.emergencyStop();
 }
 
-void setClockwise(int inputSpeed = 255) {
+void setClockwise(int inputSpeed = 120) {
   // Sets both motors to spin clockwise with the defined speeds
   leftMotor.setForward();
   rightMotor.setBackward();
@@ -54,7 +57,7 @@ void setClockwise(int inputSpeed = 255) {
   rightMotor.setSpeed(inputSpeed);
 }
 
-void setAnticlockwise(int inputSpeed = 255) {
+void setAnticlockwise(int inputSpeed = 120) {
   // Sets both motors to spin anticlockwise with the defined speeds
   leftMotor.setBackward();
   rightMotor.setForward();
@@ -66,19 +69,19 @@ void setAnticlockwise(int inputSpeed = 255) {
 
 // ** Facing ** //
 
-void faceAngle(float targetHeading, float tolerance = 1, int turnSpeed = 255) {
+void faceAngle(float targetHeading, float tolerance = 1, int turnSpeed = 60) {
   // rotates to face in a particular direction
   float currentHeading = getDirection();
   float error = currentHeading - targetHeading;
   if (targetHeading == 180) {
     while (currentHeading >= 0 && currentHeading < 179.5) {
       currentHeading = getDirection();
-      setAnticlockwise(255);
+      setAnticlockwise(turnSpeed);
       setStop(5);
     }
     while (currentHeading <= 0 && currentHeading > -179.5) {
       currentHeading = getDirection();
-      setClockwise(255);
+      setClockwise(turnSpeed);
       setStop(5);
     }
   } else {
@@ -93,6 +96,7 @@ void faceAngle(float targetHeading, float tolerance = 1, int turnSpeed = 255) {
     setStop(5);
     }
   }
+  setStop();
 }
 
 void faceFwd() {
@@ -188,6 +192,32 @@ void spinRgt(float inputDegrees) {
 
 // ** Path ** //
 
+void pathGo(coord inputCoord){
+    // Moves the robot to the coordinate "input_coord" via perpendicular components
+    // Get current position
+    coord currentCoord = getCoords(getDirection());
+    // Calculate vector from current position to target position
+    coord movementVector = inputCoord.subtract(currentCoord);
+    if(movementVector.x > 0){
+        faceAngle(0);
+        moveFwd(movementVector.x);
+    }
+    else if(movementVector.x < 0){
+        faceAngle(180);
+        moveFwd(movementVector.x);
+    }
+    if(movementVector.y > 0){
+        faceAngle(90);
+        moveFwd(movementVector.y);
+    }
+    else if(movementVector.y < 0){
+        faceAngle(-90);
+        moveFwd(movementVector.y);
+    }
+    faceAngle(xOrientation);
+}
+
+/*
 void pathGo(coord inputCoord) {
     // Moves the robot to the coordinate "input_coord" via the shortest route
     // Get current position
@@ -214,7 +244,11 @@ void pathGo(coord inputCoord) {
     // Calculate length to move by Pythagoras
     vectorLength = round(sqrt(pow(movementVector.x, 2) + pow(movementVector.y, 2)));
     moveFwd(vectorLength);
-}
+    currentCoord = getCoords(getDirection());
+    Serial.print(currentCoord.x);
+    Serial.print(", ");
+    Serial.println(currentCoord.y);
+}*/
 
 void pathFollow(vector<coord> path) {
 	// Moves the robot forwards along the path by distance "inputDistance", avoiding mines
@@ -239,25 +273,29 @@ void pathHome() {
 // ** SETUP ** //
 
 float initialiseOrientation(){
-    int currentXMeasurement = xUltrasound.getReading();
+    /*
+    int currentXMeasurement = xUltrasound.getTime();
     int lastXMeasurement = currentXMeasurement;
     float offsetAngle;
-    setClockwise();
-    while (currentXMeasurement <= lastXMeasurement){
+    setClockwise(60);
+    while (currentXMeasurement <= lastXMeasurement + 5){
         lastXMeasurement = currentXMeasurement;
-        currentXMeasurement = xUltrasound.getReading();
+        currentXMeasurement = xUltrasound.getTime();
     }
     setStop();
-    currentXMeasurement = xUltrasound.getReading();
+    delay(500);
+    currentXMeasurement = xUltrasound.getTime();
     lastXMeasurement = currentXMeasurement;
-    setAnticlockwise();
-    while(currentXMeasurement <= lastXMeasurement){
+    setAnticlockwise(60);
+    while(currentXMeasurement <= lastXMeasurement + 5){
         lastXMeasurement = currentXMeasurement;
         currentXMeasurement = xUltrasound.getReading();
     }
     setStop();
     offsetAngle = compass.getHeading();
     return offsetAngle;
+    */
+    return compass.getHeading();
 }
 
 vector<int> initialiseArenaBoundaries(){
@@ -275,6 +313,7 @@ vector<int> initialiseArenaBoundaries(){
     faceAngle(180);
     distToFarY = xUltrasound.getReading();
     distToXAxis = yUltrasound.getReading() + ROBOT_WIDTH/2;
+    faceAngle(0);
     totalX = distToXAxis + distToFarX;
     totalY = distToYAxis + distToFarY;
     arenaBoundaries.push_back(totalX);

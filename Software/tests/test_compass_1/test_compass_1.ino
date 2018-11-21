@@ -17,6 +17,18 @@ void loop() {
   rightMotor.setSpeed(60);
   leftMotor.setForward();
   rightMotor.setBackward();
+
+  /*//Flux tests
+  Serial.print(compass.getXFlux());
+  Serial.print(", ");
+  Serial.println(Mcompass.getYFlux());
+  Serial.print(compass.getCorrectedXFlux());
+  Serial.print(", ");
+  Serial.println(compass.getCorrectedYFlux());
+  Serial.println();
+  */
+  
+  //Angle tests
   float currentHeading = compass.getHeading();
   int currentDirection = getDirection();
   Serial.print("Compass Reading: ");
@@ -24,5 +36,6 @@ void loop() {
   Serial.print("Cartesian Direction: ");
   Serial.println(currentDirection);
   Serial.println();
+  
   delay(1000);
 }

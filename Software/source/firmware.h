@@ -118,8 +118,8 @@ motor leftMotor(3); // Motor on port 1 and initial speed 0 (default third parame
 motor rightMotor(4); // Motor on port 2 and initial speed 0 (default third parameter)
 
 // Declare ultrasound sensors and ultrasound wrapper objects
-NewPing initXUltrasound(10, 11, 200); //Should be mounted on the rear
-NewPing initYUltrasound(12, 13, 200); //Should be mounted on the side
+NewPing initXUltrasound(10, 11); //Should be mounted on the rear
+NewPing initYUltrasound(12, 13); //Should be mounted on the side
 ultrasound xUltrasound(initXUltrasound);
 ultrasound yUltrasound(initYUltrasound);
 
@@ -144,6 +144,6 @@ void setup () {
 
   // Initialise Compass
   compass.init();
-  compass.xFluxCorrection = 22.445;
-  compass.yFluxCorrection = 1.545;
+  compass.xFluxCorrection = 2.77;
+  compass.yFluxCorrection = -46.81;
 }

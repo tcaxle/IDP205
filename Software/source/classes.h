@@ -209,6 +209,9 @@ class ultrasound{
     int getReading(){
         return assignedSensor.ping_cm();
     }
+    int getTime(){
+        return assignedSensor.ping();
+    }
 };
 
 class infrared { // A class for Infrared Sensors

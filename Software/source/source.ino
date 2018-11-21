@@ -23,7 +23,7 @@ coord point3(arenaX-50, arenaY-50);
 coord point4(arenaX-50, arenaY-50);
 
 // Initialise sigle destination co-ordinate for pathGo test
-coord target(150, 150);
+coord target(100, 100);
 
 void loop() {
     /* pathFollow test
@@ -44,32 +44,45 @@ void loop() {
     runCounter += 1;
     */
 
-    initialiseOrientation test
-    compassOffset = initialiseOrientation();
-    setClockwise();
+    /*//initialiseOrientation test
+    if (runCounter == 0){
+        compassOffset = initialiseOrientation();
+        runCounter += 1;
+    }
+    setClockwise(60);
+    Serial.println(compassOffset);
+    Serial.println(compass.getHeading());
     Serial.println(getDirection());
+    Serial.println();
     delay(500);
+    */
 
-    /* initialiseAreaBoundaries test
+    /*
+    //initialiseAreaBoundaries test
     if (runCounter == 0){
         compassOffset = initialiseOrientation();
         arenaVector = initialiseArenaBoundaries();
         arenaX = arenaVector.front();
         arenaY = arenaVector.back();
+        delay(2000);
         Serial.println(arenaX);
         Serial.println(arenaY);
+        runCounter += 1;
     }
-    runCounter += 1;
     */
-
-    /* getCoord test
+    
+    /*//getCoord test
     if(runCounter == 0){
         compassOffset = initialiseOrientation();
         arenaVector = initialiseArenaBoundaries();
         arenaX = arenaVector.front();
         arenaY = arenaVector.back();
+        delay(2000);
+        Serial.println(arenaX);
+        Serial.println(arenaY);
+        runCounter += 1;
     }
-    coord currentCoord = getCoord(getDirection());
+    coord currentCoord = getCoords(getDirection());
     Serial.print("Current X Coordinate: ");
     Serial.println(currentCoord.x);
     Serial.print("Current Y Coordinate: ");
@@ -77,23 +90,21 @@ void loop() {
     delay(5000);
     */
 
-    /* moveFwd test
+    /*//moveFwd test
     if (runCounter == 0){
         moveFwd(30);
-    }
-    runCounter += 1;
-    */
-
-    /* pathGo test
+        runCounter += 1;
+    }*/
+    
+    //pathGo test
     if (runCounter == 0){
         compassOffset = initialiseOrientation();
         arenaVector = initialiseArenaBoundaries();
         arenaX = arenaVector.front();
         arenaY = arenaVector.back();
+        pathGo(target);
+        runCounter += 1;
     }
-    pathGo(target);
-    runCounter += 1; 
-    */
     
     /* Tom's random code, preserved for posterity
     float angle = random(-179, 180);
