@@ -95,11 +95,12 @@
  * Pinouts in Use:
  */
 //Define constants
-#define ARENA_X
-#define ARENA_Y
 #define ROBOT_LENGTH 30
 #define ROBOT_WIDTH 20
 
+// Initialise arena dimensions
+int arenaX;
+int arenaY;
 
 // Declare motor shield and motor wrapper objects
 Adafruit_MotorShield motorShield = Adafruit_MotorShield();

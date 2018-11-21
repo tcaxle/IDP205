@@ -8,9 +8,16 @@
  */
 
 // ** Preamble ** //
-#include "orientation.h"
 
 // **** PRIVATE **** //
+
+// ** SETUP ** //
+
+float initialiseOrientation(){
+    int xMeasurement;
+    int yMeasurement;
+    float currentAngle = compass.getHeading();
+}
 
 float getDirection() {
     //Uses a reading from the compass and the orientated compass offset to return the robot’s angle
@@ -128,7 +135,7 @@ coord getCoords(float currentDirection) {
     if (abs(currentDirection) <= 45){
         faceAngle(0);
         xCoordinate = xUltrasound.getReading() + ROBOT_LENGTH;
-        yCoordinate = ARENA_Y - (yUltrasound.getReading() + ROBOT_WIDTH/2);
+        yCoordinate = arenaY - (yUltrasound.getReading() + ROBOT_WIDTH/2);
     }
     else if (currentDirection > 0 && currentDirection <= 135){
         faceAngle(90);
@@ -137,12 +144,12 @@ coord getCoords(float currentDirection) {
     }
     else if (currentDirection < 0 && currentDirection >= -135){
         faceAngle(-90);
-        xCoordinate = ARENA_X - (yUltrasound.getReading() + ROBOT_WIDTH/2);
-        yCoordinate = ARENA_Y - (xUltrasound.getReading() + ROBOT_LENGTH);
+        xCoordinate = arenaX - (yUltrasound.getReading() + ROBOT_WIDTH/2);
+        yCoordinate = arenaY - (xUltrasound.getReading() + ROBOT_LENGTH);
     }
     else{
         faceAngle(180);
-        xCoordinate = ARENA_X - (xUltrasound.getReading() + ROBOT_LENGTH);
+        xCoordinate = arenaX - (xUltrasound.getReading() + ROBOT_LENGTH);
         yCoordinate = yUltrasound.getReading() + ROBOT_WIDTH/2;
     }
     coord currentCoord(xCoordinate, yCoordinate);
@@ -220,9 +227,9 @@ void pathGo(coord inputCoord) {
 void pathFollow(vector<coord> path) {
 	// Moves the robot forwards along the path by distance "inputDistance", avoiding mines
     // Doesn't currently avoid mines
-    coord nextCoord = path.front();
+    coord nextCoord = path.back();
     pathGo(nextCoord);
-    path.pop_front();
+    path.pop_back();
 }
 
 void pathEdge() {
