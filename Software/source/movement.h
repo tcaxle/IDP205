@@ -11,14 +11,6 @@
 
 // **** PRIVATE **** //
 
-// ** SETUP ** //
-
-float initialiseOrientation(){
-    int xMeasurement;
-    int yMeasurement;
-    float currentAngle = compass.getHeading();
-}
-
 float getDirection() {
     //Uses a reading from the compass and the orientated compass offset to return the robot’s angle
     //Correct reading to be relative to x-axis heading then output
@@ -54,7 +46,7 @@ void setStop(int stopDelay = 0) {
   rightMotor.emergencyStop();
 }
 
-void setClockwise(int inputSpeed) {
+void setClockwise(int inputSpeed = 255) {
   // Sets both motors to spin clockwise with the defined speeds
   leftMotor.setForward();
   rightMotor.setBackward();
@@ -62,7 +54,7 @@ void setClockwise(int inputSpeed) {
   rightMotor.setSpeed(inputSpeed);
 }
 
-void setAnticlockwise(int inputSpeed) {
+void setAnticlockwise(int inputSpeed = 255) {
   // Sets both motors to spin anticlockwise with the defined speeds
   leftMotor.setBackward();
   rightMotor.setForward();
@@ -242,6 +234,34 @@ void pathReturn() {
 
 void pathHome() {
 	// Moves the robot back to the startbox via the shortest route, avoiding mines
+}
+
+// ** SETUP ** //
+
+float initialiseOrientation(){
+    int currentXMeasurement = xUltrasound.getReading();
+    int lastXMeasurement = currentXMeasurement;
+    float offsetAngle;
+    setClockwise();
+    while (currentXMeasurement <= lastXMeasurement){
+        lastXMeasurement = currentXMeasurement;
+        currentXMeasurement = xUltrasound.getReading();
+    }
+    setStop();
+    currentXMeasurement = xUltrasound.getReading();
+    lastXMeasurement = currentXMeasurement;
+    setAnticlockwise();
+    while(currentXMeasurement <= lastXMeasurement){
+        lastXMeasurement = currentXMeasurement;
+        currentXMeasurement = xUltrasound.getReading();
+    }
+    setStop();
+    offsetAngle = compass.getHeading();
+    return offsetAngle;
+}
+
+int initialiseArenaBoundaries(){
+    
 }
 
 // ** Panic ** //
