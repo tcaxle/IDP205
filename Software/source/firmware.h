@@ -109,6 +109,9 @@ int runCounter = 0;
 // Initialise path variable
 vector<coord> path;
 
+// Initialise xOrientation variable
+float xOrientation = 0;
+
 // Declare motor shield and motor wrapper objects
 Adafruit_MotorShield motorShield = Adafruit_MotorShield();
 motor leftMotor(1); // Motor on port 1 and initial speed 0 (default third parameter)
