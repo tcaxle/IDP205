@@ -101,6 +101,13 @@
 // Initialise arena dimensions
 int arenaX;
 int arenaY;
+vector<int> arenaVector;
+
+// Initialise runCounter (FOR FUNCTIONAL DEMO ONLY)
+int runCounter = 0;
+
+// Initialise path variable
+vector<coord> path;
 
 // Declare motor shield and motor wrapper objects
 Adafruit_MotorShield motorShield = Adafruit_MotorShield();
