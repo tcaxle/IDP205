@@ -198,6 +198,46 @@ class compass { // A class for the LSM303 Accelerometer and Magnetometer
 			}
 			return outputHeading;
 		}
+       vector <float> calibrate(motor motor1, motor motor2){
+            int runCounter = 0;
+            vector<float> fluxDistributionCentre;
+            motor1.setSpeed(225);
+            motor2.setSpeed(225);
+            motor1.setForward();
+            motor2.setBackward();
+            sensors_event_t reading;
+            assignedCompass.getEvent(&reading);
+            float minXFlux = reading.magnetic.x;
+            float maxXFlux = reading.magnetic.x;
+            float minYFlux = reading.magnetic.y;
+            float maxYFlux = reading.magnetic.y;
+            runCounter += 1;
+            delay (100);
+            while(runCounter < 300){
+                // Get current compass flux readings
+                sensors_event_t reading;
+                assignedCompass.getEvent(&reading);
+                if (reading.magnetic.x < minXFlux){
+                    minXFlux = reading.magnetic.x;
+                }
+                else if (reading.magnetic.x > maxXFlux){
+                    maxXFlux = reading.magnetic.x;
+                }
+                if (reading.magnetic.y < minYFlux){
+                    minYFlux = reading.magnetic.y;
+                }
+                else if (reading.magnetic.y > maxYFlux){
+                    maxYFlux = reading.magnetic.y;
+                }
+                runCounter += 1;
+                delay(100);
+            }
+            motor1.emergencyStop();
+            motor2.emergencyStop();
+            fluxDistributionCentre.push_back((maxXFlux + minXFlux)/2);
+            fluxDistributionCentre.push_back((maxYFlux + minYFlux)/2);
+            return fluxDistributionCentre;
+       }
 };
 
 class ultrasound{

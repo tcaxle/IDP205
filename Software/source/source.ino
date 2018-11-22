@@ -31,8 +31,8 @@ void loop() {
     if (runCounter == 0){
         compassOffset = initialiseOrientation();
         arenaVector = initialiseArenaBoundaries();
-        arenaX = arenaVector.front();
-        arenaY = arenaVector.back();
+        ARENA_WIDTH = arenaVector.front();
+        ARENA_WIDTH = arenaVector.back();
     }
     // Populate path
     path.push_back(point4);
@@ -62,24 +62,16 @@ void loop() {
     if (runCounter == 0){
         compassOffset = initialiseOrientation();
         arenaVector = initialiseArenaBoundaries();
-        arenaX = arenaVector.front();
-        arenaY = arenaVector.back();
-        delay(2000);
-        Serial.println(arenaX);
-        Serial.println(arenaY);
+        ARENA_WIDTH = arenaVector.front();
+        ARENA_WIDTH = arenaVector.back();
+        Serial.println(ARENA_WIDTH);
+        Serial.println(ARENA_WIDTH);
         runCounter += 1;
-    }
-    */
-    
+    }*/
+
     /*//getCoord test
     if(runCounter == 0){
         compassOffset = initialiseOrientation();
-        arenaVector = initialiseArenaBoundaries();
-        arenaX = arenaVector.front();
-        arenaY = arenaVector.back();
-        delay(2000);
-        Serial.println(arenaX);
-        Serial.println(arenaY);
         runCounter += 1;
     }
     coord currentCoord = getCoords(getDirection());
@@ -87,8 +79,7 @@ void loop() {
     Serial.println(currentCoord.x);
     Serial.print("Current Y Coordinate: ");
     Serial.println(currentCoord.y);
-    delay(5000);
-    */
+    delay(5000);*/
 
     /*//moveFwd test
     if (runCounter == 0){
@@ -100,13 +91,9 @@ void loop() {
     //pathGo test
     if (runCounter == 0){
         compassOffset = initialiseOrientation();
-        arenaVector = initialiseArenaBoundaries();
-        arenaX = arenaVector.front();
-        arenaY = arenaVector.back();
         pathGo(target);
         runCounter += 1;
-    }
-    */
+    }*/
     
     /* Tom's random code, preserved for posterity
     float angle = random(-179, 180);

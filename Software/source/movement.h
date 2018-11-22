@@ -196,22 +196,44 @@ void pathGo(coord inputCoord){
     // Moves the robot to the coordinate "input_coord" via perpendicular components
     // Get current position
     coord currentCoord = getCoords(getDirection());
+    Serial.print("Starting X Coord: ");
+    Serial.println(currentCoord.x);
+    Serial.print("Starting Y Coord: ");
+    Serial.println(currentCoord.y);
+    Serial.println();
     // Calculate vector from current position to target position
     coord movementVector = inputCoord.subtract(currentCoord);
+    Serial.print("Movement X Component: ");
+    Serial.println(currentCoord.x);
+    Serial.print("Movement Y Component: ");
+    Serial.println(currentCoord.y);
+    Serial.println();
     if(movementVector.x > 0){
         faceAngle(0);
+        Serial.print("Current direction: ");
+        Serial.println(getDirection());
+        Serial.println();
         moveFwd(movementVector.x);
     }
     else if(movementVector.x < 0){
         faceAngle(180);
+        Serial.print("Current direction: ");
+        Serial.println(getDirection());
+        Serial.println();
         moveFwd(movementVector.x);
     }
     if(movementVector.y > 0){
         faceAngle(90);
+        Serial.print("Current direction: ");
+        Serial.println(getDirection());
+        Serial.println();
         moveFwd(movementVector.y);
     }
     else if(movementVector.y < 0){
         faceAngle(-90);
+        Serial.print("Current direction: ");
+        Serial.println(getDirection());
+        Serial.println();
         moveFwd(movementVector.y);
     }
     faceAngle(xOrientation);

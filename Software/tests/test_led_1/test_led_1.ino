@@ -8,21 +8,22 @@
  */
 
 // ** Preamble ** //
-#include "firmware.h"
+//#include "firmware.h"
 
 void setup () {
-  
-  test.pin = 53;
-  test.init();
-
+    pinMode(1, OUTPUT);
+ 
+    //begin serial communication
+    Serial.begin(9600);
 }
 
 void loop() {
   
-  
-  test.set(0);
-  delay(100);
-  test.set(1);
-  delay(100);
+  digitalWrite(1, HIGH);
+  Serial.println("On!");
+  delay(1000);
+  digitalWrite(1, LOW);
+  Serial.println("Off!");
+  delay(1000);
   
 }

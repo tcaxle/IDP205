@@ -97,7 +97,7 @@
 //Define constants
 #define ROBOT_LENGTH 30
 #define ROBOT_WIDTH 20
-#define ARENA_WIDTH 224
+#define ARENA_WIDTH 240
 
 rectangle arena(0, ARENA_WIDTH, 0, ARENA_WIDTH);
 
