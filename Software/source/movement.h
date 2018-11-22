@@ -302,6 +302,7 @@ vector<coord> generateSearchPath(int gap = 20) {
 vector<coord> generateEdgePath(int gap = 20) {
   // Generates a series of coordinates to go to (20cm spacing by default) to the closest wall
   // Will generate to go to closest X or the y=0 side (whichever is closest)
+  // Requires to be predefined: arena (rectangle)
   coord currentPosition = getCoords();
   int xLine = currentPosition.x;
   int yLine = currentPosition.y;
