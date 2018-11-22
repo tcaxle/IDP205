@@ -270,6 +270,8 @@ void pathHome() {
 	// Moves the robot back to the startbox via the shortest route, avoiding mines
 }
 
+// ** PATH GENERATION ** //
+
 vector<coord> generateSearchPath(int gap = 20) {
   // Generates a series of (20cm spaced by default) coordinates along input y line to follow, ends before it hits the wall.
   // Will generate to go to ****furthest side**** from current position
@@ -277,7 +279,7 @@ vector<coord> generateSearchPath(int gap = 20) {
   coord currentPosition = getCoords();
   int yLine = currentPosition.y;
   bool increasingX = 0;
-  if (currentPosition.x < ARENA_WIDTH / 2) { increasingX = 1; } //if currently on side of board closest to start box, chooses to go to the other side and vice-versa.
+  if (xOrientation == 0) { increasingX = 1; } //if currently on side of board closest to start box, chooses to go to the other side and vice-versa.
   vector<coord> path;
   int lastX = currentPosition.x;
   coord lastCoord;
@@ -295,6 +297,55 @@ vector<coord> generateSearchPath(int gap = 20) {
     }
   }
   return path;
+}
+
+vector<coord> generateEdgePath(int gap = 20) {
+  // Generates a series of coordinates to go to (20cm spacing by default) to the closest wall
+  // Will generate to go to closest X or the y=0 side (whichever is closest)
+  coord currentPosition = getCoords();
+  int xLine = currentPosition.x;
+  int yLine = currentPosition.y;
+  int lastX;
+  int lastY;
+  coord lastCoord;
+  vector<coord> path;
+  if (xOrientation == 0) {
+    if (currentPosition.y <= currentPosition.x) {
+      // follow Y line, y decreasing
+      while (lastY > gap) {
+        lastX = lastY - gap;
+        lastCoord = coord(xLine, lastY);
+        path.push_back(lastCoord);
+      } 
+      return path;
+    } else {
+      // follow X line, x decreasing
+      while (lastX > gap) {
+        lastX = lastX - gap;
+        lastCoord = coord(lastX, yLine);
+        path.push_back(lastCoord);
+      }
+      return path;
+    }
+  } else {
+    if (currentPosition.y >= - currentPosition.x) {
+      // follow X line, x increasing
+      while (lastX < ARENA_WIDTH - gap) {
+        lastX = lastX + gap;
+        lastCoord = coord(lastX, yLine);
+        path.push_back(lastCoord);
+      }
+      return path;
+    } else {
+      // follow Y line, y decreasing
+      while (lastY > gap) {
+        lastX = lastY - gap;
+        lastCoord = coord(xLine, lastY);
+        path.push_back(lastCoord);
+      } 
+      return path;
+    }
+  }
 }
 
 // ** SETUP ** //
