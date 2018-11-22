@@ -97,11 +97,9 @@
 //Define constants
 #define ROBOT_LENGTH 30
 #define ROBOT_WIDTH 20
+#define ARENA_WIDTH 224
 
-// Initialise arena dimensions
-int arenaX;
-int arenaY;
-vector<int> arenaVector;
+rectangle arena(0, ARENA_WIDTH, 0, ARENA_WIDTH);
 
 // Initialise runCounter (FOR FUNCTIONAL DEMO ONLY)
 int runCounter = 0;

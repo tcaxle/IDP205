@@ -119,7 +119,7 @@ void faceCoord(coord input_coord) {
 	// Points the robot towards the coordinate "input_coord"
 }
 
-coord getCoords(float currentDirection) {
+coord getCoords(float currentDirection = getDirection()) {
     // Uses the ultrasound sensors to return a coord object giving the robot’s current location
     // Lengths to be given in cm
     // Direction to be given in degrees and should be oriented to the robot's Cartesian co-ordinate system
@@ -131,7 +131,7 @@ coord getCoords(float currentDirection) {
     if (abs(currentDirection) <= 45){
         faceAngle(0);
         xCoordinate = xUltrasound.getReading() + ROBOT_LENGTH;
-        yCoordinate = arenaY - (yUltrasound.getReading() + ROBOT_WIDTH/2);
+        yCoordinate = ARENA_WIDTH - (yUltrasound.getReading() + ROBOT_WIDTH/2);
     }
     else if (currentDirection > 0 && currentDirection <= 135){
         faceAngle(90);
@@ -140,12 +140,12 @@ coord getCoords(float currentDirection) {
     }
     else if (currentDirection < 0 && currentDirection >= -135){
         faceAngle(-90);
-        xCoordinate = arenaX - (yUltrasound.getReading() + ROBOT_WIDTH/2);
-        yCoordinate = arenaY - (xUltrasound.getReading() + ROBOT_LENGTH);
+        xCoordinate = ARENA_WIDTH - (yUltrasound.getReading() + ROBOT_WIDTH/2);
+        yCoordinate = ARENA_WIDTH - (xUltrasound.getReading() + ROBOT_LENGTH);
     }
     else{
         faceAngle(180);
-        xCoordinate = arenaX - (xUltrasound.getReading() + ROBOT_LENGTH);
+        xCoordinate = ARENA_WIDTH - (xUltrasound.getReading() + ROBOT_LENGTH);
         yCoordinate = yUltrasound.getReading() + ROBOT_WIDTH/2;
     }
     coord currentCoord(xCoordinate, yCoordinate);
@@ -268,6 +268,33 @@ void pathReturn() {
 
 void pathHome() {
 	// Moves the robot back to the startbox via the shortest route, avoiding mines
+}
+
+vector<coord> generateSearchPath(int gap = 20) {
+  // Generates a series of (20cm spaced by default) coordinates along input y line to follow, ends before it hits the wall.
+  // Will generate to go to ****furthest side**** from current position
+  // Requires to be predefined: arena (rectangle)
+  coord currentPosition = getCoords();
+  int yLine = currentPosition.y;
+  bool increasingX = 0;
+  if (currentPosition.x < ARENA_WIDTH / 2) { increasingX = 1; } //if currently on side of board closest to start box, chooses to go to the other side and vice-versa.
+  vector<coord> path;
+  int lastX = currentPosition.x;
+  coord lastCoord;
+  if (increasingX) {
+    while (lastX < ARENA_WIDTH - gap) {
+      lastX = lastX + gap;
+      lastCoord = coord(lastX, yLine);
+      path.push_back(lastCoord);
+    }
+  } else {
+    while (lastX > gap) {
+      lastX = lastX - gap;
+      lastCoord = coord(lastX, yLine);
+      path.push_back(lastCoord);
+    }
+  }
+  return path;
 }
 
 // ** SETUP ** //
