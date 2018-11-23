@@ -21,31 +21,6 @@ coord target(50, 50);
 
 void loop() {
 
-    /*//initialiseOrientation test
-    if (runCounter == 0){
-        compassOffset = initialiseOrientation();
-        runCounter += 1;
-    }
-    setClockwise(60);
-    Serial.println(compassOffset);
-    Serial.println(compass.getHeading());
-    Serial.println(getDirection());
-    Serial.println();
-    delay(500);
-    */
-
-    /*
-    //initialiseAreaBoundaries test
-    if (runCounter == 0){
-        compassOffset = initialiseOrientation();
-        arenaVector = initialiseArenaBoundaries();
-        ARENA_WIDTH = arenaVector.front();
-        ARENA_WIDTH = arenaVector.back();
-        Serial.println(ARENA_WIDTH);
-        Serial.println(ARENA_WIDTH);
-        runCounter += 1;
-    }*/
-
     /*
     //getCoord test
     if(runCounter == 0){
