@@ -16,14 +16,8 @@
 #include "orientation.h" // 5
 #include "movement.h" // 6
 
-// Initialise circular path co-ordinates for pathFollow test
-coord point1(50, 50);
-coord point2(50, ARENA_WIDTH-50);
-coord point3(ARENA_WIDTH-50, ARENA_WIDTH-50);
-coord point4(ARENA_WIDTH-50, ARENA_WIDTH-50);
-
 // Initialise sigle destination co-ordinate for pathGo test
-coord target(100, 100);
+coord target(50, 50);
 
 void loop() {
     /* pathFollow test
@@ -72,6 +66,9 @@ void loop() {
     */
     
     /*//getCoord test
+
+    /*
+    //getCoord test
     if(runCounter == 0){
         compassOffset = initialiseOrientation();
         arenaVector = initialiseArenaBoundaries();
@@ -95,9 +92,8 @@ void loop() {
         moveFwd(30);
         runCounter += 1;
     }*/
-
-    /*
-    //pathGo test
+    
+    /*//pathGo test
     if (runCounter == 0){
         compassOffset = initialiseOrientation();
         arenaVector = initialiseArenaBoundaries();
@@ -107,6 +103,7 @@ void loop() {
         runCounter += 1;
     }
     */
+    
     
     /* Tom's random code, preserved for posterity
     float angle = random(-179, 180);
