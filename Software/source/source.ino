@@ -30,7 +30,7 @@ coord point8(100, 50);
 coord target(50, 50);
 
 void loop() {
-    //pathFollow test
+    /*//pathFollow test
     // On first run
     if (runCounter == 0){
         compassOffset = initialiseOrientation();
@@ -51,7 +51,7 @@ void loop() {
     Serial.println();
     // Follow path
     pathFollow(path);
-    runCounter += 1;
+    runCounter += 1;*/
     
 
     /*//initialiseOrientation test
