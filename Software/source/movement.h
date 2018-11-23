@@ -69,7 +69,7 @@ void setAnticlockwise(int inputSpeed = 120) {
 
 // ** Facing ** //
 
-void faceAngle(float targetHeading, float tolerance = 1, int turnSpeed = 60) {
+void faceAngle(float targetHeading, float tolerance = 0.25, int turnSpeed = 60) {
   // rotates to face in a particular direction
   float currentHeading = getDirection();
   float error = currentHeading - targetHeading;
@@ -174,6 +174,9 @@ void moveFwd(float inputDistance) {
             setStop();
         }
     }
+    Serial.print("Distance travelled: ");
+    Serial.println(distanceTravelled);
+    Serial.println();
 }
 
 void moveBwd(float inputDistance) {
@@ -192,7 +195,7 @@ void spinRgt(float inputDegrees) {
 
 // ** Path ** //
 
-void pathGo(coord inputCoord){
+void pathGo(coord inputCoord, int tolerance = 2){
     // Moves the robot to the coordinate "input_coord" via perpendicular components
     // Get current position
     coord currentCoord = getCoords(getDirection());
@@ -204,39 +207,51 @@ void pathGo(coord inputCoord){
     // Calculate vector from current position to target position
     coord movementVector = inputCoord.subtract(currentCoord);
     Serial.print("Movement X Component: ");
-    Serial.println(currentCoord.x);
+    Serial.println(movementVector.x);
     Serial.print("Movement Y Component: ");
-    Serial.println(currentCoord.y);
+    Serial.println(movementVector.y);
     Serial.println();
-    if(movementVector.x > 0){
+    if(movementVector.x > tolerance){
         faceAngle(0);
+        Serial.println("Turning to +x");
         Serial.print("Current direction: ");
         Serial.println(getDirection());
         Serial.println();
-        moveFwd(movementVector.x);
+        moveFwd(abs(movementVector.x));
     }
-    else if(movementVector.x < 0){
+    else if(movementVector.x < -tolerance){
         faceAngle(180);
+        Serial.println("Turning to -x");
         Serial.print("Current direction: ");
         Serial.println(getDirection());
         Serial.println();
-        moveFwd(movementVector.x);
+        moveFwd(abs(movementVector.x));
     }
-    if(movementVector.y > 0){
+    if(movementVector.y > tolerance){
         faceAngle(90);
+        Serial.println("Turning to +y");
         Serial.print("Current direction: ");
         Serial.println(getDirection());
         Serial.println();
-        moveFwd(movementVector.y);
+        moveFwd(abs(movementVector.y));
     }
-    else if(movementVector.y < 0){
+    else if(movementVector.y < -tolerance){
         faceAngle(-90);
+        Serial.println("Turning to -y");
         Serial.print("Current direction: ");
         Serial.println(getDirection());
         Serial.println();
-        moveFwd(movementVector.y);
+        moveFwd(abs(movementVector.y));
     }
-    faceAngle(xOrientation);
+    //faceAngle(xOrientation);
+    Serial.print("End direction: ");
+    Serial.println(getDirection());
+    Serial.println();
+    currentCoord = getCoords(getDirection());
+        Serial.print("End X Coord: ");
+    Serial.println(currentCoord.x);
+    Serial.print("End Y Coord: ");
+    Serial.println(currentCoord.y);
 }
 
 /*
@@ -275,9 +290,17 @@ void pathGo(coord inputCoord) {
 void pathFollow(vector<coord> path) {
 	// Moves the robot forwards along the path by distance "inputDistance", avoiding mines
     // Doesn't currently avoid mines
-    coord nextCoord = path.back();
-    pathGo(nextCoord);
-    path.pop_back();
+    int pathSize = path.size();
+    for (int coordCounter = 0; coordCounter < pathSize; coordCounter += 1){
+        coord nextCoord = path.back();
+        Serial.print("Next co-ord: ");
+        Serial.print(nextCoord.x);
+        Serial.print(", ");
+        Serial.println(nextCoord.y);
+        Serial.println();
+        pathGo(nextCoord);
+        path.pop_back();
+    }
 }
 
 void pathEdge() {
