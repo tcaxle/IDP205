@@ -24,28 +24,31 @@ void loop() {
     delay(1000);
     */
 
-    /*
-    Serial.print(LDR00.voltage());
-    Serial.print(", ");
-    Serial.print(LDR01.voltage());
-    Serial.print(", ");
-    Serial.print(LDR02.voltage());
-    Serial.print(", ");
-    Serial.print(LDR03.voltage());
-    Serial.print(", ");
-    Serial.print(LDR04.voltage());
-    Serial.print(", ");
-
-    Serial.print(LDR08.voltage());
-    Serial.print(", ");
-    Serial.print(LDR09.voltage());
-    Serial.print(", ");
-    Serial.print(LDR10.voltage());
-    Serial.print(", ");
-    Serial.print(LDR11.voltage());
-    Serial.println();
-    */
-
-    Serial.print("AAA");
-    delay(100);
+    
+    
+    int i = 0;
+    LDRreading = LDRreading / 5.0;
+    Serial.println(LDRreading);
+    if (LDRreading >= LDRaverage + 20) { // SAFE
+      red.set(0);
+      yellow.set(1);
+      green.set(0);
+      setStop();
+      setBwd();
+      delay(10);
+      setStop();
+      delay(3000);
+    } else if (LDRreading > LDRaverage + 5 && LDRreading < LDRaverage + 20) { // DANGER
+      red.set(1);
+      yellow.set(0);
+      green.set(0);
+      setStop();
+      setBwd();
+      delay(10);
+      setStop();
+      delay(3000);
+    } else { // NO MINE
+      red.set(0);
+      setFwd();
+    }
 }

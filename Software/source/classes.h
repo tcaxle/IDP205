@@ -232,13 +232,28 @@ class ldr { // A class for taking the input voltage of an LDR in a potential div
   public:
 
   char port;
+  float datum = 0.0;
 
   ldr(char inputPort) {
+    // constructor
     port = inputPort;
   }
 
   float voltage() {
     return analogRead(port);
+  }
+  float average(int count = 5) {
+    // Average result over "count" readings
+    int i = 0;
+    float result = 0.0;
+    while (i < count) {
+      i ++;
+      result += voltage();
+    }
+    return(result / count);
+  }
+  void calibrate() {
+    datum = average(100);
   }
 };
 
