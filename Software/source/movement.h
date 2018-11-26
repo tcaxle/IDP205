@@ -188,9 +188,12 @@ void moveFwd(float inputDistance, bool safe = true) {
                 mostSevereReading = mineReadings[readingCounter];
             }
         }
-        // If the mine is safe log its position
+        // If the mine is safe log its position and transport the mine to outside the safe zone
         if (mostSevereReading == 1){
             safeMineCoords.push_back(mineCoord);
+            mineGrab();
+            path = generateEdgePath();
+            pathFollow(path);
         }
         // If the mine is dangerous log its position and add a forbidden zone to the array
         else if (mostSevereReading == 2){

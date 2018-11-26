@@ -29,7 +29,7 @@ void servoMove(int endPos, int startPos = arm.read(), int stepDelay = 50, int st
 }
 
 // ** Variables ** //
-bool isHoldingMine = 0; // A flag to indicate whether or not the robot is holding a mine
+bool isHoldingMine = false; // A flag to indicate whether or not the robot is holding a mine
 
 // ** Mine Interaction ** //
 void calibrateLDRs() {
