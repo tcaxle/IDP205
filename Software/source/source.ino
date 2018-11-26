@@ -52,4 +52,6 @@ void loop() {
       setFwd();
     }
     */
+
+    setFwd();
 }

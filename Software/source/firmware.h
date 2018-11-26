@@ -145,6 +145,9 @@ led green(3, 1);
 led red(4);
 led yellow(5);
 
+// Declare Servo Arm
+Servo arm;
+
 void setup () {
   //Initialise serial sample rate
   Serial.begin(9600);
@@ -156,6 +159,9 @@ void setup () {
   rightMotor.assignedMotorShield = motorShield;
   leftMotor.init();
   rightMotor.init();
+
+  // Initialise Servo
+  arm.attach(10);
 
   // Initialise Compass
   compass.init();
