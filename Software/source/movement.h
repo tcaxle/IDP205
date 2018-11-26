@@ -519,10 +519,7 @@ rectangle initialiseArenaBoundaries(){
     distToXAxis = yUltrasound.getReading() + ROBOT_WIDTH/2;
     totalX = distToXAxis + distToFarX;
     totalY = distToYAxis + distToFarY;
-    arena.a = coord(0, totalY);
-    arena.b = coord(totalX, totalY);
-    arena.c = coord(0, 0);
-    arena.d = coord(totalX, 0);
+    arena = rectangle(0, totalX, 0, totalY);
     return arena;
 }
 
