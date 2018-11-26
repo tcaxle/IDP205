@@ -1,5 +1,5 @@
 /*
- * test_generateSearchPath.ino
+ * test_generateEdgePath.ino
  *
  * Created: 23/11/2018
  * Author: L. Anderson
@@ -18,5 +18,6 @@ void loop() {
     compassOffset = initialiseOrientation();
     arena = initialiseArenaBoundaries();
     dangerZone = rectangle(30, arena.x1 - 30, 30, arena.y1 - 30);
-    path = generateSearchPath();
+    pathGo(coord(50,50));
+    path = generateEdgePath();
 }
