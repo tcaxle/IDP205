@@ -12,9 +12,21 @@
 // **** PUBLIC **** //
 
 // ** Variables ** //
-bool isHoldingMine; // A flag to indicate whether or not the robot is holding a mine
+bool isHoldingMine = 0; // A flag to indicate whether or not the robot is holding a mine
 
 // ** Mine Interaction ** //
+vector<bool> calibrateLDRs() {
+  
+}
+
+
+bool singleDetectMine(char port) {
+  
+}
+
+bool detectMine() {
+  
+}
 
 bool mineGrab() {
 	// Grabs mine immediately in front of robot, returns 1 when complete

@@ -317,6 +317,7 @@ void pathHome() {
 
 // ** PATH GENERATION ** //
 
+
 vector<coord> generateSearchPath(int gap = 20) {
   // Generates a series of (20cm spaced by default) coordinates along input y line to follow, ends before it hits the wall.
   // Will generate to go to ****furthest side**** from current position
@@ -340,6 +341,8 @@ vector<coord> generateSearchPath(int gap = 20) {
   }
   return path;
 }
+
+
 
 vector<coord> generateEdgePath(int gap = 20) {
   // Generates a series of coordinates to go (20cm spacing by default) to the closest wall and return to original space
@@ -390,6 +393,7 @@ vector<coord> generateEdgePath(int gap = 20) {
     }
   }
     // Otherwise, if facing negative x-direction 
+    
   else {
     if (currentPosition.y - dangerZone.y0 < dangerZone.x1 - currentPosition.x) {
       // follow constant X line from robot to edge, y decreasing
@@ -427,6 +431,7 @@ vector<coord> generateEdgePath(int gap = 20) {
     }
   }
 }
+
 
 // ** SETUP ** //
 

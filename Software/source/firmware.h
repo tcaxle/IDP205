@@ -130,9 +130,15 @@ float compassOffset = 0;
 infrared leftIR(A0);
  
 // Declare LDRs and LEDs
-ldr colourSenseL(A1);
-led colourLEDL(2, 1);
-double LDRaverage = 0;
+ldr LDR00(A0);
+ldr LDR01(A1);
+ldr LDR02(A2);
+ldr LDR03(A3);
+ldr LDR04(A4);
+ldr LDR08(A8);
+ldr LDR09(A9);
+ldr LDR10(A10);
+ldr LDR11(A11);
 
 led green(3, 1);
 led red(4);
@@ -155,12 +161,4 @@ void setup () {
   compass.xFluxCorrection = 2.77;
   compass.yFluxCorrection = -46.81;
 
-  // Average Reading of LDR
-  int i = 0;
-  double LDRsum = 0;
-  while (i < 100) {
-    i++;
-    LDRsum = LDRsum + colourSenseL.voltage();
-  }
-  LDRaverage = LDRsum / 100.0;
 }
