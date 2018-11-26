@@ -19,35 +19,7 @@
 // Initialise sigle destination co-ordinate for pathGo test
 coord target(50, 50);
 
-void loop() {
-
-    /*
-    //getCoord test
-    if(runCounter == 0){
-        compassOffset = initialiseOrientation();
-        runCounter += 1;
-    }
-    coord currentCoord = getCoords(getDirection());
-    Serial.print("Current X Coordinate: ");
-    Serial.println(currentCoord.x);
-    Serial.print("Current Y Coordinate: ");
-    Serial.println(currentCoord.y);
-    delay(5000);
-    */
-
-    /*//moveFwd test
-    if (runCounter == 0){
-        moveFwd(30);
-        runCounter += 1;
-    }*/
-    
-    /*//pathGo test
-    if (runCounter == 0){
-        compassOffset = initialiseOrientation();
-        pathGo(target);
-        runCounter += 1;
-    }*/
-    
+void loop() {    
     
     /* Tom's random code, preserved for posterity
     float angle = random(-179, 180);
