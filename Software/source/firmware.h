@@ -109,6 +109,7 @@ rectangle dangerZone;               // Defines edges of safe zone for mine dispo
 vector<coord> dangerousMineCoords;  // Holds co-ordinates of dangerous mines
 vector<coord> path;                 // Container for current path to be followed
 vector<coord> safeMineCoords;       // Holds co-ordinates of safe mines
+vector<rectangle> forbiddenZones;    // Holds rectangle objects that denote areas considered off-limits due to the presence of dangerous mines
 
 // Initialise inputs
 Adafruit_LSM303_Mag_Unified mag = Adafruit_LSM303_Mag_Unified();    // Initialise mag compass object
@@ -124,8 +125,8 @@ ldr LDR09(A9);
 ldr LDR10(A10);
 ldr LDR11(A11);
 
-NewPing initXUltrasound(10, 11); //Should be mounted on the rear    // Initialise US objects
-NewPing initYUltrasound(12, 13); //Should be mounted on the side
+NewPing initXUltrasound(10, 11);            // Initialise US objects
+NewPing initYUltrasound(12, 13);            //Should be mounted on the side
 ultrasound xUltrasound(initXUltrasound);    // Put US objects into container objects
 ultrasound yUltrasound(initYUltrasound);
 
@@ -134,9 +135,9 @@ led green(3, 1);    // Assign LED ports
 led red(4);
 led yellow(5);
 
-Adafruit_MotorShield motorShield = Adafruit_MotorShield();                              // Initialise motor shield object
-motor leftMotor(3); // Motor on port 1 and initial speed 0 (default third parameter)    // Create motor objects 
-motor rightMotor(4); // Motor on port 2 and initial speed 0 (default third parameter)
+Adafruit_MotorShield motorShield = Adafruit_MotorShield();      // Initialise motor shield object
+motor leftMotor(3);                                             // Motor on port 1 and initial speed 0 (default third parameter)    
+motor rightMotor(4);                                            // Motor on port 2 and initial speed 0 (default third parameter)
 
 Servo arm;  // Create servo arm object
 

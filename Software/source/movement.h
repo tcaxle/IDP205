@@ -156,6 +156,7 @@ coord getCoords(float currentDirection = getDirection()) {
 
 void moveFwd(float inputDistance, bool safe = true) {
 	// Moves the robot in the current direction by distance "inputDistance" (may take negative values to reverse)
+    // If the robot encounters a mine it should reverse to its previous spot
     int startDistance = xUltrasound.getReading();
     int currentDistance;
     int distanceTravelled;
@@ -175,9 +176,29 @@ void moveFwd(float inputDistance, bool safe = true) {
             setStop();
         }
     }
-    // After stopping, if a mine is detected
-    if (detectMine()){
-        moveFwd(0);
+    // After stopping, if a mine is detected and the move is safe
+    if (detectMine() && safe){
+        // Get vector of LDR readings and initialise the most severe mine reading to 0 (no mine)
+        coord mineCoord = getCoords();
+        vector<int> mineReadings = getMineReadings();
+        int mostSevereReading = 0;
+        // Step through all LDR readings to find the most severe
+        for (int readingCounter = 0; readingCounter < mineReadings.size(); readingCounter += 1){
+            if (mineReadings[readingCounter] > mostSevereReading){
+                mostSevereReading = mineReadings[readingCounter];
+            }
+        }
+        // If the mine is safe log its position
+        if (mostSevereReading == 1){
+            safeMineCoords.push_back(mineCoord);
+        }
+        // If the mine is dangerous log its position and add a forbidden zone to the array
+        else if (mostSevereReading == 2){
+            dangerousMineCoords.push_back(mineCoord);
+            forbiddenZones.push_back(rectangle(mineCoord.x - 20, mineCoord.x + 20, mineCoord.y - 20, mineCoord.y + 20));
+        }
+        //Reverse to previous location without mine recognition (prevents getting permanently stuck)
+        moveFwd(-distanceTravelled, false);
     }
 }
 
