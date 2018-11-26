@@ -99,7 +99,8 @@
 #define ROBOT_WIDTH 20
 #define ARENA_WIDTH 224
 
-//rectangle arena(0, ARENA_WIDTH, 0, ARENA_WIDTH);
+rectangle arena;
+rectangle dangerZone;
 
 // Initialise runCounter (FOR FUNCTIONAL DEMO ONLY)
 int runCounter = 0;

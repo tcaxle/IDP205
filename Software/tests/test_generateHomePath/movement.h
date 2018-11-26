@@ -311,10 +311,6 @@ void pathReturn() {
 	// Moves the robot back to the point on its path where it left off, avoiding mines
 }
 
-void pathHome() {
-	// Moves the robot back to the startbox via the shortest route, avoiding mines
-}
-
 // ** PATH GENERATION ** //
 
 vector<coord> generateSearchPath(int gap = 20) {
@@ -426,6 +422,14 @@ vector<coord> generateEdgePath(int gap = 20) {
       return path;
     }
   }
+}
+
+vector<coord> generateHomePath(int gap = 20){
+    coord currentPosition = getCoords();
+    coord lastCoord;
+    vector<coord> path;
+    int homeLineGradient = round((currentPosition.y - homeCoord.y)/(currentPosition.x - homeCoord.x));
+    lastCoord
 }
 
 // ** SETUP ** //

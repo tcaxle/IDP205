@@ -24,7 +24,6 @@ void loop() {
     delay(1000);
     */
 
-    /*
     Serial.print(LDR00.voltage());
     Serial.print(", ");
     Serial.print(LDR01.voltage());
@@ -44,8 +43,5 @@ void loop() {
     Serial.print(", ");
     Serial.print(LDR11.voltage());
     Serial.println();
-    */
-
-    Serial.print("AAA");
     delay(100);
 }

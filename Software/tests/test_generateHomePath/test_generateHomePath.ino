@@ -19,6 +19,7 @@ void loop() {
         compassOffset = initialiseOrientation();
         arena = initialiseArenaBoundaries();
         dangerZone = rectangle(30, arena.x1 - 30, 30, arena.y1 - 30);
+        coord homeCoord = getCoords();
         pathGo(coord(50,50));
         pathGo(coord(100,100));
         pathGo(coord(100, 150));
