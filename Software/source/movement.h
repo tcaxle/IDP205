@@ -199,93 +199,27 @@ void pathGo(coord inputCoord, int tolerance = 2){
     // Moves the robot to the coordinate "input_coord" via perpendicular components
     // Get current position
     coord currentCoord = getCoords(getDirection());
-    Serial.print("Starting X Coord: ");
-    Serial.println(currentCoord.x);
-    Serial.print("Starting Y Coord: ");
-    Serial.println(currentCoord.y);
-    Serial.println();
     // Calculate vector from current position to target position
     coord movementVector = inputCoord.subtract(currentCoord);
-    Serial.print("Movement X Component: ");
-    Serial.println(movementVector.x);
-    Serial.print("Movement Y Component: ");
-    Serial.println(movementVector.y);
-    Serial.println();
     if(movementVector.x > tolerance){
         faceAngle(0);
-        Serial.println("Turning to +x");
-        Serial.print("Current direction: ");
-        Serial.println(getDirection());
-        Serial.println();
         moveFwd(abs(movementVector.x));
     }
     else if(movementVector.x < -tolerance){
         faceAngle(180);
-        Serial.println("Turning to -x");
-        Serial.print("Current direction: ");
-        Serial.println(getDirection());
-        Serial.println();
         moveFwd(abs(movementVector.x));
     }
     if(movementVector.y > tolerance){
         faceAngle(90);
-        Serial.println("Turning to +y");
-        Serial.print("Current direction: ");
-        Serial.println(getDirection());
-        Serial.println();
         moveFwd(abs(movementVector.y));
     }
     else if(movementVector.y < -tolerance){
         faceAngle(-90);
-        Serial.println("Turning to -y");
-        Serial.print("Current direction: ");
-        Serial.println(getDirection());
-        Serial.println();
         moveFwd(abs(movementVector.y));
     }
     //faceAngle(xOrientation);
-    Serial.print("End direction: ");
-    Serial.println(getDirection());
-    Serial.println();
     currentCoord = getCoords(getDirection());
-        Serial.print("End X Coord: ");
-    Serial.println(currentCoord.x);
-    Serial.print("End Y Coord: ");
-    Serial.println(currentCoord.y);
 }
-
-/*
-void pathGo(coord inputCoord) {
-    // Moves the robot to the coordinate "input_coord" via the shortest route
-    // Get current position
-    coord currentCoord = getCoords(getDirection());
-    // Calculate vector from current position to target position
-    coord movementVector = inputCoord.subtract(currentCoord);
-    // Initialise containers for angle and length of vector
-    float vectorAngle;
-    int vectorLength;
-    // If the vector to the target is vertical
-    if (movementVector.x == 0 && movementVector.y < 0) {
-        // If the y-component is negative, the angle is -90 degress from the neutral axis
-        vectorAngle = -90;
-    }
-    else if (movementVector.x == 0 && movementVector.y >= 0){
-        // If the y-component is positive, the angle is 90 degrees from the neutral axis
-        vectorAngle = 90;
-    }
-    else {
-        // Otherwise find the angle from the neutral axis by inverse tangent
-        vectorAngle = atan2(movementVector.y, movementVector.x)*180/PI;
-    }
-    faceAngle(vectorAngle);
-    // Calculate length to move by Pythagoras
-    vectorLength = round(sqrt(pow(movementVector.x, 2) + pow(movementVector.y, 2)));
-    moveFwd(vectorLength);
-    currentCoord = getCoords(getDirection());
-    Serial.print(currentCoord.x);
-    Serial.print(", ");
-    Serial.println(currentCoord.y);
-}*/
 
 void pathFollow(vector<coord> path) {
 	// Moves the robot to the next point on a path, avoiding mines

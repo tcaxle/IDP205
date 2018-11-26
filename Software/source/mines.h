@@ -65,7 +65,7 @@ int singleDetectMine(ldr target) {
   }
 }
 
-vector<int> detectMine() {
+vector<int> getMineReadings() {
   vector<int> output;
   output.push_back(singleDetectMine(LDR00));
   output.push_back(singleDetectMine(LDR01));
