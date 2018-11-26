@@ -15,9 +15,12 @@
 #include "movement.h" // 5
 
 void loop() {
-    compassOffset = initialiseOrientation();
-    arena = initialiseArenaBoundaries();
-    dangerZone = rectangle(30, arena.x1 - 30, 30, arena.y1 - 30);
-    pathGo(coord(50,50));
-    path = generateEdgePath();
+    if (runCounter == 0) {
+        compassOffset = initialiseOrientation();
+        arena = initialiseArenaBoundaries();
+        dangerZone = rectangle(30, arena.x1 - 30, 30, arena.y1 - 30);
+        pathGo(coord(50,50));
+        path = generateEdgePath();
+        runCounter += 1;
+    }
 }
