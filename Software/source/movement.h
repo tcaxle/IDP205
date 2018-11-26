@@ -47,6 +47,12 @@ void setStop(int stopDelay = 0) {
   delay(stopDelay);
   leftMotor.emergencyStop();
   rightMotor.emergencyStop();
+  setBwd();
+  delay(5);
+  setFwd();
+  delay(5);
+  leftMotor.emergencyStop();
+  rightMotor.emergencyStop();
 }
 
 void setClockwise(int inputSpeed = 120) {

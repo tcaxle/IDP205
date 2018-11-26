@@ -47,17 +47,11 @@ void loop() {
       yellow.set(1);
       green.set(0);
       setStop();
-      setBwd();
-      delay(10);
-      setStop();
       delay(3000);
     } else if (LDRreading > LDRaverage + 5 && LDRreading < LDRaverage + 20) { // DANGER
       red.set(1);
       yellow.set(0);
       green.set(0);
-      setStop();
-      setBwd();
-      delay(10);
       setStop();
       delay(3000);
     } else { // NO MINE
