@@ -254,7 +254,7 @@ void pathGo(coord inputCoord, int tolerance = 2){
     Serial.println(currentCoord.y);
 }
 
-/* This version does not move at right angles and tends to cause some problems with the US sensors so avoid using it
+/*
 void pathGo(coord inputCoord) {
     // Moves the robot to the coordinate "input_coord" via the shortest route
     // Get current position
@@ -345,7 +345,7 @@ vector<coord> generateSearchPath(int gap = 20) {
 }
 
 vector<coord> generateEdgePath(int gap = 20) {
-  // Generates a series of coordinates to go (20cm spacing by default) to the closest wall
+  // Generates a series of coordinates to go to (20cm spacing by default) to the closest wall
   // Will generate to go to closest X or the y=0 side (whichever is closest)
   // Requires to be predefined: arena (rectangle)
   coord currentPosition = getCoords();
@@ -397,7 +397,7 @@ vector<coord> generateEdgePath(int gap = 20) {
 // ** SETUP ** //
 
 float initialiseOrientation(){
-    /* This tends to have troublt with over
+    /*
     int currentXMeasurement = xUltrasound.getTime();
     int lastXMeasurement = currentXMeasurement;
     float offsetAngle;
@@ -422,7 +422,6 @@ float initialiseOrientation(){
     return compass.getHeading();
 }
 
-/* Gets arena bounds as a vector form; use the rectangular version for class consistency of boundaries
 vector<int> initialiseArenaBoundaries(){
     // To be called after initialiseOrientation
     int distToYAxis;
@@ -445,10 +444,9 @@ vector<int> initialiseArenaBoundaries(){
     arenaBoundaries.push_back(totalY);
     return arenaBoundaries;
 }
-*/
 
-//RECTANGULAR OUTPUT
-rectangle initialiseArenaBoundaries(){
+/* RECTANGLE OUTPUT
+rectangle initialiseAreaBoundaries(){
     // To be called after initialiseOrientation
     int distToYAxis;
     int distToXAxis;
@@ -466,12 +464,12 @@ rectangle initialiseArenaBoundaries(){
     totalX = distToXAxis + distToFarX;
     totalY = distToYAxis + distToFarY;
     arena.a = coord(0, totalY);
-    arena.b = coord(totalX, totalY);
+    arenae.b = coord(totalX, totalY);
     arena.c = coord(0, 0);
     arena.d = coord(totalX, 0);
     return arena;
 }
-
+*/
 
 // ** Panic ** //
 
