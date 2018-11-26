@@ -17,7 +17,6 @@
 #include "movement.h" // 6
 
 void loop() {
-    
     /* Tom's random code, preserved for posterity
     float angle = random(-179, 180);
     Serial.println(angle);
@@ -33,13 +32,13 @@ void loop() {
     }
     LDRreading = LDRreading / 5.0;
     Serial.println(LDRreading);
-    if (LDRreading > 380) { // SAFE
+    if (LDRreading >= LDRaverage + 20) { // SAFE
       red.set(0);
       yellow.set(1);
       green.set(0);
       setStop();
       delay(3000);
-    } else if (LDRreading > LDRaverage + 4 && LDRreading < LDRaverage + 10) { // DANGER
+    } else if (LDRreading > LDRaverage + 5 && LDRreading < LDRaverage + 20) { // DANGER
       red.set(1);
       yellow.set(0);
       green.set(0);
