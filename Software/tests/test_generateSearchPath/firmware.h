@@ -100,6 +100,7 @@
 #define ARENA_WIDTH 240
 
 rectangle arena(0, ARENA_WIDTH, 0, ARENA_WIDTH);
+rectangle dangerZone(30, ARENA_WIDTH - 30, 30, ARENA_WIDTH - 30);
 
 // Initialise runCounter (FOR FUNCTIONAL DEMO ONLY)
 int runCounter = 0;

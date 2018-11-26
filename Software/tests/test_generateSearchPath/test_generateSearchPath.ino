@@ -15,6 +15,8 @@
 #include "movement.h" // 5
 
 void loop() {
-  // put your main code here, to run repeatedly:
-
+    compassOffset = initialiseOrientation();
+    arena = initialiseArenaBoundaries();
+    dangerZone = rectangle(30, arena.x1 - 30, 30, arena.y1 - 30);
+    path = generateSearchPath();
 }

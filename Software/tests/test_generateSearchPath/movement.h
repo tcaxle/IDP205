@@ -320,25 +320,22 @@ void pathHome() {
 vector<coord> generateSearchPath(int gap = 20) {
   // Generates a series of (20cm spaced by default) coordinates along input y line to follow, ends before it hits the wall.
   // Will generate to go to ****furthest side**** from current position
-  // Requires to be predefined: arena (rectangle)
+  // Requires to be predefined: dangerZone (rectangle)
   coord currentPosition = getCoords();
-  int yLine = currentPosition.y;
-  bool increasingX = 0;
-  if (xOrientation == 0) { increasingX = 1; } //if currently on side of board closest to start box, chooses to go to the other side and vice-versa.
-  vector<coord> path;
-  int lastX = currentPosition.x;
   coord lastCoord;
-  if (increasingX) {
-    while (lastX < ARENA_WIDTH - gap) {
-      lastX = lastX + gap;
-      lastCoord = coord(lastX, yLine);
-      path.push_back(lastCoord);
+  vector<coord> path;
+  if (xOrientation == 0){
+    lastCoord = coord(dangerZone.x1, currentPosition.y);
+    while(lastCoord.x > currentPosition.x){
+        path.push_back(lastCoord);
+        lastCoord.x -= gap;
     }
-  } else {
-    while (lastX > gap) {
-      lastX = lastX - gap;
-      lastCoord = coord(lastX, yLine);
-      path.push_back(lastCoord);
+  }
+  else{
+    lastCoord = coord(dangerZone.x0, currentPosition.y);
+    while(lastCoord.x < currentPosition.x){
+        path.push_back(lastCoord);
+        lastCoord.x += gap;
     }
   }
   return path;
@@ -422,6 +419,7 @@ float initialiseOrientation(){
     return compass.getHeading();
 }
 
+/*
 vector<int> initialiseArenaBoundaries(){
     // To be called after initialiseOrientation
     int distToYAxis;
@@ -443,10 +441,10 @@ vector<int> initialiseArenaBoundaries(){
     arenaBoundaries.push_back(totalX);
     arenaBoundaries.push_back(totalY);
     return arenaBoundaries;
-}
+}*/
 
-/* RECTANGLE OUTPUT
-rectangle initialiseAreaBoundaries(){
+//RECTANGLE OUTPUT
+rectangle initialiseArenaBoundaries(){
     // To be called after initialiseOrientation
     int distToYAxis;
     int distToXAxis;
@@ -464,12 +462,11 @@ rectangle initialiseAreaBoundaries(){
     totalX = distToXAxis + distToFarX;
     totalY = distToYAxis + distToFarY;
     arena.a = coord(0, totalY);
-    arenae.b = coord(totalX, totalY);
+    arena.b = coord(totalX, totalY);
     arena.c = coord(0, 0);
     arena.d = coord(totalX, 0);
     return arena;
 }
-*/
 
 // ** Panic ** //
 
