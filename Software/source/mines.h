@@ -11,6 +11,23 @@
 
 // **** PUBLIC **** //
 
+// ** Servo Stuff ** //
+
+void servoMove(int endPos, int startPos = arm.read(), int stepDelay = 50, int stepDegree = 1) {
+  int currentPos;
+  if (startPos < endPos) {
+    for (currentPos = startPos; currentPos <= endPos; currentPos += stepDegree) {
+      arm.write(currentPos);
+      delay(15);
+    }
+  } else {
+    for (currentPos = startPos; currentPos >= endPos; currentPos -= stepDegree) {
+      arm.write(currentPos);
+      delay(15);
+    }
+  }
+}
+
 // ** Variables ** //
 bool isHoldingMine = 0; // A flag to indicate whether or not the robot is holding a mine
 
@@ -62,14 +79,17 @@ vector<int> detectMine() {
   output.push_back(singleDetectMine(LDR11));
 }
 
-bool mineGrab() {
+void mineGrab() {
 	// Grabs mine immediately in front of robot, returns 1 when complete
 	// WARNING: Robot must be orientate to face the mine first
-  
+  servoMove(0);
+  isHoldingMine = 1;
 }
 
-bool mineDrop() {
+void mineDrop() {
 	// Drops mine held by robot, returns 0 when complete
+  servoMove(30);
+  isHoldingMine = 0;
 }
 
 // **** PRIVATE **** //

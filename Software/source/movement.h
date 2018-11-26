@@ -131,7 +131,7 @@ coord getCoords(float currentDirection = getDirection()) {
     if (abs(currentDirection) <= 45){
         faceAngle(0);
         xCoordinate = xUltrasound.getReading() + ROBOT_LENGTH;
-        yCoordinate = ARENA_WIDTH - (yUltrasound.getReading() + ROBOT_WIDTH/2);
+        yCoordinate = arena.y1 - (yUltrasound.getReading() + ROBOT_WIDTH/2);
     }
     else if (currentDirection > 0 && currentDirection <= 135){
         faceAngle(90);
@@ -140,12 +140,12 @@ coord getCoords(float currentDirection = getDirection()) {
     }
     else if (currentDirection < 0 && currentDirection >= -135){
         faceAngle(-90);
-        xCoordinate = ARENA_WIDTH - (yUltrasound.getReading() + ROBOT_WIDTH/2);
-        yCoordinate = ARENA_WIDTH - (xUltrasound.getReading() + ROBOT_LENGTH);
+        xCoordinate = arena.x1 - (yUltrasound.getReading() + ROBOT_WIDTH/2);
+        yCoordinate = arena.y1 - (xUltrasound.getReading() + ROBOT_LENGTH);
     }
     else{
         faceAngle(180);
-        xCoordinate = ARENA_WIDTH - (xUltrasound.getReading() + ROBOT_LENGTH);
+        xCoordinate = arena.x1 - (xUltrasound.getReading() + ROBOT_LENGTH);
         yCoordinate = yUltrasound.getReading() + ROBOT_WIDTH/2;
     }
     coord currentCoord(xCoordinate, yCoordinate);
@@ -288,19 +288,11 @@ void pathGo(coord inputCoord) {
 }*/
 
 void pathFollow(vector<coord> path) {
-	// Moves the robot forwards along the path by distance "inputDistance", avoiding mines
+	// Moves the robot to the next point on a path, avoiding mines
     // Doesn't currently avoid mines
-    int pathSize = path.size();
-    for (int coordCounter = 0; coordCounter < pathSize; coordCounter += 1){
-        coord nextCoord = path.back();
-        Serial.print("Next co-ord: ");
-        Serial.print(nextCoord.x);
-        Serial.print(", ");
-        Serial.println(nextCoord.y);
-        Serial.println();
-        pathGo(nextCoord);
-        path.pop_back();
-    }
+    coord nextCoord = path.back();
+    pathGo(nextCoord);
+    path.pop_back();
 }
 
 void pathEdge() {
@@ -443,7 +435,7 @@ vector<coord> generateHomePath(int gap = 20){
         // Proceed along line from homeCoord to currentPosition
         while (lastCoord.y < currentPosition.y){
             path.push_back(lastCoord);
-            lastCoord.y += round((homeLineGradient*gap)/sqrt(pow(homeLineGradient, 2) + 1))
+            lastCoord.y += round((homeLineGradient*gap)/sqrt(pow(homeLineGradient, 2) + 1));
             lastCoord.x += round((gap)/sqrt(pow(homeLineGradient, 2) + 1));
         }
     }

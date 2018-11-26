@@ -17,6 +17,7 @@
 #include <ArduinoSTL.h>
 #include <Wire.h>
 #include <NewPing.h>
+#include <Servo.h>
 
 // ** Locals ** //
 #include "utility/Adafruit_MS_PWMServoDriver.h"
