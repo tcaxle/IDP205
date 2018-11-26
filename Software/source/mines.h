@@ -15,34 +15,61 @@
 bool isHoldingMine = 0; // A flag to indicate whether or not the robot is holding a mine
 
 // ** Mine Interaction ** //
-vector<bool> calibrateLDRs() {
-  
+void calibrateLDRs() {
+  // ONLY CALL WHEN ALL LDRS OVER BLACK
+  LDR00.calibrate();
+  LDR01.calibrate();
+  LDR02.calibrate();
+  LDR03.calibrate();
+  LDR04.calibrate();
+
+  LDR08.calibrate();
+  LDR09.calibrate();
+  LDR10.calibrate();
+  LDR11.calibrate();
 }
 
 
-bool singleDetectMine(char port) {
-  
+int singleDetectMine(ldr target) {
+  // 0 for NONE
+  // 1 for SAFE
+  // 2 for DANGER
+  float reading = target.voltage();
+  float datum = target.datum;
+  float THDanger = 5;
+  float THSafe = 20;
+  if (reading >= datum + THSafe) { // SAFE
+    return(1); // SAFE
+  }
+  if (reading > datum + THDanger && reading < datum + THSafe) {
+    return(2); // DANGER
+  } else {
+    return(0);
+  }
 }
 
-bool detectMine() {
-  
+vector<int> detectMine() {
+  vector<int> output;
+  output.push_back(singleDetectMine(LDR00));
+  output.push_back(singleDetectMine(LDR01));
+  output.push_back(singleDetectMine(LDR02));
+  output.push_back(singleDetectMine(LDR03));
+  output.push_back(singleDetectMine(LDR04));
+
+  output.push_back(singleDetectMine(LDR08));
+  output.push_back(singleDetectMine(LDR09));
+  output.push_back(singleDetectMine(LDR10));
+  output.push_back(singleDetectMine(LDR11));
 }
 
 bool mineGrab() {
 	// Grabs mine immediately in front of robot, returns 1 when complete
 	// WARNING: Robot must be orientate to face the mine first
+  
 }
 
 bool mineDrop() {
 	// Drops mine held by robot, returns 0 when complete
-}
-
-bool mineColourRed() {
-	// Returns a 1 if colour sensors pick up red object, else 0
-}
-
-bool mineColourGrn() {
-	// Returns a 1 if colour sensors pick up a green object, else 0
 }
 
 // **** PRIVATE **** //
