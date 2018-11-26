@@ -79,6 +79,62 @@ vector<int> getMineReadings() {
   output.push_back(singleDetectMine(LDR11));
 }
 
+bool detectMine(){
+    bool mineFound = false;
+    int LDRCounter = 0;
+    while(LDRCounter <= 8 && !mineFound){
+        switch(LDRCounter){
+            case 0:
+                if(singleDetectMine(LDR00) != 0){
+                    mineFound = true;
+                }
+                break;
+            case 1:
+                if(singleDetectMine(LDR01) != 0){
+                    mineFound = true;
+                }
+                break;
+            case 2:
+                if(singleDetectMine(LDR02) != 0){
+                    mineFound = true;
+                }
+                break;
+            case 3:
+                if(singleDetectMine(LDR03) != 0){
+                    mineFound = true;
+                }
+                break;
+            case 4:
+                if(singleDetectMine(LDR04) != 0){
+                    mineFound = true;
+                }
+                break;
+            case 5:
+                if(singleDetectMine(LDR08) != 0){
+                    mineFound = true;
+                }
+                break;
+            case 6:
+                if(singleDetectMine(LDR09) != 0){
+                    mineFound = true;
+                }
+                break;
+            case 7:
+                if(singleDetectMine(LDR10) != 0){
+                    mineFound = true;
+                }
+                break;
+            case 8:
+                if(singleDetectMine(LDR11) != 0){
+                    mineFound = true;
+                }
+                break;
+            LDRCounter += 1;
+        }
+    }
+    return mineFound;
+}
+
 void mineGrab() {
 	// Grabs mine immediately in front of robot, returns 1 when complete
 	// WARNING: Robot must be orientate to face the mine first
