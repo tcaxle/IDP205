@@ -1,5 +1,5 @@
 /*
- * test_generateEdgePath.ino
+ * test_generateHomePath.ino
  *
  * Created: 26/11/2018
  * Author: L. Anderson
@@ -20,7 +20,9 @@ void loop() {
         arena = initialiseArenaBoundaries();
         dangerZone = rectangle(30, arena.x1 - 30, 30, arena.y1 - 30);
         pathGo(coord(50,50));
-        path = generateEdgePath();
+        pathGo(coord(100,100));
+        pathGo(coord(100, 150));
+        path = generateHomePath();
         runCounter++;
     }
 }
