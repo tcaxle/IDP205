@@ -21,6 +21,7 @@ void loop() {
         dangerZone = rectangle(30, arena.x1 - 30, 30, arena.y1 - 30);
         pathGo(coord(50,50));
         path = generateEdgePath();
+        pathFollow(path);
         runCounter++;
     }
 }

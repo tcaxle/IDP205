@@ -311,12 +311,7 @@ void pathReturn() {
 	// Moves the robot back to the point on its path where it left off, avoiding mines
 }
 
-void pathHome() {
-	// Moves the robot back to the startbox via the shortest route, avoiding mines
-}
-
 // ** PATH GENERATION ** //
-
 
 vector<coord> generateSearchPath(int gap = 20) {
   // Generates a series of (20cm spaced by default) coordinates along input y line to follow, ends before it hits the wall.
@@ -342,12 +337,10 @@ vector<coord> generateSearchPath(int gap = 20) {
   return path;
 }
 
-
-
 vector<coord> generateEdgePath(int gap = 20) {
   // Generates a series of coordinates to go (20cm spacing by default) to the closest wall and return to original space
   // Will generate to go to closest X or the y=0 side (whichever is closest)
-  // Requires to be predefined: arena (rectangle), dangerZone (rectangle
+  // Requires to be predefined: arena (rectangle), dangerZone (rectangle)
   coord currentPosition = getCoords();
   coord lastCoord;
   int lastX;
@@ -393,7 +386,6 @@ vector<coord> generateEdgePath(int gap = 20) {
     }
   }
     // Otherwise, if facing negative x-direction 
-    
   else {
     if (currentPosition.y - dangerZone.y0 < dangerZone.x1 - currentPosition.x) {
       // follow constant X line from robot to edge, y decreasing
@@ -432,6 +424,30 @@ vector<coord> generateEdgePath(int gap = 20) {
   }
 }
 
+vector<coord> generateHomePath(int gap = 20){
+    // Generates a series of coordinates to go (20cm spacing by default) back to the robot's starting position
+    coord currentPosition = getCoords();
+    coord lastCoord;
+    vector<coord> path;
+    if (currentPosition.x == homeCoord.x){
+        lastCoord = homeCoord;
+        // Proceed along current X line with decreasing Y
+        while (lastCoord.y < currentPosition.y){
+            path.push_back(lastCoord);
+            lastCoord.y += gap;
+        }
+    }
+    else{
+        int homeLineGradient = round((currentPosition.y - homeCoord.y)/(currentPosition.x - homeCoord.x));
+        lastCoord = homeCoord;
+        // Proceed along line from homeCoord to currentPosition
+        while (lastCoord.y < currentPosition.y){
+            path.push_back(lastCoord);
+            lastCoord.y += round((homeLineGradient*gap)/sqrt(pow(homeLineGradient, 2) + 1))
+            lastCoord.x += round((gap)/sqrt(pow(homeLineGradient, 2) + 1));
+        }
+    }
+}
 
 // ** SETUP ** //
 

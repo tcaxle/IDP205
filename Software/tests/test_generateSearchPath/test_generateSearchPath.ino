@@ -20,6 +20,7 @@ void loop() {
     arena = initialiseArenaBoundaries();
     dangerZone = rectangle(30, arena.x1 - 30, 30, arena.y1 - 30);
     path = generateSearchPath();
+    pathFollow(path);
     runCounter++;
     }
 }

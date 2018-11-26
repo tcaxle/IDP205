@@ -24,6 +24,7 @@ void loop() {
         pathGo(coord(100,100));
         pathGo(coord(100, 150));
         path = generateHomePath();
+        pathFollow(path);
         runCounter++;
     }
 }
