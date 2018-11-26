@@ -16,8 +16,14 @@
 #include "orientation.h" // 5
 #include "movement.h" // 6
 
+// Initialise circular path co-ordinates for pathFollow test
+coord point1(50, 50);
+coord point2(50, ARENA_WIDTH-50);
+coord point3(ARENA_WIDTH-50, ARENA_WIDTH-50);
+coord point4(ARENA_WIDTH-50, ARENA_WIDTH-50);
+
 // Initialise sigle destination co-ordinate for pathGo test
-coord target(50, 50);
+coord target(100, 100);
 
 void loop() {
     /* pathFollow test
@@ -66,9 +72,6 @@ void loop() {
     */
     
     /*//getCoord test
-
-    /*
-    //getCoord test
     if(runCounter == 0){
         compassOffset = initialiseOrientation();
         arenaVector = initialiseArenaBoundaries();
@@ -92,8 +95,9 @@ void loop() {
         moveFwd(30);
         runCounter += 1;
     }*/
-    
-    /*//pathGo test
+
+    /*
+    //pathGo test
     if (runCounter == 0){
         compassOffset = initialiseOrientation();
         arenaVector = initialiseArenaBoundaries();
@@ -104,13 +108,14 @@ void loop() {
     }
     */
     
-    
     /* Tom's random code, preserved for posterity
     float angle = random(-179, 180);
     Serial.println(angle);
     faceAngle(angle);
     delay(1000);
     */
+
+    
     double LDRreading = 0;
     int i = 0;
     while (i < 5) {
@@ -119,16 +124,22 @@ void loop() {
     }
     LDRreading = LDRreading / 5.0;
     Serial.println(LDRreading);
-    if (LDRreading > 380) { // SAFE
+    if (LDRreading >= LDRaverage + 20) { // SAFE
       red.set(0);
       yellow.set(1);
       green.set(0);
       setStop();
+      setBwd();
+      delay(10);
+      setStop();
       delay(3000);
-    } else if (LDRreading > LDRaverage + 4 && LDRreading < LDRaverage + 10) { // DANGER
+    } else if (LDRreading > LDRaverage + 5 && LDRreading < LDRaverage + 20) { // DANGER
       red.set(1);
       yellow.set(0);
       green.set(0);
+      setStop();
+      setBwd();
+      delay(10);
       setStop();
       delay(3000);
     } else { // NO MINE
@@ -137,5 +148,6 @@ void loop() {
       green.set(1);
       setFwd();
     }
+    
     
 }
