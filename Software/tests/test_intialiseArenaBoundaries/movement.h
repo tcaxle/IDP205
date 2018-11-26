@@ -254,7 +254,7 @@ void pathGo(coord inputCoord, int tolerance = 2){
     Serial.println(currentCoord.y);
 }
 
-/*
+/* This version does not move at right angles and tends to cause some problems with the US sensors so avoid using it
 void pathGo(coord inputCoord) {
     // Moves the robot to the coordinate "input_coord" via the shortest route
     // Get current position
@@ -422,6 +422,7 @@ float initialiseOrientation(){
     return compass.getHeading();
 }
 
+/* Gets arena bounds as a vector form; use the rectangular version for class consistency of boundaries
 vector<int> initialiseArenaBoundaries(){
     // To be called after initialiseOrientation
     int distToYAxis;
@@ -444,9 +445,10 @@ vector<int> initialiseArenaBoundaries(){
     arenaBoundaries.push_back(totalY);
     return arenaBoundaries;
 }
+*/
 
-/* RECTANGLE OUTPUT
-rectangle initialiseAreaBoundaries(){
+//RECTANGLE OUTPUT
+rectangle initialiseArenaBoundaries(){
     // To be called after initialiseOrientation
     int distToYAxis;
     int distToXAxis;
@@ -464,12 +466,12 @@ rectangle initialiseAreaBoundaries(){
     totalX = distToXAxis + distToFarX;
     totalY = distToYAxis + distToFarY;
     arena.a = coord(0, totalY);
-    arenae.b = coord(totalX, totalY);
+    arena.b = coord(totalX, totalY);
     arena.c = coord(0, 0);
     arena.d = coord(totalX, 0);
     return arena;
 }
-*/
+
 
 // ** Panic ** //
 
