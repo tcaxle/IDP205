@@ -155,12 +155,13 @@ coord getCoords(float currentDirection = getDirection()) {
 // ** Movement ** //
 
 void moveFwd(float inputDistance) {
-	// Moves the robot forward (relative to current facing) by distance "inputDistance"
+	// Moves the robot in the current direction by distance "inputDistance" (may take negative values to reverse)
     int startDistance = xUltrasound.getReading();
     int currentDistance;
     int distanceTravelled;
     int error = inputDistance;
-    while(abs(error) > 0){
+    // So long as the robot hasn't moved the exact distance specified and no mines are detected
+    while(abs(error) > 0 && !detectMine()){
         currentDistance = xUltrasound.getReading();
         distanceTravelled = currentDistance - startDistance;
         error = inputDistance - distanceTravelled;
@@ -174,13 +175,10 @@ void moveFwd(float inputDistance) {
             setStop();
         }
     }
-    Serial.print("Distance travelled: ");
-    Serial.println(distanceTravelled);
-    Serial.println();
-}
-
-void moveBwd(float inputDistance) {
-	// Moved the robot backward (relative to current facing) byb distance "inputDistance"
+    // After stopping, if a mine is detected
+    /*if (detectMine()){
+        
+    }*/
 }
 
 // ** Rotation ** //
