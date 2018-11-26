@@ -154,14 +154,14 @@ coord getCoords(float currentDirection = getDirection()) {
 
 // ** Movement ** //
 
-void moveFwd(float inputDistance) {
+void moveFwd(float inputDistance, bool safe = true) {
 	// Moves the robot in the current direction by distance "inputDistance" (may take negative values to reverse)
     int startDistance = xUltrasound.getReading();
     int currentDistance;
     int distanceTravelled;
     int error = inputDistance;
     // So long as the robot hasn't moved the exact distance specified and no mines are detected
-    while(abs(error) > 0 && !detectMine()){
+    while(abs(error) > 0 && !(detectMine && safe)){
         currentDistance = xUltrasound.getReading();
         distanceTravelled = currentDistance - startDistance;
         error = inputDistance - distanceTravelled;
@@ -176,9 +176,9 @@ void moveFwd(float inputDistance) {
         }
     }
     // After stopping, if a mine is detected
-    /*if (detectMine()){
-        
-    }*/
+    if (detectMine()){
+        moveFwd(0);
+    }
 }
 
 // ** Rotation ** //
