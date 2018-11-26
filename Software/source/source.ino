@@ -25,7 +25,7 @@ void loop() {
     */
 
     
-    
+    /*
     int i = 0;
     LDRreading = LDRreading / 5.0;
     Serial.println(LDRreading);
@@ -51,4 +51,5 @@ void loop() {
       red.set(0);
       setFwd();
     }
+    */
 }
