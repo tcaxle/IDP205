@@ -97,9 +97,9 @@
 //Define constants
 #define ROBOT_LENGTH 30
 #define ROBOT_WIDTH 20
-#define ARENA_WIDTH 240
+#define ARENA_WIDTH 224
 
-rectangle arena(0, ARENA_WIDTH, 0, ARENA_WIDTH);
+//rectangle arena(0, ARENA_WIDTH, 0, ARENA_WIDTH);
 
 // Initialise runCounter (FOR FUNCTIONAL DEMO ONLY)
 int runCounter = 0;
@@ -128,10 +128,20 @@ float compassOffset = 0;
 
 // Declare IR Sensors
 infrared leftIR(A0);
+ 
+// Declare LDRs and LEDs
+ldr colourSenseL(A1);
+led colourLEDL(2, 1);
+double LDRaverage = 0;
+
+led green(3, 1);
+led red(4);
+led yellow(5);
 
 void setup () {
   //Initialise serial sample rate
   Serial.begin(9600);
+  delay(1000);
  
   // Initialise motor shield
   motorShield.begin();
@@ -144,4 +154,13 @@ void setup () {
   compass.init();
   compass.xFluxCorrection = 2.77;
   compass.yFluxCorrection = -46.81;
+
+  // Average Reading of LDR
+  int i = 0;
+  double LDRsum = 0;
+  while (i < 100) {
+    i++;
+    LDRsum = LDRsum + colourSenseL.voltage();
+  }
+  LDRaverage = LDRsum / 100.0;
 }
