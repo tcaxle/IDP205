@@ -43,19 +43,11 @@ vector<coord> generateEdgePath(int gap = 20) {
   // Requires to be predefined: arena (rectangle), dangerZone (rectangle)
   coord currentPosition = getCoords();
   coord lastCoord;
-  int lastX;
-  int lastY;
   vector<coord> path;
   // If facing positive x-direction
   if (xOrientation == 0) {
     // If closer to bottom edge of danger zone than vertical edge
-    if ((currentPosition.y - dangerZone.y0) < (currentPosition.x - dangerZone.x0)) {
-      // follow constant X line from robot to edge, y decreasing
-      lastCoord = coord(currentPosition.x, currentPosition.y);
-      while (lastCoord.y >= dangerZone.y0) {
-        path.push_back(lastCoord);
-        lastCoord.y -= gap;
-      } 
+    if ((currentPosition.y - dangerZone.y0) <= (currentPosition.x - dangerZone.x0)) {
       lastCoord = coord(currentPosition.x, dangerZone.y0);
       path.push_back(lastCoord);
       // follow constant X line back to original position, y increasing
@@ -68,12 +60,6 @@ vector<coord> generateEdgePath(int gap = 20) {
       } 
       // Otherwise (ie: if closer to vertical edge than bottom edge)
       else {
-      // follow constant Y line from robot to edge, x decreasing
-      lastCoord = coord(currentPosition.x, currentPosition.y);
-      while (lastCoord.x >= dangerZone.x0) {
-        path.push_back(lastCoord);
-        lastCoord.x -= gap;
-      }
       lastCoord = coord(dangerZone.x0, currentPosition.y);
       path.push_back(lastCoord);
       // follow constant Y line back to original position, x increasing
@@ -84,16 +70,11 @@ vector<coord> generateEdgePath(int gap = 20) {
       }
       return path;
     }
+    return path;
   }
     // Otherwise, if facing negative x-direction 
   else {
-    if (currentPosition.y - dangerZone.y0 < dangerZone.x1 - currentPosition.x) {
-      // follow constant X line from robot to edge, y decreasing
-      lastCoord = coord(currentPosition.x, currentPosition.y);
-      while (lastCoord.y >= dangerZone.y0) {
-        path.push_back(lastCoord);
-        lastCoord.y -= gap;
-      } 
+    if (currentPosition.y - dangerZone.y0 <= dangerZone.x1 - currentPosition.x) {
       lastCoord = coord(currentPosition.x, dangerZone.y0);
       path.push_back(lastCoord);
       // follow constant X line back to original position, y increasing
@@ -102,15 +83,8 @@ vector<coord> generateEdgePath(int gap = 20) {
         path.push_back(lastCoord);
         lastCoord.y += gap;
       } 
-      return path;
-      }
+    }
       else {
-      // follow constant Y line from robot to edge, x increasing
-      lastCoord = coord(currentPosition.x, currentPosition.y);
-      while (lastCoord.x <= dangerZone.x1) {
-        path.push_back(lastCoord);
-        lastCoord.x += gap;
-      }
       lastCoord = coord(dangerZone.x1, currentPosition.y);
       path.push_back(lastCoord);
       // follow constant Y line back to original position, x decreasing
@@ -119,8 +93,8 @@ vector<coord> generateEdgePath(int gap = 20) {
         path.push_back(lastCoord);
         lastCoord.x -= gap;
       }
-      return path;
     }
+    return path;
   }
 }
 
@@ -146,5 +120,55 @@ vector<coord> generateHomePath(int gap = 20){
             lastCoord.y += round((homeLineGradient*gap)/sqrt(pow(homeLineGradient, 2) + 1));
             lastCoord.x += round((gap)/sqrt(pow(homeLineGradient, 2) + 1));
         }
+    }
+}
+
+vector<coord> generateReturnPath(coord startCoord, int gap = 20) {
+    // Generates a series of co-ordinates back from the safe zone boundary
+    // If facing positive x-direction
+    coord lastCoord;
+    vector<coord> path;
+    if (xOrientation == 0) {
+        // If closer to base of safe zone than vertical edge
+        if ((startCoord.y - dangerZone.y0) <= (startCoord.x - dangerZone.x0)) {
+            // follow constant X line from robot to edge, y decreasing
+            lastCoord = coord(startCoord.x, startCoord.y);
+            while (lastCoord.y >= dangerZone.y0) {
+                path.push_back(lastCoord);
+            lastCoord.y -= gap;
+            } 
+        }
+        // If closer to vertical edge of safe zone than base
+        else{
+            // follow constant Y line from robot to edge, x decreasing
+            lastCoord = coord(startCoord.x, startCoord.y);
+            while (lastCoord.x >= dangerZone.x0) {
+                path.push_back(lastCoord);
+                lastCoord.x -= gap;
+            }
+        }
+        return path;
+    }
+    // If facing negative x-direction
+    else{
+        // If closer to base than vertical edge
+        if (startCoord.y - dangerZone.y0 <= dangerZone.x1 - startCoord.x) {
+            // follow constant X line from robot to edge, y decreasing
+            lastCoord = coord(startCoord.x, startCoord.y);
+            while (lastCoord.y >= dangerZone.y0) {
+                path.push_back(lastCoord);
+                lastCoord.y -= gap;
+            }
+        }
+        // If closer to vertical edge than base
+        else{
+            // follow constant Y line from robot to edge, x increasing
+            lastCoord = coord(startCoord.x, startCoord.y);
+            while (lastCoord.x <= dangerZone.x1) {
+                path.push_back(lastCoord);
+                lastCoord.x += gap;
+            } 
+        }
+        return path;
     }
 }

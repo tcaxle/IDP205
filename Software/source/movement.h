@@ -76,7 +76,43 @@ void pathFollow(vector<coord> path) {
 	// Moves the robot to the next point on a path, avoiding mines
     // Doesn't currently avoid mines
     coord nextCoord = path.back();
-    pathGo(nextCoord);
+    if (!pathGo(nextCoord)){
+        vector<int> mineReadings = getMineReadings();
+        int mostSevereReading = 0;
+        for (int readingCounter = 0; readingCounter < mineReadings.size(); readingCounter += 1){
+            if (mineReadings[readingCounter] > mostSevereReading){
+                mostSevereReading = mineReadings[readingCounter];
+            }
+        }
+        if (mostSevereReading == 1){
+            coord currentPosition = getCoords();
+            vector<coord> edgePath = generateEdgePath();
+            vector<coord> returnPath = generateReturnPath(currentPosition);
+            int edgePathSize = edgePath.size();
+            int returnPathSize = returnPath.size();
+            safeMineCoords.push_back(currentPosition);
+            //Pick up mine
+            mineGrab();
+            // Follow whole path to edge
+            for(int pathCounter = 0; pathCounter < edgePathSize; pathCounter += 1){
+                pathFollow(edgePath);
+            }
+            moveFwd(5);
+            mineDrop();
+            moveFwd(-5);
+            // Follow path back to start
+            for(int pathCounter = 0; pathCounter < returnPathSize; pathCounter += 1){
+                pathFollow(returnPath);
+            }
+        }
+        else if (mostSevereReading == 2){
+            coord currentPosition = getCoords();
+            dangerousMineCoords.push_back(currentPosition);
+            forbiddenZones.push_back(rectangle(currentPosition.x - 20, currentPosition.x +20, currentPosition.y - 20, currentPosition.y + 20));
+            moveFwd(-20);
+        }
+        
+    }
     path.pop_back();
 }
 

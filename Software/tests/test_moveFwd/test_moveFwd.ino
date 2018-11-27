@@ -6,18 +6,25 @@
  *
  */
 
+// ** Preamble ** //
 // PRESERVE THIS ORDER FOR ANYTHING TO WORK
 #include "libraries.h" // 0
 #include "classes.h" // 1
 #include "firmware.h" // 2
-#include "indicate.h" // 3
-#include "orientation.h" // 4
-#include "movement.h" // 5
+#include "mines.h" // 3
+#include "indicate.h" // 4
+#include "motorControl.h" // 5
+#include "facing.h" // 6
+#include "setup.h" // 7
+#include "locate.h" // 8
+#include "pathGen.h" // 9
+#include "movement.h" // 10
+
 
 void loop() {
     //moveFwd test
     if (runCounter == 0){
-        moveFwd(30);
+        Serial.println(moveFwd(30));
         runCounter += 1;
     }
 }
