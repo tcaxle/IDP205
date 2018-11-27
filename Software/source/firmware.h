@@ -163,4 +163,7 @@ void setup () {
   compass.xFluxCorrection = 2.77;
   compass.yFluxCorrection = -46.81;
 
+  // Calibrate LDRs
+  calibrateLDRs();
+
 }

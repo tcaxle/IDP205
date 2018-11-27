@@ -57,8 +57,6 @@ void loop() {
     }
     */
 
-    panicPanic();
-
 }
 
     /* Tom's random code, preserved for posterity

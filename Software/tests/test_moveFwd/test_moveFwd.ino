@@ -24,7 +24,7 @@
 void loop() {
     //moveFwd test
     if (runCounter == 0){
-        moveFwd(30);
+        Serial.println(moveFwd(30));
         runCounter += 1;
     }
 }

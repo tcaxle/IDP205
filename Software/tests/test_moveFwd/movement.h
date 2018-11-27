@@ -19,6 +19,7 @@ bool moveFwd(float inputDistance) {
   // Moves the robot forward (relative to current facing) by distance "inputDistance"
   // returns false if there is a mine
     int startDistance = xUltrasound.getReading();
+    Serial.println(startDistance);
     int currentDistance;
     int distanceTravelled;
     int error = inputDistance;
