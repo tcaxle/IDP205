@@ -17,6 +17,40 @@
 #include "movement.h" // 6
 
 void loop() {
+    // Initialise compass, arena boundaries and safe zone boundaries
+    compassOffset = initialiseOrientation();
+    arena = initialiseArenaBoundaries();
+    dangerZone = rectangle(30, arena.x1 - 30, 30, arena.y1 - 30);
+
+    // Get robot's current position
+    position = getCoords();
+    homeCoord = position;
+
+
+    // While the robot has yet to reach the end of the mined area
+    while(dangerZone.y1 - position.y >= ROBOT_WIDTH/2){
+        path = generateSearchPath();
+        for(int coordIndex = 0; coordIndex < path.size(); coordIndex += 1){
+            pathFollow(path);
+        }
+        position = getCoords();
+        if (dangerZone.y1 - position.y >= ROBOT_WIDTH/2){
+            faceAngle(90);
+            moveFwd(ROBOT_WIDTH);
+        }
+        if (xOrientation == 0){
+            xOrientation = 180;
+        }
+        else{
+            xOrientation = 0;
+        }
+    }
+    path = generateHomePath();
+    for(int coordIndex = 0; coordIndex < path.size(); coordIndex += 1){
+            pathFollow(path);
+    }
+}
+
     /* Tom's random code, preserved for posterity
     float angle = random(-179, 180);
     Serial.println(angle);
@@ -53,12 +87,6 @@ void loop() {
     }
     */
 
-    mineGrab();
-    delay(1000);
-
-    
-    //setFwd();
-
     /*
     delay(1000);
     setStop();
@@ -73,4 +101,3 @@ void loop() {
     delay(2500);
     */
     
-}

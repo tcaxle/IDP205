@@ -99,39 +99,23 @@
 #define ROBOT_WIDTH 20
 #define ARENA_WIDTH 224
 
-rectangle arena;
-rectangle dangerZone;
+// Initialise variables
+coord homeCoord;                    // Stores the robot's starting position
+coord position;                     // Stores the robot's position
+float compassOffset = 0;            // Offset to account for initial bearing from North
+float xOrientation = 0;             // Indicates whether robot should face +ve or -ve x-direction
+rectangle arena;                    // Defines edges of arena to locate the robot
+rectangle dangerZone;               // Defines edges of safe zone for mine disposal and movement onto the next course
+vector<coord> dangerousMineCoords;  // Holds co-ordinates of dangerous mines
+vector<coord> path;                 // Container for current path to be followed
+vector<coord> safeMineCoords;       // Holds co-ordinates of safe mines
+vector<rectangle> forbiddenZones;    // Holds rectangle objects that denote areas considered off-limits due to the presence of dangerous mines
 
-// Initialise runCounter (FOR FUNCTIONAL DEMO ONLY)
-int runCounter = 0;
+// Initialise inputs
+Adafruit_LSM303_Mag_Unified mag = Adafruit_LSM303_Mag_Unified();    // Initialise mag compass object
+compass compass(mag);                                               // Put mag compass into compass container object
 
-// Initialise path variable
-vector<coord> path;
-
-// Initialise xOrientation variable
-float xOrientation = 0;
-
-// Declare motor shield and motor wrapper objects
-Adafruit_MotorShield motorShield = Adafruit_MotorShield();
-motor leftMotor(3); // Motor on port 1 and initial speed 0 (default third parameter)
-motor rightMotor(4); // Motor on port 2 and initial speed 0 (default third parameter)
-
-// Declare ultrasound sensors and ultrasound wrapper objects
-NewPing initXUltrasound(10, 11); //Should be mounted on the rear
-NewPing initYUltrasound(12, 13); //Should be mounted on the side
-ultrasound xUltrasound(initXUltrasound);
-ultrasound yUltrasound(initYUltrasound);
-
-// Declare compass and compass wrapper object
-Adafruit_LSM303_Mag_Unified mag = Adafruit_LSM303_Mag_Unified();
-compass compass(mag);
-float compassOffset = 0;
-
-// Declare IR Sensors
-infrared leftIR(A0);
- 
-// Declare LDRs and LEDs
-ldr LDR00(A0);
+ldr LDR00(A0);  // Initialise LDR objects
 ldr LDR01(A1);
 ldr LDR02(A2);
 ldr LDR03(A3);
@@ -141,30 +125,40 @@ ldr LDR09(A9);
 ldr LDR10(A10);
 ldr LDR11(A11);
 
-led green(3, 1);
+NewPing initXUltrasound(10, 11);            // Initialise US objects
+NewPing initYUltrasound(12, 13);            //Should be mounted on the side
+ultrasound xUltrasound(initXUltrasound);    // Put US objects into container objects
+ultrasound yUltrasound(initYUltrasound);
+
+// Initialise outputs
+led green(3, 1);    // Assign LED ports
 led red(4);
 led yellow(5);
 
-// Declare Servo Arm
-Servo arm;
+Adafruit_MotorShield motorShield = Adafruit_MotorShield();      // Initialise motor shield object
+motor leftMotor(3);                                             // Motor on port 1 and initial speed 0 (default third parameter)    
+motor rightMotor(4);                                            // Motor on port 2 and initial speed 0 (default third parameter)
+
+Servo arm;  // Create servo arm object
+
 
 void setup () {
   //Initialise serial sample rate
   Serial.begin(9600);
   delay(1000);
  
-  // Initialise motor shield
+  // Initialise motor shield and motors
   motorShield.begin();
   leftMotor.assignedMotorShield = motorShield;
   rightMotor.assignedMotorShield = motorShield;
   leftMotor.init();
   rightMotor.init();
 
-  // Initialise Servo
+  // Initialise servo
   arm.attach(10);
   arm.write(30);
 
-  // Initialise Compass
+  // Initialise compass
   compass.init();
   compass.xFluxCorrection = 2.77;
   compass.yFluxCorrection = -46.81;

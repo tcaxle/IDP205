@@ -99,6 +99,7 @@
 #define ROBOT_WIDTH 20
 #define ARENA_WIDTH 240
 
+// Initialise arena and safe zone boundaries
 rectangle arena(0, ARENA_WIDTH, 0, ARENA_WIDTH);
 rectangle dangerZone(30, ARENA_WIDTH - 30, 30, ARENA_WIDTH - 30);
 

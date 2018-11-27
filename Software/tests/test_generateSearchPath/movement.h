@@ -303,9 +303,12 @@ void pathFollow(vector<coord> path) {
     }
 }
 
-void pathHome() {
-	// Moves the robot back to the startbox via the shortest route, avoiding mines
-    // Doesn't currently avoid mines
+void pathEdge() {
+	// Moves the robot to the edge of the search area via the shortest route, avoiding mines
+}
+
+void pathReturn() {
+	// Moves the robot back to the point on its path where it left off, avoiding mines
 }
 
 // ** PATH GENERATION ** //
@@ -335,56 +338,116 @@ vector<coord> generateSearchPath(int gap = 20) {
 }
 
 vector<coord> generateEdgePath(int gap = 20) {
-  // Generates a series of coordinates to go to (20cm spacing by default) to the closest wall
+  // Generates a series of coordinates to go (20cm spacing by default) to the closest wall and return to original space
   // Will generate to go to closest X or the y=0 side (whichever is closest)
-  // Requires to be predefined: arena (rectangle)
+  // Requires to be predefined: arena (rectangle), dangerZone (rectangle)
   coord currentPosition = getCoords();
-  int xLine = currentPosition.x;
-  int yLine = currentPosition.y;
+  coord lastCoord;
   int lastX;
   int lastY;
-  coord lastCoord;
   vector<coord> path;
+  // If facing positive x-direction
   if (xOrientation == 0) {
-    if (currentPosition.y <= currentPosition.x) {
-      // follow Y line, y decreasing
-      while (lastY > gap) {
-        lastX = lastY - gap;
-        lastCoord = coord(xLine, lastY);
+    // If closer to bottom edge of danger zone than vertical edge
+    if ((currentPosition.y - dangerZone.y0) < (currentPosition.x - dangerZone.x0)) {
+      // follow constant X line from robot to edge, y decreasing
+      lastCoord = coord(currentPosition.x, currentPosition.y);
+      while (lastCoord.y >= dangerZone.y0) {
         path.push_back(lastCoord);
+        lastCoord.y -= gap;
+      } 
+      lastCoord = coord(currentPosition.x, dangerZone.y0);
+      path.push_back(lastCoord);
+      // follow constant X line back to original position, y increasing
+      lastCoord = coord(currentPosition.x, dangerZone.y0 + gap);
+      while (lastCoord.y < currentPosition.y) {
+        path.push_back(lastCoord);
+        lastCoord.y += gap;
       } 
       return path;
-    } else {
-      // follow X line, x decreasing
-      while (lastX > gap) {
-        lastX = lastX - gap;
-        lastCoord = coord(lastX, yLine);
+      } 
+      // Otherwise (ie: if closer to vertical edge than bottom edge)
+      else {
+      // follow constant Y line from robot to edge, x decreasing
+      lastCoord = coord(currentPosition.x, currentPosition.y);
+      while (lastCoord.x >= dangerZone.x0) {
         path.push_back(lastCoord);
+        lastCoord.x -= gap;
+      }
+      lastCoord = coord(dangerZone.x0, currentPosition.y);
+      path.push_back(lastCoord);
+      // follow constant Y line back to original position, x increasing
+      lastCoord = coord(dangerZone.x0 + gap, currentPosition.y);
+      while (lastCoord.x < currentPosition.x) {
+        path.push_back(lastCoord);
+        lastCoord.x += gap;
       }
       return path;
     }
-  } else {
-    if (currentPosition.y >= - currentPosition.x) {
-      // follow X line, x increasing
-      while (lastX < ARENA_WIDTH - gap) {
-        lastX = lastX + gap;
-        lastCoord = coord(lastX, yLine);
+  }
+    // Otherwise, if facing negative x-direction 
+  else {
+    if (currentPosition.y - dangerZone.y0 < dangerZone.x1 - currentPosition.x) {
+      // follow constant X line from robot to edge, y decreasing
+      lastCoord = coord(currentPosition.x, currentPosition.y);
+      while (lastCoord.y >= dangerZone.y0) {
         path.push_back(lastCoord);
-      }
-      return path;
-    } else {
-      // follow Y line, y decreasing
-      while (lastY > gap) {
-        lastX = lastY - gap;
-        lastCoord = coord(xLine, lastY);
-        path.push_back(lastCoord);
+        lastCoord.y -= gap;
       } 
+      lastCoord = coord(currentPosition.x, dangerZone.y0);
+      path.push_back(lastCoord);
+      // follow constant X line back to original position, y increasing
+      lastCoord = coord(currentPosition.x, dangerZone.y0 + gap);
+      while (lastCoord.y < currentPosition.y) {
+        path.push_back(lastCoord);
+        lastCoord.y += gap;
+      } 
+      return path;
+      }
+      else {
+      // follow constant Y line from robot to edge, x increasing
+      lastCoord = coord(currentPosition.x, currentPosition.y);
+      while (lastCoord.x <= dangerZone.x1) {
+        path.push_back(lastCoord);
+        lastCoord.x += gap;
+      }
+      lastCoord = coord(dangerZone.x1, currentPosition.y);
+      path.push_back(lastCoord);
+      // follow constant Y line back to original position, x decreasing
+      lastCoord = coord(dangerZone.x1 - gap, currentPosition.y);
+      while (lastCoord.x < currentPosition.x) {
+        path.push_back(lastCoord);
+        lastCoord.x -= gap;
+      }
       return path;
     }
   }
 }
 
-vector<coord> generate
+vector<coord> generateHomePath(int gap = 20){
+    // Generates a series of coordinates to go (20cm spacing by default) back to the robot's starting position
+    coord currentPosition = getCoords();
+    coord lastCoord;
+    vector<coord> path;
+    if (currentPosition.x == homeCoord.x){
+        lastCoord = homeCoord;
+        // Proceed along current X line with decreasing Y
+        while (lastCoord.y < currentPosition.y){
+            path.push_back(lastCoord);
+            lastCoord.y += gap;
+        }
+    }
+    else{
+        int homeLineGradient = round((currentPosition.y - homeCoord.y)/(currentPosition.x - homeCoord.x));
+        lastCoord = homeCoord;
+        // Proceed along line from homeCoord to currentPosition
+        while (lastCoord.y < currentPosition.y){
+            path.push_back(lastCoord);
+            lastCoord.y += round((homeLineGradient*gap)/sqrt(pow(homeLineGradient, 2) + 1))
+            lastCoord.x += round((gap)/sqrt(pow(homeLineGradient, 2) + 1));
+        }
+    }
+}
 
 // ** SETUP ** //
 

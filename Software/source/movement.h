@@ -131,7 +131,7 @@ coord getCoords(float currentDirection = getDirection()) {
     if (abs(currentDirection) <= 45){
         faceAngle(0);
         xCoordinate = xUltrasound.getReading() + ROBOT_LENGTH;
-        yCoordinate = ARENA_WIDTH - (yUltrasound.getReading() + ROBOT_WIDTH/2);
+        yCoordinate = arena.y1 - (yUltrasound.getReading() + ROBOT_WIDTH/2);
     }
     else if (currentDirection > 0 && currentDirection <= 135){
         faceAngle(90);
@@ -140,12 +140,12 @@ coord getCoords(float currentDirection = getDirection()) {
     }
     else if (currentDirection < 0 && currentDirection >= -135){
         faceAngle(-90);
-        xCoordinate = ARENA_WIDTH - (yUltrasound.getReading() + ROBOT_WIDTH/2);
-        yCoordinate = ARENA_WIDTH - (xUltrasound.getReading() + ROBOT_LENGTH);
+        xCoordinate = arena.x1 - (yUltrasound.getReading() + ROBOT_WIDTH/2);
+        yCoordinate = arena.y1 - (xUltrasound.getReading() + ROBOT_LENGTH);
     }
     else{
         faceAngle(180);
-        xCoordinate = ARENA_WIDTH - (xUltrasound.getReading() + ROBOT_LENGTH);
+        xCoordinate = arena.x1 - (xUltrasound.getReading() + ROBOT_LENGTH);
         yCoordinate = yUltrasound.getReading() + ROBOT_WIDTH/2;
     }
     coord currentCoord(xCoordinate, yCoordinate);
@@ -154,13 +154,14 @@ coord getCoords(float currentDirection = getDirection()) {
 
 // ** Movement ** //
 
-void moveFwd(float inputDistance) {
-	// Moves the robot forward (relative to current facing) by distance "inputDistance"
+bool moveFwd(float inputDistance) {
+  // Moves the robot forward (relative to current facing) by distance "inputDistance"
+  // returns false if there is a mine
     int startDistance = xUltrasound.getReading();
     int currentDistance;
     int distanceTravelled;
     int error = inputDistance;
-    while(abs(error) > 0){
+    while(abs(error) > 0 && detectMine == 0){
         currentDistance = xUltrasound.getReading();
         distanceTravelled = currentDistance - startDistance;
         error = inputDistance - distanceTravelled;
@@ -174,13 +175,11 @@ void moveFwd(float inputDistance) {
             setStop();
         }
     }
-    Serial.print("Distance travelled: ");
-    Serial.println(distanceTravelled);
-    Serial.println();
-}
-
-void moveBwd(float inputDistance) {
-	// Moved the robot backward (relative to current facing) byb distance "inputDistance"
+    if (detectMine != 0) {
+      return(1);
+    } else {
+      return(0);
+    }
 }
 
 // ** Rotation ** //
@@ -195,128 +194,52 @@ void spinRgt(float inputDegrees) {
 
 // ** Path ** //
 
-void pathGo(coord inputCoord, int tolerance = 2){
+bool pathGo(coord inputCoord, int tolerance = 2){
     // Moves the robot to the coordinate "input_coord" via perpendicular components
     // Get current position
+    // return false if there is a mine that stops it
     coord currentCoord = getCoords(getDirection());
-    Serial.print("Starting X Coord: ");
-    Serial.println(currentCoord.x);
-    Serial.print("Starting Y Coord: ");
-    Serial.println(currentCoord.y);
-    Serial.println();
     // Calculate vector from current position to target position
     coord movementVector = inputCoord.subtract(currentCoord);
-    Serial.print("Movement X Component: ");
-    Serial.println(movementVector.x);
-    Serial.print("Movement Y Component: ");
-    Serial.println(movementVector.y);
-    Serial.println();
-    if(movementVector.x > tolerance){
+    bool success = 1;
+    if(movementVector.x > tolerance && xUltrasound.getReading()){
         faceAngle(0);
-        Serial.println("Turning to +x");
-        Serial.print("Current direction: ");
-        Serial.println(getDirection());
-        Serial.println();
-        moveFwd(abs(movementVector.x));
+        success = moveFwd(abs(movementVector.x));
     }
     else if(movementVector.x < -tolerance){
         faceAngle(180);
-        Serial.println("Turning to -x");
-        Serial.print("Current direction: ");
-        Serial.println(getDirection());
-        Serial.println();
-        moveFwd(abs(movementVector.x));
+        success = moveFwd(abs(movementVector.x));
     }
     if(movementVector.y > tolerance){
         faceAngle(90);
-        Serial.println("Turning to +y");
-        Serial.print("Current direction: ");
-        Serial.println(getDirection());
-        Serial.println();
-        moveFwd(abs(movementVector.y));
+        success = moveFwd(abs(movementVector.x));
     }
     else if(movementVector.y < -tolerance){
         faceAngle(-90);
-        Serial.println("Turning to -y");
-        Serial.print("Current direction: ");
-        Serial.println(getDirection());
-        Serial.println();
-        moveFwd(abs(movementVector.y));
+        success = moveFwd(abs(movementVector.x));
     }
     //faceAngle(xOrientation);
-    Serial.print("End direction: ");
-    Serial.println(getDirection());
-    Serial.println();
     currentCoord = getCoords(getDirection());
-        Serial.print("End X Coord: ");
-    Serial.println(currentCoord.x);
-    Serial.print("End Y Coord: ");
-    Serial.println(currentCoord.y);
+    return(success);
 }
 
-/*
-void pathGo(coord inputCoord) {
-    // Moves the robot to the coordinate "input_coord" via the shortest route
-    // Get current position
-    coord currentCoord = getCoords(getDirection());
-    // Calculate vector from current position to target position
-    coord movementVector = inputCoord.subtract(currentCoord);
-    // Initialise containers for angle and length of vector
-    float vectorAngle;
-    int vectorLength;
-    // If the vector to the target is vertical
-    if (movementVector.x == 0 && movementVector.y < 0) {
-        // If the y-component is negative, the angle is -90 degress from the neutral axis
-        vectorAngle = -90;
-    }
-    else if (movementVector.x == 0 && movementVector.y >= 0){
-        // If the y-component is positive, the angle is 90 degrees from the neutral axis
-        vectorAngle = 90;
-    }
-    else {
-        // Otherwise find the angle from the neutral axis by inverse tangent
-        vectorAngle = atan2(movementVector.y, movementVector.x)*180/PI;
-    }
-    faceAngle(vectorAngle);
-    // Calculate length to move by Pythagoras
-    vectorLength = round(sqrt(pow(movementVector.x, 2) + pow(movementVector.y, 2)));
-    moveFwd(vectorLength);
-    currentCoord = getCoords(getDirection());
-    Serial.print(currentCoord.x);
-    Serial.print(", ");
-    Serial.println(currentCoord.y);
-}*/
-
 void pathFollow(vector<coord> path) {
-	// Moves the robot forwards along the path by distance "inputDistance", avoiding mines
+	// Moves the robot to the next point on a path, avoiding mines
     // Doesn't currently avoid mines
-    int pathSize = path.size();
-    for (int coordCounter = 0; coordCounter < pathSize; coordCounter += 1){
-        coord nextCoord = path.back();
-        Serial.print("Next co-ord: ");
-        Serial.print(nextCoord.x);
-        Serial.print(", ");
-        Serial.println(nextCoord.y);
-        Serial.println();
-        pathGo(nextCoord);
-        path.pop_back();
-    }
+    coord nextCoord = path.back();
+    pathGo(nextCoord);
+    path.pop_back();
 }
 
 void pathEdge() {
 	// Moves the robot to the edge of the search area via the shortest route, avoiding mines
-}
+}ledSafe(); // Reset to dafe LED indicatledSafe(); // Reset to dafe LED indicatoror
 
 void pathReturn() {
 	// Moves the robot back to the point on its path where it left off, avoiding mines
 }
 
-void pathHome() {
-	// Moves the robot back to the startbox via the shortest route, avoiding mines
-}
-
 // ** PATH GENERATION ** //
-
 
 vector<coord> generateSearchPath(int gap = 20) {
   // Generates a series of (20cm spaced by default) coordinates along input y line to follow, ends before it hits the wall.
@@ -342,12 +265,10 @@ vector<coord> generateSearchPath(int gap = 20) {
   return path;
 }
 
-
-
 vector<coord> generateEdgePath(int gap = 20) {
   // Generates a series of coordinates to go (20cm spacing by default) to the closest wall and return to original space
   // Will generate to go to closest X or the y=0 side (whichever is closest)
-  // Requires to be predefined: arena (rectangle), dangerZone (rectangle
+  // Requires to be predefined: arena (rectangle), dangerZone (rectangle)
   coord currentPosition = getCoords();
   coord lastCoord;
   int lastX;
@@ -393,7 +314,6 @@ vector<coord> generateEdgePath(int gap = 20) {
     }
   }
     // Otherwise, if facing negative x-direction 
-    
   else {
     if (currentPosition.y - dangerZone.y0 < dangerZone.x1 - currentPosition.x) {
       // follow constant X line from robot to edge, y decreasing
@@ -432,6 +352,30 @@ vector<coord> generateEdgePath(int gap = 20) {
   }
 }
 
+vector<coord> generateHomePath(int gap = 20){
+    // Generates a series of coordinates to go (20cm spacing by default) back to the robot's starting position
+    coord currentPosition = getCoords();
+    coord lastCoord;
+    vector<coord> path;
+    if (currentPosition.x == homeCoord.x){
+        lastCoord = homeCoord;
+        // Proceed along current X line with decreasing Y
+        while (lastCoord.y < currentPosition.y){
+            path.push_back(lastCoord);
+            lastCoord.y += gap;
+        }
+    }
+    else{
+        int homeLineGradient = round((currentPosition.y - homeCoord.y)/(currentPosition.x - homeCoord.x));
+        lastCoord = homeCoord;
+        // Proceed along line from homeCoord to currentPosition
+        while (lastCoord.y < currentPosition.y){
+            path.push_back(lastCoord);
+            lastCoord.y += round((homeLineGradient*gap)/sqrt(pow(homeLineGradient, 2) + 1));
+            lastCoord.x += round((gap)/sqrt(pow(homeLineGradient, 2) + 1));
+        }
+    }
+}
 
 // ** SETUP ** //
 
@@ -503,10 +447,7 @@ rectangle initialiseArenaBoundaries(){
     distToXAxis = yUltrasound.getReading() + ROBOT_WIDTH/2;
     totalX = distToXAxis + distToFarX;
     totalY = distToYAxis + distToFarY;
-    arena.a = coord(0, totalY);
-    arena.b = coord(totalX, totalY);
-    arena.c = coord(0, 0);
-    arena.d = coord(totalX, 0);
+    arena = rectangle(0, totalX, 0, totalY);
     return arena;
 }
 
