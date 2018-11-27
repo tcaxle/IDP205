@@ -14,6 +14,7 @@
 // ** SETUP ** //
 
 float initialiseOrientation(){
+    Serial.println("Got offset");
     /*
     int currentXMeasurement = xUltrasound.getTime();
     int lastXMeasurement = currentXMeasurement;
@@ -41,6 +42,7 @@ float initialiseOrientation(){
 
 rectangle initialiseArenaBoundaries(){
     // To be called after initialiseOrientation
+    Serial.println("Getting boundaries");
     int distToYAxis;
     int distToXAxis;
     int distToFarY;

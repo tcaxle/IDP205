@@ -52,8 +52,8 @@ int singleDetectMine(ldr target) {
   // 2 for DANGER
   float reading = target.voltage();
   float datum = target.datum;
-  float THDanger = 5;
-  float THSafe = 20;
+  float THDanger = 70;
+  float THSafe = 100;
   if (reading >= datum + THSafe) { // SAFE
     return(1); // SAFE
   }
@@ -79,57 +79,46 @@ vector<int> getMineReadings() {
 }
 
 bool detectMine(){
+    //Serial.println("WHERE ARE THOSE FUCKIN MINES");
     bool mineFound = false;
     int LDRCounter = 0;
     while(LDRCounter <= 8 && !mineFound){
-        switch(LDRCounter){
-            case 0:
-                if(singleDetectMine(LDR00) != 0){
-                    mineFound = true;
-                }
-                break;
-            case 1:
-                if(singleDetectMine(LDR01) != 0){
-                    mineFound = true;
-                }
-                break;
-            case 2:
-                if(singleDetectMine(LDR02) != 0){
-                    mineFound = true;
-                }
-                break;
-            case 3:
-                if(singleDetectMine(LDR03) != 0){
-                    mineFound = true;
-                }
-                break;
-            case 4:
-                if(singleDetectMine(LDR07) != 0){
-                    mineFound = true;
-                }
-                break;
-            case 5:
-                if(singleDetectMine(LDR08) != 0){
-                    mineFound = true;
-                }
-                break;
-            case 6:
-                if(singleDetectMine(LDR09) != 0){
-                    mineFound = true;
-                }
-                break;
-            case 7:
-                if(singleDetectMine(LDR10) != 0){
-                    mineFound = true;
-                }
-                break;
-            case 8:
-                if(singleDetectMine(LDR11) != 0){
-                    mineFound = true;
-                }
-                break;
-            LDRCounter += 1;
+        if (LDRCounter == 0 && singleDetectMine(LDR00)){
+            mineFound = true;
         }
+        else if (LDRCounter == 1 && singleDetectMine(LDR01)){
+            mineFound = true;
+            //Serial.println("HOLY SHIT THERE@' A MINE");
+        }
+        else if (LDRCounter == 2 && singleDetectMine(LDR02)){
+            mineFound = true;
+            //Serial.println("HOLY SHIT THERE@' A MINE");
+        }
+        else if (LDRCounter == 3 && singleDetectMine(LDR03)){
+            mineFound = true;
+            //Serial.println("HOLY SHIT THERE@' A MINE");
+        }
+        else if (LDRCounter == 4 && singleDetectMine(LDR07)){
+            mineFound = true;
+            //Serial.println("HOLY SHIT THERE@' A MINE");
+        }
+        else if (LDRCounter == 5 && singleDetectMine(LDR08)){
+            mineFound = true;
+            //Serial.println("HOLY SHIT THERE@' A MINE");
+        }
+        else if (LDRCounter == 6 && singleDetectMine(LDR09)){
+            mineFound = true;
+            //Serial.println("HOLY SHIT THERE@' A MINE");
+        }
+        else if (LDRCounter == 7 && singleDetectMine(LDR10)){
+            mineFound = true;
+            //Serial.println("HOLY SHIT THERE@' A MINE");
+        }
+        else if (LDRCounter == 8 && singleDetectMine(LDR11)){
+            mineFound = true;
+            //Serial.println("HOLY SHIT THERE@' A MINE");
+        }
+        LDRCounter += 1;
     }
     return mineFound;
 }

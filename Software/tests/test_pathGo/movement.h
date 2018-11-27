@@ -22,7 +22,7 @@ bool moveFwd(float inputDistance) {
     int currentDistance;
     int distanceTravelled;
     int error = inputDistance;
-    while(abs(error) > 0){
+    while(abs(error) > 0 && !detectMine()){
         currentDistance = xUltrasound.getReading();
         distanceTravelled = currentDistance - startDistance;
         error = inputDistance - distanceTravelled;
@@ -36,7 +36,8 @@ bool moveFwd(float inputDistance) {
             setStop();
         }
     }
-    if (detectMine) {
+    setStop();
+    if (detectMine()) {
       return(0);
     } else {
       return(1);

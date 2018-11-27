@@ -27,11 +27,11 @@ coord target(100, 100);
 void loop() {
     //pathGo test
     if (runCounter == 0){
-        Serial.println("Ready!");
-        delay(8000);
+        Serial.println("running");
         compassOffset = initialiseOrientation();
         arena = initialiseArenaBoundaries();
-        pathGo(target);
+        pathGo(coord(50,50));
+        pathGo(coord(50, 100));
         
         runCounter += 1;
     }

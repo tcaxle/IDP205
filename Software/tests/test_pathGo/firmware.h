@@ -104,7 +104,7 @@ coord homeCoord;                    // Stores the robot's starting position
 coord position;                     // Stores the robot's position
 float compassOffset = 0;            // Offset to account for initial bearing from North
 float xOrientation = 0;             // Indicates whether robot should face +ve or -ve x-direction
-int runCounter;
+int runCounter = 0;
 rectangle arena;                    // Defines edges of arena to locate the robot
 rectangle dangerZone;               // Defines edges of safe zone for mine disposal and movement onto the next course
 vector<coord> dangerousMineCoords;  // Holds co-ordinates of dangerous mines
@@ -161,7 +161,17 @@ void setup () {
 
   // Initialise compass
   compass.init();
-  compass.xFluxCorrection = 1.455;
-  compass.yFluxCorrection = -47.185;
+  compass.xFluxCorrection = 2.77;
+  compass.yFluxCorrection = -46.81;
 
+  //Calibrate LDRs
+  LDR00.calibrate();
+  LDR01.calibrate();
+  LDR02.calibrate();
+  LDR03.calibrate();
+  LDR07.calibrate();
+  LDR08.calibrate();
+  LDR09.calibrate();
+  LDR10.calibrate();
+  LDR11.calibrate();
 }
