@@ -21,6 +21,8 @@
 #include "movement.h" // 10
 
 void loop() {
+
+    /*
     // Initialise compass, arena boundaries and safe zone boundaries
     compassOffset = initialiseOrientation();
     arena = initialiseArenaBoundaries();
@@ -53,6 +55,10 @@ void loop() {
     for(int coordIndex = 0; coordIndex < path.size(); coordIndex += 1){
             pathFollow(path);
     }
+    */
+
+    panicPanic();
+
 }
 
     /* Tom's random code, preserved for posterity
