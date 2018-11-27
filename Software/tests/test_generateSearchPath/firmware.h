@@ -156,6 +156,7 @@ void setup () {
 
   // Initialise servo
   arm.attach(10);
+  arm.write(30);
 
   // Initialise compass
   compass.init();

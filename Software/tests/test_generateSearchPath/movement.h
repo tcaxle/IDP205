@@ -11,296 +11,18 @@
 
 // **** PRIVATE **** //
 
-float getDirection() {
-    //Uses a reading from the compass and the orientated compass offset to return the robot’s angle
-    //Correct reading to be relative to x-axis heading then output
-    float currentHeading = compass.getHeading();
-    if (compassOffset - currentHeading <= -180) {
-        return round(360 + compassOffset - currentHeading);
-    }
-    else if (compassOffset - currentHeading > 180){
-        return round(compassOffset - currentHeading - 360);
-    }
-    else{
-        return round (compassOffset - currentHeading);
-    }
-}
-
-void setFwd(int inputSpeed = 90) {
-  // Sets both motors to foward mode with the defined speeds
-  leftMotor.setForward();
-  rightMotor.setForward();
-  leftMotor.setSpeed(inputSpeed);
-  rightMotor.setSpeed(inputSpeed);
-}
-
-void setBwd(int inputSpeed = 90) {
-  // Sets both motors to backward mode with the defined speeds
-  leftMotor.setBackward();
-  rightMotor.setBackward();
-  leftMotor.setSpeed(inputSpeed);
-  rightMotor.setSpeed(inputSpeed);
-}
-
-void setStop(int stopDelay = 0) {
-  // Stops both motors
-  delay(stopDelay);
-  leftMotor.emergencyStop();
-  rightMotor.emergencyStop();
-}
-
-void setClockwise(int inputSpeed = 120) {
-  // Sets both motors to spin clockwise with the defined speeds
-  leftMotor.setForward();
-  rightMotor.setBackward();
-  leftMotor.setSpeed(inputSpeed);
-  rightMotor.setSpeed(inputSpeed);
-}
-
-void setAnticlockwise(int inputSpeed = 120) {
-  // Sets both motors to spin anticlockwise with the defined speeds
-  leftMotor.setBackward();
-  rightMotor.setForward();
-  leftMotor.setSpeed(inputSpeed);
-  rightMotor.setSpeed(inputSpeed);
-}
-
 // **** PUBLIC **** //
-
-// ** Facing ** //
-
-void faceAngle(float targetHeading, float tolerance = 0.25, int turnSpeed = 60) {
-  // rotates to face in a particular direction
-  float currentHeading = getDirection();
-  float error = currentHeading - targetHeading;
-  if (targetHeading == 180) {
-    while (currentHeading >= 0 && currentHeading < 179.5) {
-      currentHeading = getDirection();
-      setAnticlockwise(turnSpeed);
-      setStop(5);
-    }
-    while (currentHeading <= 0 && currentHeading > -179.5) {
-      currentHeading = getDirection();
-      setClockwise(turnSpeed);
-      setStop(5);
-    }
-  } else {
-   while (abs(error) > tolerance) {
-     currentHeading = getDirection();
-     error = currentHeading - targetHeading;
-     if (error > 0) {
-       setClockwise(turnSpeed);
-     } else {
-       setAnticlockwise(turnSpeed);
-      }
-    setStop(5);
-    }
-  }
-  setStop();
-}
-
-void faceFwd() {
-	// Points the robot forward relative to its course
-}
-
-void faceBwd() {
-	// Points the robot backward relative to its course
-}
-
-void faceLft() {
-	// Points the robot left relative to its course
-}
-
-void faceRgt() {
-	// Points the robot right relative to its course
-}
-
-void faceCoord(coord input_coord) {
-	// Points the robot towards the coordinate "input_coord"
-}
-
-coord getCoords(float currentDirection = getDirection()) {
-    // Uses the ultrasound sensors to return a coord object giving the robot’s current location
-    // Lengths to be given in cm
-    // Direction to be given in degrees and should be oriented to the robot's Cartesian co-ordinate system
-
-    //Initialise coordinate variables
-    int xCoordinate;
-    int yCoordinate;
-  
-    if (abs(currentDirection) <= 45){
-        faceAngle(0);
-        xCoordinate = xUltrasound.getReading() + ROBOT_LENGTH;
-        yCoordinate = arena.y1 - (yUltrasound.getReading() + ROBOT_WIDTH/2);
-    }
-    else if (currentDirection > 0 && currentDirection <= 135){
-        faceAngle(90);
-        xCoordinate = yUltrasound.getReading() + ROBOT_WIDTH/2;
-        yCoordinate = xUltrasound.getReading() + ROBOT_LENGTH;
-    }
-    else if (currentDirection < 0 && currentDirection >= -135){
-        faceAngle(-90);
-        xCoordinate = arena.x1 - (yUltrasound.getReading() + ROBOT_WIDTH/2);
-        yCoordinate = arena.y1 - (xUltrasound.getReading() + ROBOT_LENGTH);
-    }
-    else{
-        faceAngle(180);
-        xCoordinate = arena.x1 - (xUltrasound.getReading() + ROBOT_LENGTH);
-        yCoordinate = yUltrasound.getReading() + ROBOT_WIDTH/2;
-    }
-    coord currentCoord(xCoordinate, yCoordinate);
-    return currentCoord;
-}
-
-// ** PATH GENERATION ** //
-
-vector<coord> generateSearchPath(int gap = 20) {
-  // Generates a series of (20cm spaced by default) coordinates along input y line to follow, ends before it hits the wall.
-  // Will generate to go to ****furthest side**** from current position
-  // Requires to be predefined: dangerZone (rectangle)
-  coord currentPosition = getCoords();
-  coord lastCoord;
-  vector<coord> path;
-  if (xOrientation == 0){
-    lastCoord = coord(dangerZone.x1, currentPosition.y);
-    while(lastCoord.x > currentPosition.x){
-        path.push_back(lastCoord);
-        lastCoord.x -= gap;
-    }
-  }
-  else{
-    lastCoord = coord(dangerZone.x0, currentPosition.y);
-    while(lastCoord.x < currentPosition.x){
-        path.push_back(lastCoord);
-        lastCoord.x += gap;
-    }
-  }
-  return path;
-}
-
-vector<coord> generateEdgePath(int gap = 20) {
-  // Generates a series of coordinates to go (20cm spacing by default) to the closest wall and return to original space
-  // Will generate to go to closest X or the y=0 side (whichever is closest)
-  // Requires to be predefined: arena (rectangle), dangerZone (rectangle)
-  coord currentPosition = getCoords();
-  coord lastCoord;
-  int lastX;
-  int lastY;
-  vector<coord> path;
-  // If facing positive x-direction
-  if (xOrientation == 0) {
-    // If closer to bottom edge of danger zone than vertical edge
-    if ((currentPosition.y - dangerZone.y0) < (currentPosition.x - dangerZone.x0)) {
-      // follow constant X line from robot to edge, y decreasing
-      lastCoord = coord(currentPosition.x, currentPosition.y);
-      while (lastCoord.y >= dangerZone.y0) {
-        path.push_back(lastCoord);
-        lastCoord.y -= gap;
-      } 
-      lastCoord = coord(currentPosition.x, dangerZone.y0);
-      path.push_back(lastCoord);
-      // follow constant X line back to original position, y increasing
-      lastCoord = coord(currentPosition.x, dangerZone.y0 + gap);
-      while (lastCoord.y < currentPosition.y) {
-        path.push_back(lastCoord);
-        lastCoord.y += gap;
-      } 
-      return path;
-      } 
-      // Otherwise (ie: if closer to vertical edge than bottom edge)
-      else {
-      // follow constant Y line from robot to edge, x decreasing
-      lastCoord = coord(currentPosition.x, currentPosition.y);
-      while (lastCoord.x >= dangerZone.x0) {
-        path.push_back(lastCoord);
-        lastCoord.x -= gap;
-      }
-      lastCoord = coord(dangerZone.x0, currentPosition.y);
-      path.push_back(lastCoord);
-      // follow constant Y line back to original position, x increasing
-      lastCoord = coord(dangerZone.x0 + gap, currentPosition.y);
-      while (lastCoord.x < currentPosition.x) {
-        path.push_back(lastCoord);
-        lastCoord.x += gap;
-      }
-      return path;
-    }
-  }
-    // Otherwise, if facing negative x-direction 
-  else {
-    if (currentPosition.y - dangerZone.y0 < dangerZone.x1 - currentPosition.x) {
-      // follow constant X line from robot to edge, y decreasing
-      lastCoord = coord(currentPosition.x, currentPosition.y);
-      while (lastCoord.y >= dangerZone.y0) {
-        path.push_back(lastCoord);
-        lastCoord.y -= gap;
-      } 
-      lastCoord = coord(currentPosition.x, dangerZone.y0);
-      path.push_back(lastCoord);
-      // follow constant X line back to original position, y increasing
-      lastCoord = coord(currentPosition.x, dangerZone.y0 + gap);
-      while (lastCoord.y < currentPosition.y) {
-        path.push_back(lastCoord);
-        lastCoord.y += gap;
-      } 
-      return path;
-      }
-      else {
-      // follow constant Y line from robot to edge, x increasing
-      lastCoord = coord(currentPosition.x, currentPosition.y);
-      while (lastCoord.x <= dangerZone.x1) {
-        path.push_back(lastCoord);
-        lastCoord.x += gap;
-      }
-      lastCoord = coord(dangerZone.x1, currentPosition.y);
-      path.push_back(lastCoord);
-      // follow constant Y line back to original position, x decreasing
-      lastCoord = coord(dangerZone.x1 - gap, currentPosition.y);
-      while (lastCoord.x < currentPosition.x) {
-        path.push_back(lastCoord);
-        lastCoord.x -= gap;
-      }
-      return path;
-    }
-  }
-}
-
-vector<coord> generateHomePath(int gap = 20){
-    // Generates a series of coordinates to go (20cm spacing by default) back to the robot's starting position
-    coord currentPosition = getCoords();
-    coord lastCoord;
-    vector<coord> path;
-    if (currentPosition.x == homeCoord.x){
-        lastCoord = homeCoord;
-        // Proceed along current X line with decreasing Y
-        while (lastCoord.y < currentPosition.y){
-            path.push_back(lastCoord);
-            lastCoord.y += gap;
-        }
-    }
-    else{
-        int homeLineGradient = round((currentPosition.y - homeCoord.y)/(currentPosition.x - homeCoord.x));
-        lastCoord = homeCoord;
-        // Proceed along line from homeCoord to currentPosition
-        while (lastCoord.y < currentPosition.y){
-            path.push_back(lastCoord);
-            lastCoord.y += round((homeLineGradient*gap)/sqrt(pow(homeLineGradient, 2) + 1));
-            lastCoord.x += round((gap)/sqrt(pow(homeLineGradient, 2) + 1));
-        }
-    }
-}
 
 // ** Movement ** //
 
-void moveFwd(float inputDistance, bool safe = true) {
-	// Moves the robot in the current direction by distance "inputDistance" (may take negative values to reverse)
-    // If the robot encounters a mine it should reverse to its previous spot
+bool moveFwd(float inputDistance) {
+  // Moves the robot forward (relative to current facing) by distance "inputDistance"
+  // returns false if there is a mine
     int startDistance = xUltrasound.getReading();
     int currentDistance;
     int distanceTravelled;
     int error = inputDistance;
-    // So long as the robot hasn't moved the exact distance specified and no mines are detected
-    while(abs(error) > 0 && !(detectMine && safe)){
+    while(abs(error) > 0 && !detectMine){
         currentDistance = xUltrasound.getReading();
         distanceTravelled = currentDistance - startDistance;
         error = inputDistance - distanceTravelled;
@@ -314,161 +36,84 @@ void moveFwd(float inputDistance, bool safe = true) {
             setStop();
         }
     }
-    // After stopping, if a mine is detected and the move is safe
-    if (detectMine() && safe){
-        // Get vector of LDR readings and initialise the most severe mine reading to 0 (no mine)
-        coord mineCoord = getCoords();
-        vector<int> mineReadings = getMineReadings();
-        int mostSevereReading = 0;
-        // Step through all LDR readings to find the most severe
-        for (int readingCounter = 0; readingCounter < mineReadings.size(); readingCounter += 1){
-            if (mineReadings[readingCounter] > mostSevereReading){
-                mostSevereReading = mineReadings[readingCounter];
-            }
-        }
-        // If the mine is safe log its position and transport the mine to outside the safe zone
-        if (mostSevereReading == 1){
-            safeMineCoords.push_back(mineCoord);
-            mineGrab();
-            path = generateEdgePath();
-            pathFollow(path);
-        }
-        // If the mine is dangerous log its position and add a forbidden zone to the array
-        else if (mostSevereReading == 2){
-            dangerousMineCoords.push_back(mineCoord);
-            forbiddenZones.push_back(rectangle(mineCoord.x - 20, mineCoord.x + 20, mineCoord.y - 20, mineCoord.y + 20));
-        }
-        //Reverse to previous location without mine recognition (prevents getting permanently stuck)
-        moveFwd(-distanceTravelled, false);
+    if (detectMine) {
+      return(0);
+    } else {
+      return(1);
     }
 }
 
-// ** Rotation ** //
-
-void spinLft(float inputDegrees) {
-	// Rotates the robot left (anticlockwise) through angle "inputDegrees"
-}
-
-void spinRgt(float inputDegrees) {
-	// Rotates the robot right (clockwise) through angle "inputDegrees"
-}
-
-// ** Path ** //
-
-void pathGo(coord inputCoord, int tolerance = 2){
+bool pathGo(coord inputCoord, int tolerance = 2){
     // Moves the robot to the coordinate "input_coord" via perpendicular components
     // Get current position
+    // return false if there is a mine that stops it
     coord currentCoord = getCoords(getDirection());
     // Calculate vector from current position to target position
     coord movementVector = inputCoord.subtract(currentCoord);
+    bool success = 1;
     if(movementVector.x > tolerance){
         faceAngle(0);
-        moveFwd(abs(movementVector.x));
+        success = moveFwd(abs(movementVector.x));
     }
     else if(movementVector.x < -tolerance){
         faceAngle(180);
-        moveFwd(abs(movementVector.x));
+        success = moveFwd(abs(movementVector.x));
     }
     if(movementVector.y > tolerance){
         faceAngle(90);
-        moveFwd(abs(movementVector.y));
+        success = moveFwd(abs(movementVector.x));
     }
     else if(movementVector.y < -tolerance){
         faceAngle(-90);
-        moveFwd(abs(movementVector.y));
+        success = moveFwd(abs(movementVector.x));
     }
     //faceAngle(xOrientation);
     currentCoord = getCoords(getDirection());
+    return(success);
 }
 
 void pathFollow(vector<coord> path) {
 	// Moves the robot to the next point on a path, avoiding mines
     // Doesn't currently avoid mines
     coord nextCoord = path.back();
-    pathGo(nextCoord);
+    if (!pathGo(nextCoord)){
+        vector<int> mineReadings = getMineReadings();
+        int mostSevereReading = 0;
+        for (int readingCounter = 0; readingCounter < mineReadings.size(); readingCounter += 1){
+            if (mineReadings[readingCounter] > mostSevereReading){
+                mostSevereReading = mineReadings[readingCounter];
+            }
+        }
+        if (mostSevereReading == 1){
+            coord currentPosition = getCoords();
+            vector<coord> edgePath = generateEdgePath();
+            vector<coord> returnPath = generateReturnPath(currentPosition);
+            int edgePathSize = edgePath.size();
+            int returnPathSize = returnPath.size();
+            safeMineCoords.push_back(currentPosition);
+            //Pick up mine
+            mineGrab();
+            // Follow whole path to edge
+            for(int pathCounter = 0; pathCounter < edgePathSize; pathCounter += 1){
+                pathFollow(edgePath);
+            }
+            moveFwd(5);
+            mineDrop();
+            moveFwd(-5);
+            // Follow path back to start
+            for(int pathCounter = 0; pathCounter < returnPathSize; pathCounter += 1){
+                pathFollow(returnPath);
+            }
+        }
+        else if (mostSevereReading == 2){
+            coord currentPosition = getCoords();
+            dangerousMineCoords.push_back(currentPosition);
+            forbiddenZones.push_back(rectangle(currentPosition.x - 20, currentPosition.x +20, currentPosition.y - 20, currentPosition.y + 20));
+            moveFwd(-20);
+        }
+        
+    }
     path.pop_back();
-}
-
-void pathEdge() {
-	// Moves the robot to the edge of the search area via the shortest route, avoiding mines
-}
-
-void pathReturn() {
-	// Moves the robot back to the point on its path where it left off, avoiding mines
-}
-
-// ** SETUP ** //
-
-float initialiseOrientation(){
-    /*
-    int currentXMeasurement = xUltrasound.getTime();
-    int lastXMeasurement = currentXMeasurement;
-    float offsetAngle;
-    setClockwise(60);
-    while (currentXMeasurement <= lastXMeasurement + 5){
-        lastXMeasurement = currentXMeasurement;
-        currentXMeasurement = xUltrasound.getTime();
-    }
-    setStop();
-    delay(500);
-    currentXMeasurement = xUltrasound.getTime();
-    lastXMeasurement = currentXMeasurement;
-    setAnticlockwise(60);
-    while(currentXMeasurement <= lastXMeasurement + 5){
-        lastXMeasurement = currentXMeasurement;
-        currentXMeasurement = xUltrasound.getReading();
-    }
-    setStop();
-    offsetAngle = compass.getHeading();
-    return offsetAngle;
-    */
-    return compass.getHeading();
-}
-
-/*
-vector<int> initialiseArenaBoundaries(){
-    // To be called after initialiseOrientation
-    int distToYAxis;
-    int distToXAxis;
-    int distToFarY;
-    int distToFarX;
-    int totalX;
-    int totalY;
-    vector<int> arenaBoundaries;
-    faceAngle(0);
-    distToYAxis = xUltrasound.getReading() + ROBOT_LENGTH;
-    distToFarX = yUltrasound.getReading();
-    faceAngle(180);
-    distToFarY = xUltrasound.getReading();
-    distToXAxis = yUltrasound.getReading() + ROBOT_WIDTH/2;
-    faceAngle(0);
-    totalX = distToXAxis + distToFarX;
-    totalY = distToYAxis + distToFarY;
-    arenaBoundaries.push_back(totalX);
-    arenaBoundaries.push_back(totalY);
-    return arenaBoundaries;
-}*/
-
-//RECTANGLE OUTPUT
-rectangle initialiseArenaBoundaries(){
-    // To be called after initialiseOrientation
-    int distToYAxis;
-    int distToXAxis;
-    int distToFarY;
-    int distToFarX;
-    int totalX;
-    int totalY;
-    rectangle arena;
-    faceAngle(0);
-    distToYAxis = xUltrasound.getReading() + ROBOT_LENGTH;
-    distToFarX = yUltrasound.getReading();
-    faceAngle(180);
-    distToFarY = xUltrasound.getReading();
-    distToXAxis = yUltrasound.getReading() + ROBOT_WIDTH/2;
-    totalX = distToXAxis + distToFarX;
-    totalY = distToYAxis + distToFarY;
-    arena = rectangle(0, totalX, 0, totalY);
-    return arena;
 }
 
 // ** Panic ** //
@@ -486,5 +131,25 @@ void panicRun() {
 }
 
 void panicPanic() {
-	// Moves eratically and without direction in an inescapable loop (edgecase)
+  int rndangle = random (30, 90);
+  servoMove(rndangle);
+	int selection = random(0, 4);
+  if (selection == 0) {
+    int rndspeed = random(0, 255);
+    setFwd(rndspeed);
+  } else if (selection == 1) {
+    int rndspeed = random(0, 255);
+    setBwd(rndspeed);
+  } else if (selection == 2) {
+    int rndspeed = random(0, 255);
+    setClockwise(rndspeed);
+  }
+  else if (selection == 3) {
+    int rndspeed = random(0, 255);
+    setAnticlockwise(rndspeed);
+  } else if (selection == 4) {
+    setStop();
+  }
+  int rnddelay = random(100, 2000);
+  delay(rnddelay);
 }
