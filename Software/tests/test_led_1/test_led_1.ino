@@ -11,7 +11,7 @@
 //#include "firmware.h"
 
 void setup () {
-    pinMode(1, OUTPUT);
+    pinMode(6, OUTPUT);
  
     //begin serial communication
     Serial.begin(9600);
@@ -19,10 +19,10 @@ void setup () {
 
 void loop() {
   
-  digitalWrite(1, HIGH);
+  digitalWrite(6, HIGH);
   Serial.println("On!");
   delay(1000);
-  digitalWrite(1, LOW);
+  digitalWrite(6, LOW);
   Serial.println("Off!");
   delay(1000);
   

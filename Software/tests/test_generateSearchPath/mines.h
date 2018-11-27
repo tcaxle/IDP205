@@ -46,6 +46,7 @@ void calibrateLDRs() {
   LDR11.calibrate();
 }
 
+
 int singleDetectMine(ldr target) {
   // 0 for NONE
   // 1 for SAFE

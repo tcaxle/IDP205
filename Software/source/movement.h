@@ -175,7 +175,7 @@ bool moveFwd(float inputDistance) {
             setStop();
         }
     }
-    if (detectMine != 0) {
+    if (detectMine) {
       return(1);
     } else {
       return(0);

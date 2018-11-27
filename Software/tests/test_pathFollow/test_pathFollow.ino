@@ -24,7 +24,7 @@ coord point7(150, 50);
 coord point8(100, 50);
 
 void loop() {
-    // On first run
+    /*// On first run
     if (runCounter == 0){
         compassOffset = initialiseOrientation();
         Serial.println("Ready!");
@@ -44,5 +44,5 @@ void loop() {
     Serial.println();
     // Follow path
     pathFollow(path);
-    runCounter += 1;
+    runCounter += 1;*/
 }

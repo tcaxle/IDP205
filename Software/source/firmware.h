@@ -119,7 +119,7 @@ ldr LDR00(A0);  // Initialise LDR objects
 ldr LDR01(A1);
 ldr LDR02(A2);
 ldr LDR03(A3);
-ldr LDR04(A4);
+ldr LDR07(A7);
 ldr LDR08(A8);
 ldr LDR09(A9);
 ldr LDR10(A10);

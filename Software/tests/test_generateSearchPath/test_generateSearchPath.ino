@@ -11,16 +11,20 @@
 #include "classes.h" // 1
 #include "firmware.h" // 2
 #include "indicate.h" // 3
-#include "orientation.h" // 4
-#include "movement.h" // 5
+#include "mines.h" // 4
+#include "orientation.h" // 5
+#include "movement.h" // 6
 
 void loop() {
-    if (runCounter == 0) {
+    /*if (runCounter == 0) {
     compassOffset = initialiseOrientation();
     arena = initialiseArenaBoundaries();
     dangerZone = rectangle(30, arena.x1 - 30, 30, arena.y1 - 30);
     path = generateSearchPath();
-    pathFollow(path);
-    runCounter++;
+    pathSize = path.size();
+    for(int coordCounter = 1; coordCounter < pathSize; coordCounter += 1){
+      pathFollow(path);  
     }
+    runCounter++;
+    }*/
 }
