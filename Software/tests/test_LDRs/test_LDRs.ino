@@ -12,6 +12,7 @@
 #include "movement.h" // 10
 
 void loop () {
+  /*
   Serial.print(LDR00.voltage());
   Serial.print(", ");
   Serial.print(LDR01.voltage());
@@ -29,5 +30,8 @@ void loop () {
   Serial.print(LDR10.voltage());
   Serial.print(", ");
   Serial.println(LDR11.voltage());
-}
+  */
 
+  Serial.println(detectMine());
+  delay(100);
+}

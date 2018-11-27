@@ -22,13 +22,17 @@
 
 
 // Initialise sigle destination co-ordinate for pathGo test
-coord target(50, 50);
+coord target(100, 100);
 
 void loop() {
     //pathGo test
     if (runCounter == 0){
+        Serial.println("Ready!");
+        delay(8000);
         compassOffset = initialiseOrientation();
+        arena = initialiseArenaBoundaries();
         pathGo(target);
+        
         runCounter += 1;
     }
 }

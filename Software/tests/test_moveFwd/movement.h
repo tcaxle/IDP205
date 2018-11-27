@@ -19,11 +19,10 @@ bool moveFwd(float inputDistance) {
   // Moves the robot forward (relative to current facing) by distance "inputDistance"
   // returns false if there is a mine
     int startDistance = xUltrasound.getReading();
-    Serial.println(startDistance);
     int currentDistance;
     int distanceTravelled;
     int error = inputDistance;
-    while(abs(error) > 0 && !detectMine){
+    while(abs(error) > 0 && !detectMine()){
         currentDistance = xUltrasound.getReading();
         distanceTravelled = currentDistance - startDistance;
         error = inputDistance - distanceTravelled;
@@ -37,7 +36,7 @@ bool moveFwd(float inputDistance) {
             setStop();
         }
     }
-    if (detectMine) {
+    if (detectMine()) {
       return(0);
     } else {
       return(1);
