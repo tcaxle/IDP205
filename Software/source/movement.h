@@ -76,7 +76,10 @@ void pathFollow(vector<coord> path) {
 	// Moves the robot to the next point on a path, avoiding mines
     // Doesn't currently avoid mines
     coord nextCoord = path.back();
-    pathGo(nextCoord);
+    if (!pathGo(nextCoord)){
+        vector<coord> edgePath = generateEdgePath();
+        vector<coord> returnPath = generateReturnPath(getCoords());
+    }
     path.pop_back();
 }
 
