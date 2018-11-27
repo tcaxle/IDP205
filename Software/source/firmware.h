@@ -162,6 +162,7 @@ void setup () {
 
   // Initialise Servo
   arm.attach(10);
+  arm.write(30);
 
   // Initialise Compass
   compass.init();

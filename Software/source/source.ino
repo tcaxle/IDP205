@@ -53,5 +53,24 @@ void loop() {
     }
     */
 
-    setFwd();
+    mineGrab();
+    delay(1000);
+
+    
+    //setFwd();
+
+    /*
+    delay(1000);
+    setStop();
+    mineGrab();
+    setClockwise();
+    delay(2500);
+    setStop();
+    mineDrop();
+    setBwd();
+    delay(1000);
+    setAnticlockwise();
+    delay(2500);
+    */
+    
 }
