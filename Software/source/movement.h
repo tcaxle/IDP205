@@ -22,7 +22,7 @@ bool moveFwd(float inputDistance) {
     int currentDistance;
     int distanceTravelled;
     int error = inputDistance;
-    while(abs(error) > 0 && detectMine == 0){
+    while(abs(error) > 0 && !detectMine){
         currentDistance = xUltrasound.getReading();
         distanceTravelled = currentDistance - startDistance;
         error = inputDistance - distanceTravelled;
@@ -37,9 +37,9 @@ bool moveFwd(float inputDistance) {
         }
     }
     if (detectMine) {
-      return(1);
-    } else {
       return(0);
+    } else {
+      return(1);
     }
 }
 
@@ -51,7 +51,7 @@ bool pathGo(coord inputCoord, int tolerance = 2){
     // Calculate vector from current position to target position
     coord movementVector = inputCoord.subtract(currentCoord);
     bool success = 1;
-    if(movementVector.x > tolerance && xUltrasound.getReading()){
+    if(movementVector.x > tolerance){
         faceAngle(0);
         success = moveFwd(abs(movementVector.x));
     }
