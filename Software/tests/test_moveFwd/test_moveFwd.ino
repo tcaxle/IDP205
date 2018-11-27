@@ -22,9 +22,10 @@
 
 
 void loop() {
-    //moveFwd test
+    // moveFwd test
     if (runCounter == 0){
-        Serial.println(moveFwd(30));
+        Serial.println(moveFwd(100));
+        Serial.println("HOLY FUCKING SHITBALLS THAT'S A MINE!!");
         runCounter += 1;
     }
 }

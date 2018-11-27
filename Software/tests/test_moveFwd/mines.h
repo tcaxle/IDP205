@@ -52,7 +52,7 @@ int singleDetectMine(ldr target) {
   // 2 for DANGER
   float reading = target.voltage();
   float datum = target.datum;
-  float THDanger = 50;
+  float THDanger = 70;
   float THSafe = 100;
   if (reading >= datum + THSafe) { // SAFE
     return(1); // SAFE

@@ -36,6 +36,7 @@ bool moveFwd(float inputDistance) {
             setStop();
         }
     }
+    setStop();
     if (detectMine()) {
       return(0);
     } else {
