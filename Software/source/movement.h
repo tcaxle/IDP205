@@ -98,20 +98,20 @@ void panicPanic() {
   int rndangle = random (30, 90);
   servoMove(rndangle);
 	int selection = random(0, 4);
-  if (selection = 0) {
+  if (selection == 0) {
     int rndspeed = random(0, 255);
     setFwd(rndspeed);
-  } else if (selection = 1) {
+  } else if (selection == 1) {
     int rndspeed = random(0, 255);
     setBwd(rndspeed);
-  } else if (selection = 2) {
+  } else if (selection == 2) {
     int rndspeed = random(0, 255);
     setClockwise(rndspeed);
   }
-  else if (selection = 3) {
+  else if (selection == 3) {
     int rndspeed = random(0, 255);
     setAnticlockwise(rndspeed);
-  } else if (selection = 4) {
+  } else if (selection == 4) {
     setStop();
   }
   int rnddelay = random(100, 2000);

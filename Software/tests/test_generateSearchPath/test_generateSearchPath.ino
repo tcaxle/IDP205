@@ -16,7 +16,7 @@
 #include "movement.h" // 6
 
 void loop() {
-    /*if (runCounter == 0) {
+    if (runCounter == 0) {
     compassOffset = initialiseOrientation();
     arena = initialiseArenaBoundaries();
     dangerZone = rectangle(30, arena.x1 - 30, 30, arena.y1 - 30);
@@ -26,5 +26,5 @@ void loop() {
       pathFollow(path);  
     }
     runCounter++;
-    }*/
+    }
 }
