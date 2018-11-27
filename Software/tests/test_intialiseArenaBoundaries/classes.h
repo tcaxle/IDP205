@@ -198,46 +198,6 @@ class compass { // A class for the LSM303 Accelerometer and Magnetometer
 			}
 			return outputHeading;
 		}
-       vector <float> calibrate(motor motor1, motor motor2){
-            int runCounter = 0;
-            vector<float> fluxDistributionCentre;
-            motor1.setSpeed(225);
-            motor2.setSpeed(225);
-            motor1.setForward();
-            motor2.setBackward();
-            sensors_event_t reading;
-            assignedCompass.getEvent(&reading);
-            float minXFlux = reading.magnetic.x;
-            float maxXFlux = reading.magnetic.x;
-            float minYFlux = reading.magnetic.y;
-            float maxYFlux = reading.magnetic.y;
-            runCounter += 1;
-            delay (100);
-            while(runCounter < 300){
-                // Get current compass flux readings
-                sensors_event_t reading;
-                assignedCompass.getEvent(&reading);
-                if (reading.magnetic.x < minXFlux){
-                    minXFlux = reading.magnetic.x;
-                }
-                else if (reading.magnetic.x > maxXFlux){
-                    maxXFlux = reading.magnetic.x;
-                }
-                if (reading.magnetic.y < minYFlux){
-                    minYFlux = reading.magnetic.y;
-                }
-                else if (reading.magnetic.y > maxYFlux){
-                    maxYFlux = reading.magnetic.y;
-                }
-                runCounter += 1;
-                delay(100);
-            }
-            motor1.emergencyStop();
-            motor2.emergencyStop();
-            fluxDistributionCentre.push_back((maxXFlux + minXFlux)/2);
-            fluxDistributionCentre.push_back((maxYFlux + minYFlux)/2);
-            return fluxDistributionCentre;
-       }
 };
 
 class ultrasound{
@@ -266,6 +226,35 @@ class infrared { // A class for Infrared Sensors
 		float distance() {
 			return IR_SCALE * pow(voltage(), -1);
 		}
+};
+
+class ldr { // A class for taking the input voltage of an LDR in a potential divider network
+  public:
+
+  char port;
+  float datum = 0.0;
+
+  ldr(char inputPort) {
+    // constructor
+    port = inputPort;
+  }
+
+  float voltage() {
+    return analogRead(port);
+  }
+  float average(int count = 5) {
+    // Average result over "count" readings
+    int i = 0;
+    float result = 0.0;
+    while (i < count) {
+      i ++;
+      result += voltage();
+    }
+    return(result / count);
+  }
+  void calibrate() {
+    datum = average(100);
+  }
 };
 
 // **** PRIVATE **** //

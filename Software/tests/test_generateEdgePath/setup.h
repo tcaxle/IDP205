@@ -14,6 +14,7 @@
 // ** SETUP ** //
 
 float initialiseOrientation(){
+    Serial.println("Got offset");
     /*
     int currentXMeasurement = xUltrasound.getTime();
     int lastXMeasurement = currentXMeasurement;

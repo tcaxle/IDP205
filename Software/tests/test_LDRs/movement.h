@@ -22,7 +22,7 @@ bool moveFwd(float inputDistance) {
     int currentDistance;
     int distanceTravelled;
     int error = inputDistance;
-    while(abs(error) > 0 && !detectMine){
+    while(abs(error) > 0 && !detectMine()){
         currentDistance = xUltrasound.getReading();
         distanceTravelled = currentDistance - startDistance;
         error = inputDistance - distanceTravelled;
@@ -36,7 +36,8 @@ bool moveFwd(float inputDistance) {
             setStop();
         }
     }
-    if (detectMine) {
+    setStop();
+    if (detectMine()) {
       return(0);
     } else {
       return(1);
@@ -76,7 +77,25 @@ void pathFollow(vector<coord> path) {
 	// Moves the robot to the next point on a path, avoiding mines
     // Doesn't currently avoid mines
     coord nextCoord = path.back();
-    pathGo(nextCoord);
+    if (!pathGo(nextCoord)){
+        delay(3000);
+        coord currentPosition = getCoords();x
+        vector<int> mineReadings = getMineReadings();
+        int mostExtremeReading = 2;
+        for (int readingCounter = 0; readingCounter < mineReadings.size(); readingCounter += 1){
+            if (mineReadings[readingCounter] == 1){
+                mostExtremeReading = 1;
+            }
+        }
+        if (mostSevereReading == 1){
+            safeMineCoords.push_back(currentPosition);
+        }
+        else if (mostSevereReading == 2){
+            dangerousMineCoords.push_back(currentPosition);
+            forbiddenZones.push_back(rectangle(currentPosition.x - 20, currentPosition.x +20, currentPosition.y - 20, currentPosition.y + 20));
+            moveFwd(-20);
+        }
+    }
     path.pop_back();
 }
 

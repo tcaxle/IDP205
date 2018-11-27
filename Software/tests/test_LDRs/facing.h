@@ -28,21 +28,22 @@ float getDirection() {
     }
 }
 
-void faceAngle(float targetHeading, float tolerance = 0.25, int turnSpeed = 60) {
+void faceAngle(float targetHeading, float tolerance = 0.5, int turnSpeed = 60) {
   // rotates to face in a particular direction
   float currentHeading = getDirection();
   float error = currentHeading - targetHeading;
   if (targetHeading == 180) {
-    while (currentHeading >= 0 && currentHeading < 179.5) {
+    while (abs(currentHeading) < 180 - tolerance) {
+      if (180 - currentHeading <= 180){
+        setAnticlockwise(turnSpeed);
+      }
+      else{
+        setClockwise(turnSpeed);
+      }
       currentHeading = getDirection();
       setAnticlockwise(turnSpeed);
-      setStop(5);
     }
-    while (currentHeading <= 0 && currentHeading > -179.5) {
-      currentHeading = getDirection();
-      setClockwise(turnSpeed);
-      setStop(5);
-    }
+    setStop();
   } else {
    while (abs(error) > tolerance) {
      currentHeading = getDirection();
