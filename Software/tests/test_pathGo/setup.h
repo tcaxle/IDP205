@@ -42,7 +42,6 @@ float initialiseOrientation(){
 
 rectangle initialiseArenaBoundaries(){
     // To be called after initialiseOrientation
-    Serial.println("Getting boundaries");
     int distToYAxis;
     int distToXAxis;
     int distToFarY;

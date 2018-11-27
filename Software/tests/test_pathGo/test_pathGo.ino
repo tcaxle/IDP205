@@ -28,10 +28,15 @@ void loop() {
     //pathGo test
     if (runCounter == 0){
         Serial.println("running");
-        compassOffset = initialiseOrientation();
+        Serial.println("#1");
+        compassOffset = compass.getHeading();
+        Serial.println("#2");
         arena = initialiseArenaBoundaries();
+        Serial.println("#3");
         pathGo(coord(50,50));
+        Serial.println("#4");
         pathGo(coord(50, 100));
+        Serial.println("#5");
         
         runCounter += 1;
     }
