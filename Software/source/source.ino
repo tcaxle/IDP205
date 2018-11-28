@@ -22,13 +22,38 @@
 
 void loop() {
 
+     
     setFwd(60);
     delay(10000);
     setBwd(60);
     delay(10000);
-    while (true){
-       setStop(); 
+    while (true) {
+      setStop();
     }
+    
+/*
+    while (xUltrasound.getReading() >= 30) {
+      setFwd();
+      if (detectMine()) {
+        vector<int> mineReadings = getMineReadings();
+        int mostExtremeReading = 2;
+        for (int readingCounter = 0; readingCounter < mineReadings.size(); readingCounter += 1){
+            if (mineReadings[readingCounter] == 1){
+                mostExtremeReading = 1;     
+            }
+        }
+        if (mostExtremeReading == 1){
+            Serial.println("Safe Mine");
+        }
+        else if (mostExtremeReading == 2){
+            Serial.println("Dangerous Mine");
+        }
+      }
+    }
+    setAnticlockwise(255);
+    delay(1000);
+ */   
+    
     
     /*// Initialise compass, arena boundaries and safe zone boundaries
     compassOffset = initialiseOrientation();
@@ -40,15 +65,7 @@ void loop() {
     delay(1000);
     setStop();
     faceAngle(90);
-    LDR00.calibrate();
-    LDR01.calibrate();
-    LDR02.calibrate();
-    LDR03.calibrate();
-    LDR07.calibrate();
-    LDR08.calibrate();
-    LDR09.calibrate();
-    LDR10.calibrate();
-    LDR11.calibrate();
+    
     faceAngle(0);
 
     // Get robot's current position

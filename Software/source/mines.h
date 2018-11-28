@@ -84,7 +84,7 @@ vector<int> getMineReadings() {
 }
 
 bool detectMine(){
-    //Serial.println("WHERE ARE THOSE FUCKIN MINES");
+    //Serial.println("WHERE ARE THOSE MINES");
     bool mineFound = false;
     int LDRCounter = 0;
     while(LDRCounter <= 8 && !mineFound){
@@ -93,35 +93,35 @@ bool detectMine(){
         }
         else if (LDRCounter == 1 && singleDetectMine(LDR01) != 0){
             mineFound = true;
-            //Serial.println("HOLY SHIT THERE@' A MINE");
+            //Serial.println("HOLY SH*T THERE@' A MINE");
         }
         else if (LDRCounter == 2 && singleDetectMine(LDR02) != 0){
             mineFound = true;
-            //Serial.println("HOLY SHIT THERE@' A MINE");
+            //Serial.println("HOLY SH*T THERE@' A MINE");
         }
         else if (LDRCounter == 3 && singleDetectMine(LDR03) != 0){
             mineFound = true;
-            //Serial.println("HOLY SHIT THERE@' A MINE");
+            //Serial.println("HOLY SH*T THERE@' A MINE");
         }
         else if (LDRCounter == 4 && singleDetectMine(LDR07) != 0){
             mineFound = true;
-            //Serial.println("HOLY SHIT THERE@' A MINE");
+            //Serial.println("HOLY SH*T THERE@' A MINE");
         }
         else if (LDRCounter == 5 && singleDetectMine(LDR08) != 0){
             mineFound = true;
-            //Serial.println("HOLY SHIT THERE@' A MINE");
+            //Serial.println("HOLY SH*T THERE@' A MINE");
         }
         else if (LDRCounter == 6 && singleDetectMine(LDR09) != 0){
             mineFound = true;
-            //Serial.println("HOLY SHIT THERE@' A MINE");
+            //Serial.println("HOLY SH*T THERE@' A MINE");
         }
         else if (LDRCounter == 7 && singleDetectMine(LDR10) != 0){
             mineFound = true;
-            //Serial.println("HOLY SHIT THERE@' A MINE");
+            //Serial.println("HOLY SH*T THERE@' A MINE");
         }
         else if (LDRCounter == 8 && singleDetectMine(LDR11) != 0){
             mineFound = true;
-            //Serial.println("HOLY SHIT THERE@' A MINE");
+            //Serial.println("HOLY SH*T THERE@' A MINE");
         }
         LDRCounter += 1;
     }
