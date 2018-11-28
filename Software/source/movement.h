@@ -79,7 +79,7 @@ void pathFollow(vector<coord> path) {
     coord nextCoord = path.back();
     if (!pathGo(nextCoord)){
         delay(3000);
-        coord currentPosition = getCoords();x
+        coord currentPosition = getCoords().x;
         vector<int> mineReadings = getMineReadings();
         int mostExtremeReading = 2;
         for (int readingCounter = 0; readingCounter < mineReadings.size(); readingCounter += 1){
@@ -87,10 +87,10 @@ void pathFollow(vector<coord> path) {
                 mostExtremeReading = 1;
             }
         }
-        if (mostSevereReading == 1){
+        if (mostExtremeReading == 1){
             safeMineCoords.push_back(currentPosition);
         }
-        else if (mostSevereReading == 2){
+        else if (mostExtremeReading == 2){
             dangerousMineCoords.push_back(currentPosition);
             forbiddenZones.push_back(rectangle(currentPosition.x - 20, currentPosition.x +20, currentPosition.y - 20, currentPosition.y + 20));
             moveFwd(-20);
