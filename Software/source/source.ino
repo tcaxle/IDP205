@@ -22,11 +22,34 @@
 
 void loop() {
 
+    setFwd(60);
+    delay(10000);
+    setBwd(60);
+    delay(10000);
+    while (true){
+       setStop(); 
+    }
     
-    // Initialise compass, arena boundaries and safe zone boundaries
+    /*// Initialise compass, arena boundaries and safe zone boundaries
     compassOffset = initialiseOrientation();
     arena = initialiseArenaBoundaries();
     dangerZone = rectangle(30, arena.x1 - 30, 30, arena.y1 - 30);
+
+    // Initialise LDRs
+    setFwd(60);
+    delay(1000);
+    setStop();
+    faceAngle(90);
+    LDR00.calibrate();
+    LDR01.calibrate();
+    LDR02.calibrate();
+    LDR03.calibrate();
+    LDR07.calibrate();
+    LDR08.calibrate();
+    LDR09.calibrate();
+    LDR10.calibrate();
+    LDR11.calibrate();
+    faceAngle(0);
 
     // Get robot's current position
     position = getCoords();
@@ -54,7 +77,7 @@ void loop() {
     path = generateHomePath();
     for(int coordIndex = 0; coordIndex < path.size(); coordIndex += 1){
             pathFollow(path);
-    }
+    }*/
     
 
 }
@@ -93,19 +116,5 @@ void loop() {
       red.set(0);
       setFwd();
     }
-    */
-
-    /*
-    delay(1000);
-    setStop();
-    mineGrab();
-    setClockwise();
-    delay(2500);
-    setStop();
-    mineDrop();
-    setBwd();
-    delay(1000);
-    setAnticlockwise();
-    delay(2500);
     */
     

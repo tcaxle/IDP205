@@ -79,12 +79,12 @@ void pathFollow(vector<coord> path) {
     coord nextCoord = path.back();
     if (!pathGo(nextCoord)){
         delay(3000);
-        coord currentPosition = getCoords();x
+        coord currentPosition = getCoords();
         vector<int> mineReadings = getMineReadings();
-        int mostExtremeReading = 2;
+        int mostSevereReading = 2;
         for (int readingCounter = 0; readingCounter < mineReadings.size(); readingCounter += 1){
             if (mineReadings[readingCounter] == 1){
-                mostExtremeReading = 1;
+                mostSevereReading = 1;
             }
         }
         if (mostSevereReading == 1){

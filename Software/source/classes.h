@@ -175,6 +175,7 @@ class compass { // A class for the LSM303 Accelerometer and Magnetometer
 		int declinationAngle;
     float xFluxCorrection;
     float yFluxCorrection;
+    float yFluxFactor;
 		compass(Adafruit_LSM303_Mag_Unified inputCompass, int inputDeclinationAngle = 0) {
 			// Constructor for compass wrapper class; specify sensor object and local declination angle (default zero)
 			assignedCompass = inputCompass;
@@ -189,7 +190,7 @@ class compass { // A class for the LSM303 Accelerometer and Magnetometer
 			sensors_event_t reading;
 			assignedCompass.getEvent(&reading);
 			// Calculate current bearing
-			float outputHeading = (atan2((reading.magnetic.y - yFluxCorrection), (reading.magnetic.x - xFluxCorrection)) * 180) / PI;
+			float outputHeading = (atan2((reading.magnetic.y - yFluxCorrection)*yFluxFactor, (reading.magnetic.x - xFluxCorrection)) * 180) / PI;
 			// Account for local magnetic flux changes by subtracting declination angle
 			outputHeading = outputHeading - declinationAngle;
 			// Correct for negative bearing results

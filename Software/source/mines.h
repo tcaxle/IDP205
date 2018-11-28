@@ -54,7 +54,8 @@ int singleDetectMine(ldr target) {
   float datum = target.datum;
   float THDanger = 60;
   float THSafe = 150;
-  if (reading >= datum + THSafe) { // SAFE
+  float THWhite = 200;
+  if (reading >= datum + THSafe && reading < datum + THWhite) { // SAFE
     //Serial.println("Safe");
     return(1); // SAFE
   }

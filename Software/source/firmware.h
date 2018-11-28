@@ -161,17 +161,7 @@ void setup () {
 
   // Initialise compass
   compass.init();
-  compass.xFluxCorrection = 2.77;
-  compass.yFluxCorrection = -46.81;
-
-  //Calibrate LDRs
-  LDR00.calibrate();
-  LDR01.calibrate();
-  LDR02.calibrate();
-  LDR03.calibrate();
-  LDR07.calibrate();
-  LDR08.calibrate();
-  LDR09.calibrate();
-  LDR10.calibrate();
-  LDR11.calibrate();
+  compass.xFluxCorrection = -0.775;
+  compass.yFluxCorrection = -34.365;
+  compass.yFluxFactor = 0.571;
 }

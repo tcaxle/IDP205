@@ -34,6 +34,7 @@ void faceAngle(float targetHeading, float tolerance = 0.5, int turnSpeed = 60) {
   float error = currentHeading - targetHeading;
   if (targetHeading == 180) {
     while (abs(currentHeading) < 180 - tolerance) {
+      Serial.println(currentHeading);
       if (180 - currentHeading <= 180){
         setAnticlockwise(turnSpeed);
       }
@@ -41,7 +42,6 @@ void faceAngle(float targetHeading, float tolerance = 0.5, int turnSpeed = 60) {
         setClockwise(turnSpeed);
       }
       currentHeading = getDirection();
-      setAnticlockwise(turnSpeed);
     }
     setStop();
   } else {
